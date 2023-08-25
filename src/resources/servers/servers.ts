@@ -8,6 +8,7 @@ import * as Shared from 'hetzner/resources/shared';
 import { Actions } from './actions';
 import { Metrics } from './metrics';
 import * as API from './index';
+import { ServersPage, ServersPageParams } from 'hetzner/pagination';
 
 export class Servers extends APIResource {
   actions: Actions = new Actions(this.client);
@@ -57,16 +58,16 @@ export class Servers extends APIResource {
   /**
    * Returns all existing Server objects
    */
-  list(query?: ServerListParams, options?: Core.RequestOptions): Core.APIPromise<ServerListResponse>;
-  list(options?: Core.RequestOptions): Core.APIPromise<ServerListResponse>;
+  list(query?: ServerListParams, options?: Core.RequestOptions): Core.PagePromise<ServersServersPage, Server>;
+  list(options?: Core.RequestOptions): Core.PagePromise<ServersServersPage, Server>;
   list(
     query: ServerListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ServerListResponse> {
+  ): Core.PagePromise<ServersServersPage, Server> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.get('/servers', { query, ...options });
+    return this.getAPIList('/servers', ServersServersPage, { query, ...options });
   }
 
   /**
@@ -77,6 +78,10 @@ export class Servers extends APIResource {
     return this.delete(`/servers/${id}`, options);
   }
 }
+
+export class ServersServersPage extends ServersPage<Server> {}
+// alias so we can export it in the namespace
+type _ServersServersPage = ServersServersPage;
 
 export interface Server {
   /**
@@ -707,12 +712,6 @@ export interface ServerUpdateResponse {
   server?: Server;
 }
 
-export interface ServerListResponse {
-  servers: Array<Server>;
-
-  meta?: Shared.ResponseMeta;
-}
-
 export interface ServerDeleteResponse {
   action?: Shared.Action;
 }
@@ -852,7 +851,7 @@ export interface ServerUpdateParams {
   name?: string;
 }
 
-export interface ServerListParams {
+export interface ServerListParams extends ServersPageParams {
   /**
    * Can be used to filter resources by labels. The response will only contain
    * resources matching the label selector.
@@ -864,10 +863,6 @@ export interface ServerListParams {
    * the resources matching the specified name
    */
   name?: string;
-
-  page?: number;
-
-  per_page?: number;
 
   /**
    * Can be used multiple times.
@@ -905,8 +900,8 @@ export namespace Servers {
   export import ServerCreateResponse = API.ServerCreateResponse;
   export import ServerRetrieveResponse = API.ServerRetrieveResponse;
   export import ServerUpdateResponse = API.ServerUpdateResponse;
-  export import ServerListResponse = API.ServerListResponse;
   export import ServerDeleteResponse = API.ServerDeleteResponse;
+  export type ServersServersPage = _ServersServersPage;
   export import ServerCreateParams = API.ServerCreateParams;
   export import ServerUpdateParams = API.ServerUpdateParams;
   export import ServerListParams = API.ServerListParams;

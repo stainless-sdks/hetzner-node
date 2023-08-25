@@ -283,10 +283,11 @@ export interface LoadBalancerTarget {
  * List of health statuses of the services on this target. Only present for target
  * types "server" and "ip".
  */
-export type LoadBalancerTargetHealthStatus = Array<LoadBalancerTargetHealthStatus>;
+export type LoadBalancerTargetHealthStatus =
+  Array<LoadBalancerTargetHealthStatus.LoadBalancerTargetHealthStatusItem>;
 
 export namespace LoadBalancerTargetHealthStatus {
-  export interface LoadBalancerTargetHealthStatus {
+  export interface LoadBalancerTargetHealthStatusItem {
     listen_port?: number;
 
     status?: 'healthy' | 'unhealthy' | 'unknown';

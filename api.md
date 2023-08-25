@@ -325,7 +325,6 @@ Types:
 - <code><a href="./src/resources/servers/servers.ts">ServerCreateResponse</a></code>
 - <code><a href="./src/resources/servers/servers.ts">ServerRetrieveResponse</a></code>
 - <code><a href="./src/resources/servers/servers.ts">ServerUpdateResponse</a></code>
-- <code><a href="./src/resources/servers/servers.ts">ServerListResponse</a></code>
 - <code><a href="./src/resources/servers/servers.ts">ServerDeleteResponse</a></code>
 
 Methods:
@@ -333,7 +332,7 @@ Methods:
 - <code title="post /servers">client.servers.<a href="./src/resources/servers/servers.ts">create</a>({ ...params }) -> ServerCreateResponse</code>
 - <code title="get /servers/{id}">client.servers.<a href="./src/resources/servers/servers.ts">retrieve</a>(id) -> ServerRetrieveResponse</code>
 - <code title="put /servers/{id}">client.servers.<a href="./src/resources/servers/servers.ts">update</a>(id, { ...params }) -> ServerUpdateResponse</code>
-- <code title="get /servers">client.servers.<a href="./src/resources/servers/servers.ts">list</a>({ ...params }) -> ServerListResponse</code>
+- <code title="get /servers">client.servers.<a href="./src/resources/servers/servers.ts">list</a>({ ...params }) -> ServersServersPage</code>
 - <code title="delete /servers/{id}">client.servers.<a href="./src/resources/servers/servers.ts">del</a>(id) -> ServerDeleteResponse</code>
 
 ## Actions

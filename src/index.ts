@@ -190,6 +190,10 @@ export namespace Hetzner {
   export import FloatingIpsPageParams = Pagination.FloatingIpsPageParams;
   export import FloatingIpsPageResponse = Pagination.FloatingIpsPageResponse;
 
+  export import ServersPage = Pagination.ServersPage;
+  export import ServersPageParams = Pagination.ServersPageParams;
+  export import ServersPageResponse = Pagination.ServersPageResponse;
+
   export import Actions = API.Actions;
   export import ActionListParams = API.ActionListParams;
 
@@ -310,8 +314,8 @@ export namespace Hetzner {
   export import ServerCreateResponse = API.ServerCreateResponse;
   export import ServerRetrieveResponse = API.ServerRetrieveResponse;
   export import ServerUpdateResponse = API.ServerUpdateResponse;
-  export import ServerListResponse = API.ServerListResponse;
   export import ServerDeleteResponse = API.ServerDeleteResponse;
+  export import ServersServersPage = API.ServersServersPage;
   export import ServerCreateParams = API.ServerCreateParams;
   export import ServerUpdateParams = API.ServerUpdateParams;
   export import ServerListParams = API.ServerListParams;

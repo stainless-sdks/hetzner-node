@@ -27,10 +27,10 @@ export {
   ServerCreateResponse,
   ServerRetrieveResponse,
   ServerUpdateResponse,
-  ServerListResponse,
   ServerDeleteResponse,
   ServerCreateParams,
   ServerUpdateParams,
   ServerListParams,
+  ServersServersPage,
   Servers,
 } from './servers';
