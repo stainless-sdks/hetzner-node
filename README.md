@@ -69,7 +69,7 @@ a subclass of `APIError` will be thrown:
 
 ```ts
 async function main() {
-  const action = await hetzner.actions.list().catch((err) => {
+  const action = await hetzner.actions.retrieve(1234).catch((err) => {
     if (err instanceof Hetzner.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -113,7 +113,7 @@ const hetzner = new Hetzner({
 });
 
 // Or, configure per-request:
-await hetzner.actions.list({
+await hetzner.servers.actions.poweroff(2345, {
   maxRetries: 5,
 });
 ```
@@ -130,7 +130,7 @@ const hetzner = new Hetzner({
 });
 
 // Override per-request:
-await hetzner.actions.list({
+await hetzner.servers.actions.poweron(2345, {
   timeout: 5 * 1000,
 });
 ```
@@ -211,7 +211,7 @@ const hetzner = new Hetzner({
 });
 
 // Override per-request:
-await hetzner.actions.list({
+await hetzner.servers.retrieve(2345, {
   baseURL: 'http://localhost:8080/test-api',
   httpAgent: new http.Agent({ keepAlive: false }),
 })
