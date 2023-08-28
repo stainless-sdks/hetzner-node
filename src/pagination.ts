@@ -29,7 +29,7 @@ export class FloatingIpsPage<Item> extends AbstractPage<Item> implements Floatin
     super(client, response, body, options);
 
     this.floating_ips = body.floating_ips;
-    this.meta = body.meta!;
+    this.meta = body.meta || {};
   }
 
   getPaginatedItems(): Item[] {
@@ -47,10 +47,6 @@ export class FloatingIpsPage<Item> extends AbstractPage<Item> implements Floatin
   }
 
   nextPageInfo(): PageInfo | null {
-    if (this.meta.pagination.page === this.meta.pagination.last_page) {
-      return null;
-    }
-
     const nextPage = this.meta.pagination.next_page;
     return { params: { page: nextPage } };
   }
@@ -81,7 +77,7 @@ export class ServersPage<Item> extends AbstractPage<Item> implements ServersPage
   ) {
     super(client, response, body, options);
 
-    this.meta = body.meta!;
+    this.meta = body.meta || {};
     this.servers = body.servers;
   }
 
@@ -100,10 +96,6 @@ export class ServersPage<Item> extends AbstractPage<Item> implements ServersPage
   }
 
   nextPageInfo(): PageInfo | null {
-    if (this.meta.pagination.page === this.meta.pagination.last_page) {
-      return null;
-    }
-
     const nextPage = this.meta.pagination.next_page;
     return { params: { page: nextPage } };
   }
