@@ -8,7 +8,7 @@ const hetzner = new Hetzner({ apiToken: 'something1234', baseURL: 'http://127.0.
 describe('resource loadBalancers', () => {
   test('create: only required params', async () => {
     const responsePromise = hetzner.loadBalancers.create({
-      algorithm: { type: 'round_robin' },
+      algorithm: { type: 'least_connections' },
       load_balancer_type: 'lb11',
       name: 'Web Frontend',
     });
@@ -23,10 +23,10 @@ describe('resource loadBalancers', () => {
 
   test('create: required and optional params', async () => {
     const response = await hetzner.loadBalancers.create({
-      algorithm: { type: 'round_robin' },
+      algorithm: { type: 'least_connections' },
       load_balancer_type: 'lb11',
       name: 'Web Frontend',
-      labels: { labelkey: 'value' },
+      labels: { foo: 'string' },
       location: 'string',
       network: 123,
       network_zone: 'eu-central',
@@ -123,7 +123,7 @@ describe('resource loadBalancers', () => {
           ],
           ip: { ip: '203.0.113.1' },
           label_selector: { selector: 'env=prod' },
-          server: { id: 80 },
+          server: { id: 42 },
           targets: [
             {
               health_status: [
@@ -131,7 +131,7 @@ describe('resource loadBalancers', () => {
                 { listen_port: 443, status: 'healthy' },
                 { listen_port: 443, status: 'healthy' },
               ],
-              server: { id: 80 },
+              server: { id: 42 },
               type: 'server',
               use_private_ip: true,
             },
@@ -141,7 +141,7 @@ describe('resource loadBalancers', () => {
                 { listen_port: 443, status: 'healthy' },
                 { listen_port: 443, status: 'healthy' },
               ],
-              server: { id: 80 },
+              server: { id: 42 },
               type: 'server',
               use_private_ip: true,
             },
@@ -151,12 +151,12 @@ describe('resource loadBalancers', () => {
                 { listen_port: 443, status: 'healthy' },
                 { listen_port: 443, status: 'healthy' },
               ],
-              server: { id: 80 },
+              server: { id: 42 },
               type: 'server',
               use_private_ip: true,
             },
           ],
-          type: 'server',
+          type: 'ip',
           use_private_ip: true,
         },
         {
@@ -167,7 +167,7 @@ describe('resource loadBalancers', () => {
           ],
           ip: { ip: '203.0.113.1' },
           label_selector: { selector: 'env=prod' },
-          server: { id: 80 },
+          server: { id: 42 },
           targets: [
             {
               health_status: [
@@ -175,7 +175,7 @@ describe('resource loadBalancers', () => {
                 { listen_port: 443, status: 'healthy' },
                 { listen_port: 443, status: 'healthy' },
               ],
-              server: { id: 80 },
+              server: { id: 42 },
               type: 'server',
               use_private_ip: true,
             },
@@ -185,7 +185,7 @@ describe('resource loadBalancers', () => {
                 { listen_port: 443, status: 'healthy' },
                 { listen_port: 443, status: 'healthy' },
               ],
-              server: { id: 80 },
+              server: { id: 42 },
               type: 'server',
               use_private_ip: true,
             },
@@ -195,12 +195,12 @@ describe('resource loadBalancers', () => {
                 { listen_port: 443, status: 'healthy' },
                 { listen_port: 443, status: 'healthy' },
               ],
-              server: { id: 80 },
+              server: { id: 42 },
               type: 'server',
               use_private_ip: true,
             },
           ],
-          type: 'server',
+          type: 'ip',
           use_private_ip: true,
         },
         {
@@ -211,7 +211,7 @@ describe('resource loadBalancers', () => {
           ],
           ip: { ip: '203.0.113.1' },
           label_selector: { selector: 'env=prod' },
-          server: { id: 80 },
+          server: { id: 42 },
           targets: [
             {
               health_status: [
@@ -219,7 +219,7 @@ describe('resource loadBalancers', () => {
                 { listen_port: 443, status: 'healthy' },
                 { listen_port: 443, status: 'healthy' },
               ],
-              server: { id: 80 },
+              server: { id: 42 },
               type: 'server',
               use_private_ip: true,
             },
@@ -229,7 +229,7 @@ describe('resource loadBalancers', () => {
                 { listen_port: 443, status: 'healthy' },
                 { listen_port: 443, status: 'healthy' },
               ],
-              server: { id: 80 },
+              server: { id: 42 },
               type: 'server',
               use_private_ip: true,
             },
@@ -239,12 +239,12 @@ describe('resource loadBalancers', () => {
                 { listen_port: 443, status: 'healthy' },
                 { listen_port: 443, status: 'healthy' },
               ],
-              server: { id: 80 },
+              server: { id: 42 },
               type: 'server',
               use_private_ip: true,
             },
           ],
-          type: 'server',
+          type: 'ip',
           use_private_ip: true,
         },
       ],
@@ -292,7 +292,7 @@ describe('resource loadBalancers', () => {
     await expect(
       hetzner.loadBalancers.update(
         0,
-        { labels: { labelkey: 'value' }, name: 'new-name' },
+        { labels: { foo: 'string' }, name: 'new-name' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -320,7 +320,7 @@ describe('resource loadBalancers', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       hetzner.loadBalancers.list(
-        { label_selector: 'string', name: 'string', page: 0, per_page: 0, sort: 'id' },
+        { label_selector: 'string', name: 'string', page: 1, per_page: 1, sort: 'id' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

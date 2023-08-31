@@ -10,7 +10,7 @@ export class Actions extends APIResource {
   /**
    * Returns a specific Action object.
    */
-  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse> {
+  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionRetrieveResponse> {
     return this.get(`/volumes/actions/${id}`, options);
   }
 
@@ -22,13 +22,13 @@ export class Actions extends APIResource {
     id: number,
     query?: ActionListParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse>;
-  list(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionsResponse>;
+  ): Core.APIPromise<ActionListResponse>;
+  list(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionListResponse>;
   list(
     id: number,
     query: ActionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse> {
+  ): Core.APIPromise<ActionListResponse> {
     if (isRequestOptions(query)) {
       return this.list(id, {}, query);
     }
@@ -43,7 +43,7 @@ export class Actions extends APIResource {
     id: number,
     body: ActionAttachParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionAttachResponse> {
     return this.post(`/volumes/${id}/actions/attach`, { body, ...options });
   }
 
@@ -54,13 +54,16 @@ export class Actions extends APIResource {
     id: number,
     body?: ActionChangeProtectionParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse>;
-  changeProtection(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse>;
+  ): Core.APIPromise<ActionChangeProtectionResponse>;
+  changeProtection(
+    id: number,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ActionChangeProtectionResponse>;
   changeProtection(
     id: number,
     body: ActionChangeProtectionParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionChangeProtectionResponse> {
     if (isRequestOptions(body)) {
       return this.changeProtection(id, {}, body);
     }
@@ -71,7 +74,7 @@ export class Actions extends APIResource {
    * Detaches a Volume from the Server it’s attached to. You may attach it to a
    * Server again at a later time.
    */
-  detach(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse> {
+  detach(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionDetachResponse> {
     return this.post(`/volumes/${id}/actions/detach`, options);
   }
 
@@ -82,14 +85,84 @@ export class Actions extends APIResource {
     id: number,
     body: ActionResizeParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionResizeResponse> {
     return this.post(`/volumes/${id}/actions/resize`, { body, ...options });
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/{resource}/actions
+ */
+export interface ActionRetrieveResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to GET https://api.hetzner.cloud/v1/volumes/{id}/actions
+ */
+export interface ActionListResponse {
+  actions: Array<Shared.Action>;
+
+  /**
+   * Metadata contained in the response
+   */
+  meta?: Shared.ResponseMeta;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/attach
+ */
+export interface ActionAttachResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/volumes/{id}/actions/change_protection
+ */
+export interface ActionChangeProtectionResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/detach
+ */
+export interface ActionDetachResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/volumes/{id}/actions/resize
+ */
+export interface ActionResizeResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
 export interface ActionListParams {
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**
@@ -131,6 +204,12 @@ export interface ActionResizeParams {
 }
 
 export namespace Actions {
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionAttachResponse = API.ActionAttachResponse;
+  export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
+  export import ActionDetachResponse = API.ActionDetachResponse;
+  export import ActionResizeResponse = API.ActionResizeResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAttachParams = API.ActionAttachParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;

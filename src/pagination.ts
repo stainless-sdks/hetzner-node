@@ -3,21 +3,37 @@
 import { AbstractPage, Response, APIClient, FinalRequestOptions, PageInfo } from './core';
 import * as Shared from './resources/shared';
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/floating_ips
+ */
 export interface FloatingIpsPageResponse<Item> {
   floating_ips: Array<Item>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta?: Shared.ResponseMeta;
 }
 
 export interface FloatingIpsPageParams {
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 }
 
 export class FloatingIpsPage<Item> extends AbstractPage<Item> implements FloatingIpsPageResponse<Item> {
   floating_ips: Array<Item>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta: Shared.ResponseMeta;
 
   constructor(
@@ -52,19 +68,35 @@ export class FloatingIpsPage<Item> extends AbstractPage<Item> implements Floatin
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/servers
+ */
 export interface ServersPageResponse<Item> {
   servers: Array<Item>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta?: Shared.ResponseMeta;
 }
 
 export interface ServersPageParams {
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 }
 
 export class ServersPage<Item> extends AbstractPage<Item> implements ServersPageResponse<Item> {
+  /**
+   * Metadata contained in the response
+   */
   meta: Shared.ResponseMeta;
 
   servers: Array<Item>;

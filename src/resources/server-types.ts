@@ -3,6 +3,7 @@
 import * as Core from 'hetzner/core';
 import { APIResource } from 'hetzner/resource';
 import { isRequestOptions } from 'hetzner/core';
+import * as Shared from 'hetzner/resources/shared';
 import * as API from './index';
 
 export class ServerTypes extends APIResource {
@@ -30,25 +31,8 @@ export class ServerTypes extends APIResource {
 }
 
 /**
- * Describes if, when & how the resources was deprecated. If this field is set to
- * `null` the resource is not deprecated. If it has a value, it is considered
- * deprecated.
+ * Response to GET https://api.hetzner.cloud/v1/server_types/{id}
  */
-export interface DeprecationInfo {
-  /**
-   * Date of when the deprecation was announced.
-   */
-  announced: string;
-
-  /**
-   * After the time in this field, the resource will not be available from the
-   * general listing endpoint of the resource type, and it can not be used in new
-   * resources. For example, if this is an image, you can not create new servers with
-   * this image after the mentioned date.
-   */
-  unavailable_after: string;
-}
-
 export interface ServerTypeRetrieveResponse {
   server_type: ServerTypeRetrieveResponse.ServerType;
 }
@@ -61,9 +45,10 @@ export namespace ServerTypeRetrieveResponse {
     id: number;
 
     /**
-     * Type of cpu architecture
+     * Type of cpu architecture this image is compatible with. | Type of cpu
+     * architecture
      */
-    architecture: 'x86' | 'arm';
+    architecture: 'arm' | 'x86';
 
     /**
      * Number of cpu cores a Server of this type will have
@@ -73,12 +58,12 @@ export namespace ServerTypeRetrieveResponse {
     /**
      * Type of cpu
      */
-    cpu_type: 'shared' | 'dedicated';
+    cpu_type: 'dedicated' | 'shared';
 
     /**
      * This field is deprecated. Use the deprecation object instead
      */
-    deprecated: boolean;
+    deprecated: boolean | null;
 
     /**
      * Description of the Server type
@@ -121,7 +106,7 @@ export namespace ServerTypeRetrieveResponse {
      * `null` the resource is not deprecated. If it has a value, it is considered
      * deprecated.
      */
-    deprecation?: DeprecationInfo | null;
+    deprecation?: ServerType.Deprecation | null;
   }
 
   export namespace ServerType {
@@ -132,19 +117,37 @@ export namespace ServerTypeRetrieveResponse {
       location: string;
 
       /**
-       * Hourly costs for a Server type in this Location
+       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
+       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
+       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
+       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
+       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
+       * for a Server type in this Location | Monthly costs for a Server type in this
+       * Location
        */
       price_hourly: Price.PriceHourly;
 
       /**
-       * Monthly costs for a Server type in this Location
+       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
+       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
+       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
+       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
+       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
+       * for a Server type in this Location | Monthly costs for a Server type in this
+       * Location
        */
       price_monthly: Price.PriceMonthly;
     }
 
     export namespace Price {
       /**
-       * Hourly costs for a Server type in this Location
+       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
+       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
+       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
+       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
+       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
+       * for a Server type in this Location | Monthly costs for a Server type in this
+       * Location
        */
       export interface PriceHourly {
         /**
@@ -159,7 +162,13 @@ export namespace ServerTypeRetrieveResponse {
       }
 
       /**
-       * Monthly costs for a Server type in this Location
+       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
+       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
+       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
+       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
+       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
+       * for a Server type in this Location | Monthly costs for a Server type in this
+       * Location
        */
       export interface PriceMonthly {
         /**
@@ -173,11 +182,39 @@ export namespace ServerTypeRetrieveResponse {
         net: string;
       }
     }
+
+    /**
+     * Describes if, when & how the resources was deprecated. If this field is set to
+     * `null` the resource is not deprecated. If it has a value, it is considered
+     * deprecated.
+     */
+    export interface Deprecation {
+      /**
+       * Date of when the deprecation was announced.
+       */
+      announced: string;
+
+      /**
+       * After the time in this field, the resource will not be available from the
+       * general listing endpoint of the resource type, and it can not be used in new
+       * resources. For example, if this is an image, you can not create new servers with
+       * this image after the mentioned date.
+       */
+      unavailable_after: string;
+    }
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/server_types
+ */
 export interface ServerTypeListResponse {
   server_types: Array<ServerTypeListResponse.ServerType>;
+
+  /**
+   * Metadata contained in the response
+   */
+  meta?: Shared.ResponseMeta;
 }
 
 export namespace ServerTypeListResponse {
@@ -188,9 +225,10 @@ export namespace ServerTypeListResponse {
     id: number;
 
     /**
-     * Type of cpu architecture
+     * Type of cpu architecture this image is compatible with. | Type of cpu
+     * architecture
      */
-    architecture: 'x86' | 'arm';
+    architecture: 'arm' | 'x86';
 
     /**
      * Number of cpu cores a Server of this type will have
@@ -200,12 +238,12 @@ export namespace ServerTypeListResponse {
     /**
      * Type of cpu
      */
-    cpu_type: 'shared' | 'dedicated';
+    cpu_type: 'dedicated' | 'shared';
 
     /**
      * This field is deprecated. Use the deprecation object instead
      */
-    deprecated: boolean;
+    deprecated: boolean | null;
 
     /**
      * Description of the Server type
@@ -248,7 +286,7 @@ export namespace ServerTypeListResponse {
      * `null` the resource is not deprecated. If it has a value, it is considered
      * deprecated.
      */
-    deprecation?: DeprecationInfo | null;
+    deprecation?: ServerType.Deprecation | null;
   }
 
   export namespace ServerType {
@@ -259,19 +297,37 @@ export namespace ServerTypeListResponse {
       location: string;
 
       /**
-       * Hourly costs for a Server type in this Location
+       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
+       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
+       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
+       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
+       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
+       * for a Server type in this Location | Monthly costs for a Server type in this
+       * Location
        */
       price_hourly: Price.PriceHourly;
 
       /**
-       * Monthly costs for a Server type in this Location
+       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
+       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
+       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
+       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
+       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
+       * for a Server type in this Location | Monthly costs for a Server type in this
+       * Location
        */
       price_monthly: Price.PriceMonthly;
     }
 
     export namespace Price {
       /**
-       * Hourly costs for a Server type in this Location
+       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
+       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
+       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
+       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
+       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
+       * for a Server type in this Location | Monthly costs for a Server type in this
+       * Location
        */
       export interface PriceHourly {
         /**
@@ -286,7 +342,13 @@ export namespace ServerTypeListResponse {
       }
 
       /**
-       * Monthly costs for a Server type in this Location
+       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
+       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
+       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
+       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
+       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
+       * for a Server type in this Location | Monthly costs for a Server type in this
+       * Location
        */
       export interface PriceMonthly {
         /**
@@ -300,6 +362,26 @@ export namespace ServerTypeListResponse {
         net: string;
       }
     }
+
+    /**
+     * Describes if, when & how the resources was deprecated. If this field is set to
+     * `null` the resource is not deprecated. If it has a value, it is considered
+     * deprecated.
+     */
+    export interface Deprecation {
+      /**
+       * Date of when the deprecation was announced.
+       */
+      announced: string;
+
+      /**
+       * After the time in this field, the resource will not be available from the
+       * general listing endpoint of the resource type, and it can not be used in new
+       * resources. For example, if this is an image, you can not create new servers with
+       * this image after the mentioned date.
+       */
+      unavailable_after: string;
+    }
   }
 }
 
@@ -309,10 +391,20 @@ export interface ServerTypeListParams {
    * the Server type matching the specified name.
    */
   name?: string;
+
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
+  page?: number;
+
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
+  per_page?: number;
 }
 
 export namespace ServerTypes {
-  export import DeprecationInfo = API.DeprecationInfo;
   export import ServerTypeRetrieveResponse = API.ServerTypeRetrieveResponse;
   export import ServerTypeListResponse = API.ServerTypeListResponse;
   export import ServerTypeListParams = API.ServerTypeListParams;

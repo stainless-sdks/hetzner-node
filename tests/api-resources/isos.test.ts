@@ -46,7 +46,7 @@ describe('resource isos', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       hetzner.isos.list(
-        { architecture: 'string', include_architecture_wildcard: true, name: 'string', page: 0, per_page: 0 },
+        { architecture: 'string', include_architecture_wildcard: true, name: 'string', page: 1, per_page: 1 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

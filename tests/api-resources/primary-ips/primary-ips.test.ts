@@ -29,7 +29,7 @@ describe('resource primaryIps', () => {
       assignee_id: 17,
       auto_delete: false,
       datacenter: 'fsn1-dc8',
-      labels: { labelkey: 'value' },
+      labels: { foo: 'string' },
     });
   });
 
@@ -74,7 +74,7 @@ describe('resource primaryIps', () => {
     await expect(
       hetzner.primaryIps.update(
         0,
-        { auto_delete: true, labels: { labelkey: 'value' }, name: 'my-ip' },
+        { auto_delete: true, labels: { foo: 'string' }, name: 'my-ip' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -102,7 +102,7 @@ describe('resource primaryIps', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       hetzner.primaryIps.list(
-        { ip: 'string', label_selector: 'string', name: 'string', page: 0, per_page: 0, sort: 'id' },
+        { ip: 'string', label_selector: 'string', name: 'string', page: 1, per_page: 1, sort: 'id' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

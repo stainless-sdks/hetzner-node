@@ -29,7 +29,7 @@ describe('resource servers', () => {
       automount: false,
       datacenter: 'nbg1-dc3',
       firewalls: [{ firewall: 0 }, { firewall: 0 }, { firewall: 0 }],
-      labels: {},
+      labels: { foo: 'string' },
       location: 'nbg1',
       networks: [0, 0, 0],
       placement_group: 1,
@@ -82,7 +82,7 @@ describe('resource servers', () => {
     await expect(
       hetzner.servers.update(
         0,
-        { labels: { labelkey: 'value' }, name: 'my-server' },
+        { labels: { foo: 'string' }, name: 'my-server' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -113,8 +113,8 @@ describe('resource servers', () => {
         {
           label_selector: 'string',
           name: 'string',
-          page: 0,
-          per_page: 0,
+          page: 1,
+          per_page: 1,
           sort: 'id',
           status: 'initializing',
         },

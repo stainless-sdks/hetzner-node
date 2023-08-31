@@ -24,7 +24,7 @@ describe('resource sshKeys', () => {
     const response = await hetzner.sshKeys.create({
       name: 'My ssh key',
       public_key: 'ssh-rsa AAAjjk76kgf...Xt',
-      labels: {},
+      labels: { foo: 'string' },
     });
   });
 
@@ -69,7 +69,7 @@ describe('resource sshKeys', () => {
     await expect(
       hetzner.sshKeys.update(
         0,
-        { labels: { labelkey: 'value' }, name: 'My ssh key' },
+        { labels: { foo: 'string' }, name: 'My ssh key' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -97,7 +97,7 @@ describe('resource sshKeys', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       hetzner.sshKeys.list(
-        { fingerprint: 'string', label_selector: 'string', name: 'string', page: 0, per_page: 0, sort: 'id' },
+        { fingerprint: 'string', label_selector: 'string', name: 'string', page: 1, per_page: 1, sort: 'id' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

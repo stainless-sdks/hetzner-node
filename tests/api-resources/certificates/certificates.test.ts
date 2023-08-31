@@ -22,7 +22,7 @@ describe('resource certificates', () => {
       name: 'my website cert',
       certificate: '-----BEGIN CERTIFICATE-----\n...',
       domain_names: ['string', 'string', 'string'],
-      labels: {},
+      labels: { foo: 'string' },
       private_key: '-----BEGIN PRIVATE KEY-----\n...',
       type: 'uploaded',
     });
@@ -69,7 +69,7 @@ describe('resource certificates', () => {
     await expect(
       hetzner.certificates.update(
         0,
-        { labels: { labelkey: 'value' }, name: 'my website cert' },
+        { labels: { foo: 'string' }, name: 'my website cert' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -97,7 +97,7 @@ describe('resource certificates', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       hetzner.certificates.list(
-        { label_selector: 'string', name: 'string', page: 0, per_page: 0, sort: 'id', type: 'uploaded' },
+        { label_selector: 'string', name: 'string', page: 1, per_page: 1, sort: 'id', type: 'uploaded' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

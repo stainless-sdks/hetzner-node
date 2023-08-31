@@ -89,9 +89,15 @@ export class FloatingIpListResponsesFloatingIpsPage extends FloatingIpsPage<Floa
 // alias so we can export it in the namespace
 type _FloatingIpListResponsesFloatingIpsPage = FloatingIpListResponsesFloatingIpsPage;
 
+/**
+ * Response to POST https://api.hetzner.cloud/v1/floating_ips
+ */
 export interface FloatingIpCreateResponse {
   floating_ip: FloatingIpCreateResponse.FloatingIp;
 
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
   action?: Shared.Action;
 }
 
@@ -124,6 +130,8 @@ export namespace FloatingIpCreateResponse {
 
     /**
      * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
      */
     home_location: FloatingIp.HomeLocation;
 
@@ -154,7 +162,7 @@ export namespace FloatingIpCreateResponse {
     server: number | null;
 
     /**
-     * Type of the Floating IP
+     * The type of the IP
      */
     type: 'ipv4' | 'ipv6';
   }
@@ -167,13 +175,16 @@ export namespace FloatingIpCreateResponse {
       dns_ptr: string;
 
       /**
-       * Single IPv4 or IPv6 address
+       * Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
+       * reverse DNS entry has been set up
        */
       ip: string;
     }
 
     /**
      * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
      */
     export interface HomeLocation {
       /**
@@ -222,13 +233,17 @@ export namespace FloatingIpCreateResponse {
      */
     export interface Protection {
       /**
-       * If true, prevents the Resource from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/floating_ips/{id}
+ */
 export interface FloatingIpRetrieveResponse {
   floating_ip: FloatingIpRetrieveResponse.FloatingIp;
 }
@@ -262,6 +277,8 @@ export namespace FloatingIpRetrieveResponse {
 
     /**
      * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
      */
     home_location: FloatingIp.HomeLocation;
 
@@ -292,7 +309,7 @@ export namespace FloatingIpRetrieveResponse {
     server: number | null;
 
     /**
-     * Type of the Floating IP
+     * The type of the IP
      */
     type: 'ipv4' | 'ipv6';
   }
@@ -305,13 +322,16 @@ export namespace FloatingIpRetrieveResponse {
       dns_ptr: string;
 
       /**
-       * Single IPv4 or IPv6 address
+       * Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
+       * reverse DNS entry has been set up
        */
       ip: string;
     }
 
     /**
      * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
      */
     export interface HomeLocation {
       /**
@@ -360,13 +380,17 @@ export namespace FloatingIpRetrieveResponse {
      */
     export interface Protection {
       /**
-       * If true, prevents the Resource from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
   }
 }
 
+/**
+ * Response to PUT https://api.hetzner.cloud/v1/floating_ips/{id}
+ */
 export interface FloatingIpUpdateResponse {
   floating_ip: FloatingIpUpdateResponse.FloatingIp;
 }
@@ -400,6 +424,8 @@ export namespace FloatingIpUpdateResponse {
 
     /**
      * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
      */
     home_location: FloatingIp.HomeLocation;
 
@@ -430,7 +456,7 @@ export namespace FloatingIpUpdateResponse {
     server: number | null;
 
     /**
-     * Type of the Floating IP
+     * The type of the IP
      */
     type: 'ipv4' | 'ipv6';
   }
@@ -443,13 +469,16 @@ export namespace FloatingIpUpdateResponse {
       dns_ptr: string;
 
       /**
-       * Single IPv4 or IPv6 address
+       * Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
+       * reverse DNS entry has been set up
        */
       ip: string;
     }
 
     /**
      * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
      */
     export interface HomeLocation {
       /**
@@ -498,7 +527,8 @@ export namespace FloatingIpUpdateResponse {
      */
     export interface Protection {
       /**
-       * If true, prevents the Resource from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
@@ -533,6 +563,8 @@ export interface FloatingIpListResponse {
 
   /**
    * Location the Floating IP was created in. Routing is optimized for this Location.
+   * | Location of the Volume. Volume can only be attached to Servers in the same
+   * Location.
    */
   home_location: FloatingIpListResponse.HomeLocation;
 
@@ -563,7 +595,7 @@ export interface FloatingIpListResponse {
   server: number | null;
 
   /**
-   * Type of the Floating IP
+   * The type of the IP
    */
   type: 'ipv4' | 'ipv6';
 }
@@ -576,13 +608,16 @@ export namespace FloatingIpListResponse {
     dns_ptr: string;
 
     /**
-     * Single IPv4 or IPv6 address
+     * Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
+     * reverse DNS entry has been set up
      */
     ip: string;
   }
 
   /**
    * Location the Floating IP was created in. Routing is optimized for this Location.
+   * | Location of the Volume. Volume can only be attached to Servers in the same
+   * Location.
    */
   export interface HomeLocation {
     /**
@@ -631,7 +666,8 @@ export namespace FloatingIpListResponse {
    */
   export interface Protection {
     /**
-     * If true, prevents the Resource from being deleted
+     * If true, prevents the Resource from being deleted | If true, prevents the
+     * Network from being deleted
      */
     delete: boolean;
   }
@@ -639,7 +675,7 @@ export namespace FloatingIpListResponse {
 
 export interface FloatingIpCreateParams {
   /**
-   * Floating IP type
+   * The type of the IP
    */
   type: 'ipv4' | 'ipv6';
 
@@ -654,7 +690,7 @@ export interface FloatingIpCreateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   name?: string;
 
@@ -673,7 +709,7 @@ export interface FloatingIpUpdateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   /**
    * New unique name to set
@@ -712,7 +748,12 @@ export namespace FloatingIps {
   export import FloatingIpListParams = API.FloatingIpListParams;
 
   export import Actions = API.Actions;
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
   export import ActionListResponse = API.ActionListResponse;
+  export import ActionAssignResponse = API.ActionAssignResponse;
+  export import ActionChangeDnsPtrResponse = API.ActionChangeDnsPtrResponse;
+  export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
+  export import ActionUnassignResponse = API.ActionUnassignResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAssignParams = API.ActionAssignParams;
   export import ActionChangeDnsPtrParams = API.ActionChangeDnsPtrParams;

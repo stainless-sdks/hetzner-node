@@ -46,7 +46,7 @@ describe('resource actions', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       hetzner.primaryIps.actions.list(
-        { id: 0, page: 0, per_page: 0, sort: 'id', status: 'running' },
+        { id: 0, page: 1, per_page: 1, sort: 'id', status: 'running' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

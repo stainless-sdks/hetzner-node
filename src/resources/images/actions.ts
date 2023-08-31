@@ -14,7 +14,7 @@ export class Actions extends APIResource {
     id: number,
     actionId: number,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionRetrieveResponse> {
     return this.get(`/images/${id}/actions/${actionId}`, options);
   }
 
@@ -26,13 +26,13 @@ export class Actions extends APIResource {
     id: number,
     query?: ActionListParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse>;
-  list(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionsResponse>;
+  ): Core.APIPromise<ActionListResponse>;
+  list(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionListResponse>;
   list(
     id: number,
     query: ActionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse> {
+  ): Core.APIPromise<ActionListResponse> {
     if (isRequestOptions(query)) {
       return this.list(id, {}, query);
     }
@@ -47,13 +47,16 @@ export class Actions extends APIResource {
     id: number,
     body?: ActionChangeProtectionParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse>;
-  changeProtection(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse>;
+  ): Core.APIPromise<ActionChangeProtectionResponse>;
+  changeProtection(
+    id: number,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ActionChangeProtectionResponse>;
   changeProtection(
     id: number,
     body: ActionChangeProtectionParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionChangeProtectionResponse> {
     if (isRequestOptions(body)) {
       return this.changeProtection(id, {}, body);
     }
@@ -61,9 +64,49 @@ export class Actions extends APIResource {
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/images/{id}/actions/{action_id}
+ */
+export interface ActionRetrieveResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to GET https://api.hetzner.cloud/v1/images/{id}/actions
+ */
+export interface ActionListResponse {
+  actions: Array<Shared.Action>;
+
+  /**
+   * Metadata contained in the response
+   */
+  meta?: Shared.ResponseMeta;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/images/{id}/actions/change_protection
+ */
+export interface ActionChangeProtectionResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
 export interface ActionListParams {
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**
@@ -86,6 +129,9 @@ export interface ActionChangeProtectionParams {
 }
 
 export namespace Actions {
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
 }

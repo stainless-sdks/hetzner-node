@@ -47,7 +47,7 @@ describe('resource actions', () => {
     await expect(
       hetzner.firewalls.actions.list(
         0,
-        { page: 0, per_page: 0, sort: 'id', status: 'running' },
+        { page: 1, per_page: 1, sort: 'id', status: 'running' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -67,9 +67,9 @@ describe('resource actions', () => {
   test('applyToResources: required and optional params', async () => {
     const response = await hetzner.firewalls.actions.applyToResources(0, {
       apply_to: [
-        { label_selector: { selector: 'env=prod' }, server: { id: 0 }, type: 'server' },
-        { label_selector: { selector: 'env=prod' }, server: { id: 0 }, type: 'server' },
-        { label_selector: { selector: 'env=prod' }, server: { id: 0 }, type: 'server' },
+        { label_selector: { selector: 'env=prod' }, server: { id: 42 }, type: 'label_selector' },
+        { label_selector: { selector: 'env=prod' }, server: { id: 42 }, type: 'label_selector' },
+        { label_selector: { selector: 'env=prod' }, server: { id: 42 }, type: 'label_selector' },
       ],
     });
   });
@@ -88,9 +88,9 @@ describe('resource actions', () => {
   test('removeFromResources: required and optional params', async () => {
     const response = await hetzner.firewalls.actions.removeFromResources(0, {
       remove_from: [
-        { label_selector: { selector: 'env=prod' }, server: { id: 0 }, type: 'server' },
-        { label_selector: { selector: 'env=prod' }, server: { id: 0 }, type: 'server' },
-        { label_selector: { selector: 'env=prod' }, server: { id: 0 }, type: 'server' },
+        { label_selector: { selector: 'env=prod' }, server: { id: 42 }, type: 'label_selector' },
+        { label_selector: { selector: 'env=prod' }, server: { id: 42 }, type: 'label_selector' },
+        { label_selector: { selector: 'env=prod' }, server: { id: 42 }, type: 'label_selector' },
       ],
     });
   });
@@ -98,56 +98,56 @@ describe('resource actions', () => {
   test('setRules: only required params', async () => {
     const responsePromise = hetzner.firewalls.actions.setRules(0, {
       rules: [
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
-        { direction: 'in', protocol: 'tcp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
+        { direction: 'in', protocol: 'esp' },
       ],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -167,7 +167,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -175,7 +175,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -183,7 +183,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -191,7 +191,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -199,7 +199,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -207,7 +207,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -215,7 +215,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -223,7 +223,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -231,7 +231,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -239,7 +239,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -247,7 +247,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -255,7 +255,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -263,7 +263,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -271,7 +271,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -279,7 +279,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -287,7 +287,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -295,7 +295,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -303,7 +303,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -311,7 +311,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -319,7 +319,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -327,7 +327,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -335,7 +335,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -343,7 +343,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -351,7 +351,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -359,7 +359,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -367,7 +367,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -375,7 +375,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -383,7 +383,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -391,7 +391,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -399,7 +399,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -407,7 +407,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -415,7 +415,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -423,7 +423,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -431,7 +431,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -439,7 +439,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -447,7 +447,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -455,7 +455,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -463,7 +463,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -471,7 +471,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -479,7 +479,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -487,7 +487,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -495,7 +495,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -503,7 +503,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -511,7 +511,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -519,7 +519,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -527,7 +527,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -535,7 +535,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -543,7 +543,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -551,7 +551,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -559,7 +559,7 @@ describe('resource actions', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
       ],

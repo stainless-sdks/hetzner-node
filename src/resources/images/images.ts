@@ -68,6 +68,9 @@ export class Images extends APIResource {
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/images/{id}
+ */
 export interface ImageRetrieveResponse {
   image?: ImageRetrieveResponse.Image;
 }
@@ -80,9 +83,10 @@ export namespace ImageRetrieveResponse {
     id: number;
 
     /**
-     * Type of cpu architecture this image is compatible with.
+     * Type of cpu architecture this image is compatible with. | Type of cpu
+     * architecture
      */
-    architecture: 'x86' | 'arm';
+    architecture: 'arm' | 'x86';
 
     /**
      * ID of Server the Image is bound to. Only set for Images of type `backup`.
@@ -138,7 +142,7 @@ export namespace ImageRetrieveResponse {
     /**
      * Flavor of operating system contained in the Image
      */
-    os_flavor: 'ubuntu' | 'centos' | 'debian' | 'fedora' | 'rocky' | 'alma' | 'unknown';
+    os_flavor: 'alma' | 'centos' | 'debian' | 'fedora' | 'rocky' | 'ubuntu' | 'unknown';
 
     /**
      * Operating system version
@@ -158,7 +162,7 @@ export namespace ImageRetrieveResponse {
     /**
      * Type of the Image
      */
-    type: 'system' | 'app' | 'snapshot' | 'backup' | 'temporary';
+    type: 'app' | 'backup' | 'snapshot' | 'system' | 'temporary';
 
     /**
      * Indicates that rapid deploy of the Image is available
@@ -187,13 +191,17 @@ export namespace ImageRetrieveResponse {
      */
     export interface Protection {
       /**
-       * If true, prevents the Resource from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
   }
 }
 
+/**
+ * Response to PUT https://api.hetzner.cloud/v1/images/{id}
+ */
 export interface ImageUpdateResponse {
   image?: ImageUpdateResponse.Image;
 }
@@ -206,9 +214,10 @@ export namespace ImageUpdateResponse {
     id: number;
 
     /**
-     * Type of cpu architecture this image is compatible with.
+     * Type of cpu architecture this image is compatible with. | Type of cpu
+     * architecture
      */
-    architecture: 'x86' | 'arm';
+    architecture: 'arm' | 'x86';
 
     /**
      * ID of Server the Image is bound to. Only set for Images of type `backup`.
@@ -264,7 +273,7 @@ export namespace ImageUpdateResponse {
     /**
      * Flavor of operating system contained in the Image
      */
-    os_flavor: 'ubuntu' | 'centos' | 'debian' | 'fedora' | 'rocky' | 'alma' | 'unknown';
+    os_flavor: 'alma' | 'centos' | 'debian' | 'fedora' | 'rocky' | 'ubuntu' | 'unknown';
 
     /**
      * Operating system version
@@ -284,7 +293,7 @@ export namespace ImageUpdateResponse {
     /**
      * Type of the Image
      */
-    type: 'system' | 'app' | 'snapshot' | 'backup' | 'temporary';
+    type: 'app' | 'backup' | 'snapshot' | 'system' | 'temporary';
 
     /**
      * Indicates that rapid deploy of the Image is available
@@ -313,16 +322,23 @@ export namespace ImageUpdateResponse {
      */
     export interface Protection {
       /**
-       * If true, prevents the Resource from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/images
+ */
 export interface ImageListResponse {
   images: Array<ImageListResponse.Image>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta?: Shared.ResponseMeta;
 }
 
@@ -334,9 +350,10 @@ export namespace ImageListResponse {
     id: number;
 
     /**
-     * Type of cpu architecture this image is compatible with.
+     * Type of cpu architecture this image is compatible with. | Type of cpu
+     * architecture
      */
-    architecture: 'x86' | 'arm';
+    architecture: 'arm' | 'x86';
 
     /**
      * ID of Server the Image is bound to. Only set for Images of type `backup`.
@@ -392,7 +409,7 @@ export namespace ImageListResponse {
     /**
      * Flavor of operating system contained in the Image
      */
-    os_flavor: 'ubuntu' | 'centos' | 'debian' | 'fedora' | 'rocky' | 'alma' | 'unknown';
+    os_flavor: 'alma' | 'centos' | 'debian' | 'fedora' | 'rocky' | 'ubuntu' | 'unknown';
 
     /**
      * Operating system version
@@ -412,7 +429,7 @@ export namespace ImageListResponse {
     /**
      * Type of the Image
      */
-    type: 'system' | 'app' | 'snapshot' | 'backup' | 'temporary';
+    type: 'app' | 'backup' | 'snapshot' | 'system' | 'temporary';
 
     /**
      * Indicates that rapid deploy of the Image is available
@@ -441,7 +458,8 @@ export namespace ImageListResponse {
      */
     export interface Protection {
       /**
-       * If true, prevents the Resource from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
@@ -457,7 +475,7 @@ export interface ImageUpdateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   /**
    * Destination Image type to convert to
@@ -494,8 +512,15 @@ export interface ImageListParams {
    */
   name?: string;
 
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**
@@ -532,6 +557,9 @@ export namespace Images {
   export import ImageListParams = API.ImageListParams;
 
   export import Actions = API.Actions;
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
 }

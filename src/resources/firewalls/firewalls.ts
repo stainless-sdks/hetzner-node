@@ -28,7 +28,7 @@ export class Firewalls extends APIResource {
   /**
    * Gets a specific Firewall object.
    */
-  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<FirewallResponse> {
+  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<FirewallRetrieveResponse> {
     return this.get(`/firewalls/${id}`, options);
   }
 
@@ -47,13 +47,13 @@ export class Firewalls extends APIResource {
     id: number,
     body?: FirewallUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<FirewallResponse>;
-  update(id: number, options?: Core.RequestOptions): Core.APIPromise<FirewallResponse>;
+  ): Core.APIPromise<FirewallUpdateResponse>;
+  update(id: number, options?: Core.RequestOptions): Core.APIPromise<FirewallUpdateResponse>;
   update(
     id: number,
     body: FirewallUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<FirewallResponse> {
+  ): Core.APIPromise<FirewallUpdateResponse> {
     if (isRequestOptions(body)) {
       return this.update(id, {}, body);
     }
@@ -89,6 +89,9 @@ export class Firewalls extends APIResource {
   }
 }
 
+/**
+ * Firewalls can limit the network access to or from your resources.
+ */
 export interface Firewall {
   /**
    * ID of the Resource
@@ -116,21 +119,33 @@ export interface Firewall {
 }
 
 export namespace Firewall {
+  /**
+   * Resource a Firewall should be applied to.
+   */
   export interface AppliedTo {
     /**
      * Type of resource referenced
      */
-    type: 'server' | 'label_selector';
+    type: 'label_selector' | 'server';
 
     applied_to_resources?: Array<AppliedTo.AppliedToResource>;
 
+    /**
+     * Configuration for type LabelSelector, required if type is `label_selector`
+     */
     label_selector?: AppliedTo.LabelSelector;
 
+    /**
+     * ID of the Resource
+     */
     server?: AppliedTo.Server;
   }
 
   export namespace AppliedTo {
     export interface AppliedToResource {
+      /**
+       * ID of the Resource
+       */
       server?: AppliedToResource.Server;
 
       /**
@@ -140,14 +155,20 @@ export namespace Firewall {
     }
 
     export namespace AppliedToResource {
+      /**
+       * ID of the Resource
+       */
       export interface Server {
         /**
-         * ID of the Resource
+         * ID of the Resource | ID of the Server
          */
         id: number;
       }
     }
 
+    /**
+     * Configuration for type LabelSelector, required if type is `label_selector`
+     */
     export interface LabelSelector {
       /**
        * Label selector
@@ -155,19 +176,21 @@ export namespace Firewall {
       selector: string;
     }
 
+    /**
+     * ID of the Resource
+     */
     export interface Server {
       /**
-       * ID of the Resource
+       * ID of the Resource | ID of the Server
        */
       id: number;
     }
   }
 }
 
-export interface FirewallResponse {
-  firewall: Firewall;
-}
-
+/**
+ * Rule of a firewall.
+ */
 export interface Rule {
   /**
    * Select traffic direction on which rule should be applied. Use `source_ips` for
@@ -178,7 +201,7 @@ export interface Rule {
   /**
    * Type of traffic to allow
    */
-  protocol: 'tcp' | 'udp' | 'icmp' | 'esp' | 'gre';
+  protocol: 'esp' | 'gre' | 'icmp' | 'tcp' | 'udp';
 
   /**
    * Description of the Rule
@@ -207,15 +230,47 @@ export interface Rule {
   source_ips?: Array<string>;
 }
 
+/**
+ * Response to POST https://api.hetzner.cloud/v1/firewalls
+ */
 export interface FirewallCreateResponse {
   actions?: Array<Shared.Action>;
 
+  /**
+   * Firewalls can limit the network access to or from your resources.
+   */
   firewall?: Firewall;
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/firewalls/{id}
+ */
+export interface FirewallRetrieveResponse {
+  /**
+   * Firewalls can limit the network access to or from your resources.
+   */
+  firewall: Firewall;
+}
+
+/**
+ * Response to PUT https://api.hetzner.cloud/v1/firewalls/{id}
+ */
+export interface FirewallUpdateResponse {
+  /**
+   * Firewalls can limit the network access to or from your resources.
+   */
+  firewall: Firewall;
+}
+
+/**
+ * Response to GET https://api.hetzner.cloud/v1/firewalls
+ */
 export interface FirewallListResponse {
   firewalls: Array<Firewall>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta?: Shared.ResponseMeta;
 }
 
@@ -233,7 +288,7 @@ export interface FirewallCreateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   /**
    * Array of rules
@@ -242,11 +297,14 @@ export interface FirewallCreateParams {
 }
 
 export namespace FirewallCreateParams {
+  /**
+   * Resource a Firewall should be applied to.
+   */
   export interface ApplyTo {
     /**
      * Type of the resource
      */
-    type: 'server' | 'label_selector';
+    type: 'label_selector' | 'server';
 
     /**
      * Configuration for type LabelSelector, required if type is `label_selector`
@@ -254,7 +312,7 @@ export namespace FirewallCreateParams {
     label_selector?: ApplyTo.LabelSelector;
 
     /**
-     * Configuration for type Server, required if type is `server`
+     * ID of the Resource
      */
     server?: ApplyTo.Server;
   }
@@ -271,11 +329,11 @@ export namespace FirewallCreateParams {
     }
 
     /**
-     * Configuration for type Server, required if type is `server`
+     * ID of the Resource
      */
     export interface Server {
       /**
-       * ID of the Server
+       * ID of the Resource | ID of the Server
        */
       id: number;
     }
@@ -286,7 +344,7 @@ export interface FirewallUpdateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   /**
    * New Firewall name
@@ -307,8 +365,15 @@ export interface FirewallListParams {
    */
   name?: string;
 
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**
@@ -328,15 +393,21 @@ export interface FirewallListParams {
 
 export namespace Firewalls {
   export import Firewall = API.Firewall;
-  export import FirewallResponse = API.FirewallResponse;
   export import Rule = API.Rule;
   export import FirewallCreateResponse = API.FirewallCreateResponse;
+  export import FirewallRetrieveResponse = API.FirewallRetrieveResponse;
+  export import FirewallUpdateResponse = API.FirewallUpdateResponse;
   export import FirewallListResponse = API.FirewallListResponse;
   export import FirewallCreateParams = API.FirewallCreateParams;
   export import FirewallUpdateParams = API.FirewallUpdateParams;
   export import FirewallListParams = API.FirewallListParams;
 
   export import Actions = API.Actions;
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionApplyToResourcesResponse = API.ActionApplyToResourcesResponse;
+  export import ActionRemoveFromResourcesResponse = API.ActionRemoveFromResourcesResponse;
+  export import ActionSetRulesResponse = API.ActionSetRulesResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionApplyToResourcesParams = API.ActionApplyToResourcesParams;
   export import ActionRemoveFromResourcesParams = API.ActionRemoveFromResourcesParams;

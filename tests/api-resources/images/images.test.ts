@@ -47,7 +47,7 @@ describe('resource images', () => {
     await expect(
       hetzner.images.update(
         0,
-        { description: 'My new Image description', labels: { labelkey: 'value' }, type: 'snapshot' },
+        { description: 'My new Image description', labels: { foo: 'string' }, type: 'snapshot' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -81,8 +81,8 @@ describe('resource images', () => {
           include_deprecated: true,
           label_selector: 'string',
           name: 'string',
-          page: 0,
-          per_page: 0,
+          page: 1,
+          per_page: 1,
           sort: 'id',
           status: 'available',
           type: 'system',

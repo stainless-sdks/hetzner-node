@@ -1,7 +1,12 @@
 // File generated from our OpenAPI spec by Stainless.
 
 export {
+  ActionRetrieveResponse,
   ActionListResponse,
+  ActionAssignResponse,
+  ActionChangeDnsPtrResponse,
+  ActionChangeProtectionResponse,
+  ActionUnassignResponse,
   ActionListParams,
   ActionAssignParams,
   ActionChangeDnsPtrParams,

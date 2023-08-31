@@ -30,6 +30,9 @@ export class Isos extends APIResource {
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/isos/{id}
+ */
 export interface IsoRetrieveResponse {
   iso: IsoRetrieveResponse.Iso;
 }
@@ -45,7 +48,7 @@ export namespace IsoRetrieveResponse {
      * Type of cpu architecture this iso is compatible with. Null indicates no
      * restriction on the architecture (wildcard).
      */
-    architecture: 'x86' | 'arm' | null;
+    architecture: 'arm' | 'x86' | null;
 
     /**
      * ISO 8601 timestamp of deprecation, null if ISO is still available. After the
@@ -66,13 +69,19 @@ export namespace IsoRetrieveResponse {
     /**
      * Type of the ISO
      */
-    type: 'public' | 'private';
+    type: 'private' | 'public';
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/isos
+ */
 export interface IsoListResponse {
   isos: Array<IsoListResponse.Iso>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta?: Shared.ResponseMeta;
 }
 
@@ -87,7 +96,7 @@ export namespace IsoListResponse {
      * Type of cpu architecture this iso is compatible with. Null indicates no
      * restriction on the architecture (wildcard).
      */
-    architecture: 'x86' | 'arm' | null;
+    architecture: 'arm' | 'x86' | null;
 
     /**
      * ISO 8601 timestamp of deprecation, null if ISO is still available. After the
@@ -108,7 +117,7 @@ export namespace IsoListResponse {
     /**
      * Type of the ISO
      */
-    type: 'public' | 'private';
+    type: 'private' | 'public';
   }
 }
 
@@ -130,8 +139,15 @@ export interface IsoListParams {
    */
   name?: string;
 
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 }
 

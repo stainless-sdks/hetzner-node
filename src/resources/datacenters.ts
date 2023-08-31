@@ -30,11 +30,22 @@ export class Datacenters extends APIResource {
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/datacenters/{id}
+ */
 export interface DatacenterRetrieveResponse {
+  /**
+   * Datacenter this Primary IP is located at | Datacenter this Resource is located
+   * at
+   */
   datacenter: DatacenterRetrieveResponse.Datacenter;
 }
 
 export namespace DatacenterRetrieveResponse {
+  /**
+   * Datacenter this Primary IP is located at | Datacenter this Resource is located
+   * at
+   */
   export interface Datacenter {
     /**
      * ID of the Resource
@@ -46,6 +57,11 @@ export namespace DatacenterRetrieveResponse {
      */
     description: string;
 
+    /**
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
+     */
     location: Datacenter.Location;
 
     /**
@@ -60,6 +76,11 @@ export namespace DatacenterRetrieveResponse {
   }
 
   export namespace Datacenter {
+    /**
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
+     */
     export interface Location {
       /**
        * ID of the Location
@@ -126,9 +147,15 @@ export namespace DatacenterRetrieveResponse {
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/datacenters
+ */
 export interface DatacenterListResponse {
   datacenters: Array<DatacenterListResponse.Datacenter>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta: Shared.ResponseMeta;
 
   /**
@@ -138,6 +165,10 @@ export interface DatacenterListResponse {
 }
 
 export namespace DatacenterListResponse {
+  /**
+   * Datacenter this Primary IP is located at | Datacenter this Resource is located
+   * at
+   */
   export interface Datacenter {
     /**
      * ID of the Resource
@@ -149,6 +180,11 @@ export namespace DatacenterListResponse {
      */
     description: string;
 
+    /**
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
+     */
     location: Datacenter.Location;
 
     /**
@@ -163,6 +199,11 @@ export namespace DatacenterListResponse {
   }
 
   export namespace Datacenter {
+    /**
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
+     */
     export interface Location {
       /**
        * ID of the Location
@@ -237,8 +278,15 @@ export interface DatacenterListParams {
    */
   name?: string;
 
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**

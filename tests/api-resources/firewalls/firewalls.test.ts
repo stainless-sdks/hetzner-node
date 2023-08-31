@@ -21,18 +21,18 @@ describe('resource firewalls', () => {
     const response = await hetzner.firewalls.create({
       name: 'Corporate Intranet Protection',
       apply_to: [
-        { label_selector: { selector: 'string' }, server: { id: 0 }, type: 'server' },
-        { label_selector: { selector: 'string' }, server: { id: 0 }, type: 'server' },
-        { label_selector: { selector: 'string' }, server: { id: 0 }, type: 'server' },
+        { label_selector: { selector: 'env=prod' }, server: { id: 42 }, type: 'label_selector' },
+        { label_selector: { selector: 'env=prod' }, server: { id: 42 }, type: 'label_selector' },
+        { label_selector: { selector: 'env=prod' }, server: { id: 42 }, type: 'label_selector' },
       ],
-      labels: {},
+      labels: { foo: 'string' },
       rules: [
         {
           description: 'string',
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -40,7 +40,7 @@ describe('resource firewalls', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
         {
@@ -48,7 +48,7 @@ describe('resource firewalls', () => {
           destination_ips: ['string', 'string', 'string'],
           direction: 'in',
           port: '80',
-          protocol: 'tcp',
+          protocol: 'esp',
           source_ips: ['string', 'string', 'string'],
         },
       ],
@@ -96,7 +96,7 @@ describe('resource firewalls', () => {
     await expect(
       hetzner.firewalls.update(
         0,
-        { labels: { labelkey: 'value' }, name: 'new-name' },
+        { labels: { foo: 'string' }, name: 'new-name' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -124,7 +124,7 @@ describe('resource firewalls', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       hetzner.firewalls.list(
-        { label_selector: 'string', name: 'string', page: 0, per_page: 0, sort: 'id' },
+        { label_selector: 'string', name: 'string', page: 1, per_page: 1, sort: 'id' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

@@ -1,6 +1,12 @@
 // File generated from our OpenAPI spec by Stainless.
 
 export {
+  ActionRetrieveResponse,
+  ActionListResponse,
+  ActionAssignResponse,
+  ActionChangeDnsPtrResponse,
+  ActionChangeProtectionResponse,
+  ActionUnassignResponse,
   ActionListParams,
   ActionAssignParams,
   ActionChangeDnsPtrParams,
@@ -9,8 +15,9 @@ export {
 } from './actions';
 export {
   PrimaryIp,
-  PrimaryIpResponse,
   PrimaryIpCreateResponse,
+  PrimaryIpRetrieveResponse,
+  PrimaryIpUpdateResponse,
   PrimaryIpListResponse,
   PrimaryIpCreateParams,
   PrimaryIpUpdateParams,

@@ -22,7 +22,7 @@ describe('resource floatingIps', () => {
       type: 'ipv4',
       description: 'Web Frontend',
       home_location: 'fsn1',
-      labels: { labelkey: 'value' },
+      labels: { foo: 'string' },
       name: 'Web Frontend',
       server: 42,
     });
@@ -69,7 +69,7 @@ describe('resource floatingIps', () => {
     await expect(
       hetzner.floatingIps.update(
         0,
-        { description: 'Web Frontend', labels: { labelkey: 'value' }, name: 'Web Frontend' },
+        { description: 'Web Frontend', labels: { foo: 'string' }, name: 'Web Frontend' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -97,7 +97,7 @@ describe('resource floatingIps', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       hetzner.floatingIps.list(
-        { label_selector: 'string', name: 'string', page: 0, per_page: 0, sort: 'id' },
+        { label_selector: 'string', name: 'string', page: 1, per_page: 1, sort: 'id' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

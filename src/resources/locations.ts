@@ -30,11 +30,24 @@ export class Locations extends APIResource {
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/locations/{id}
+ */
 export interface LocationRetrieveResponse {
+  /**
+   * Location the Floating IP was created in. Routing is optimized for this Location.
+   * | Location of the Volume. Volume can only be attached to Servers in the same
+   * Location.
+   */
   location: LocationRetrieveResponse.Location;
 }
 
 export namespace LocationRetrieveResponse {
+  /**
+   * Location the Floating IP was created in. Routing is optimized for this Location.
+   * | Location of the Volume. Volume can only be attached to Servers in the same
+   * Location.
+   */
   export interface Location {
     /**
      * ID of the Location
@@ -78,13 +91,24 @@ export namespace LocationRetrieveResponse {
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/locations
+ */
 export interface LocationListResponse {
   locations: Array<LocationListResponse.Location>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta: Shared.ResponseMeta;
 }
 
 export namespace LocationListResponse {
+  /**
+   * Location the Floating IP was created in. Routing is optimized for this Location.
+   * | Location of the Volume. Volume can only be attached to Servers in the same
+   * Location.
+   */
   export interface Location {
     /**
      * ID of the Location
@@ -135,8 +159,15 @@ export interface LocationListParams {
    */
   name?: string;
 
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**

@@ -42,11 +42,26 @@ export class Metrics extends APIResource {
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/servers/{id}/metrics
+ */
 export interface MetricListResponse {
+  /**
+   * You must specify the type of metric to get: open_connections,
+   * requests_per_second or bandwidth. You can also specify more than one type by
+   * comma separation, e.g. requests_per_second,bandwidth. Depending on the type you
+   * will get different time series data.
+   */
   metrics: MetricListResponse.Metrics;
 }
 
 export namespace MetricListResponse {
+  /**
+   * You must specify the type of metric to get: open_connections,
+   * requests_per_second or bandwidth. You can also specify more than one type by
+   * comma separation, e.g. requests_per_second,bandwidth. Depending on the type you
+   * will get different time series data.
+   */
   export interface Metrics {
     /**
      * End of period of metrics reported (in ISO-8601 format)

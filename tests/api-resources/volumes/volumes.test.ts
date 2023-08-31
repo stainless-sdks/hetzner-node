@@ -23,7 +23,7 @@ describe('resource volumes', () => {
       size: 42,
       automount: false,
       format: 'xfs',
-      labels: { labelkey: 'value' },
+      labels: { foo: 'string' },
       location: 'nbg1',
       server: 0,
     });
@@ -59,10 +59,7 @@ describe('resource volumes', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await hetzner.volumes.update(0, {
-      name: 'database-storage',
-      labels: { labelkey: 'value' },
-    });
+    const response = await hetzner.volumes.update(0, { name: 'database-storage', labels: { foo: 'string' } });
   });
 
   test('list', async () => {
@@ -87,7 +84,7 @@ describe('resource volumes', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       hetzner.volumes.list(
-        { label_selector: 'string', name: 'string', page: 0, per_page: 0, sort: 'id', status: 'available' },
+        { label_selector: 'string', name: 'string', page: 1, per_page: 1, sort: 'id', status: 'available' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

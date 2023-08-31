@@ -1,6 +1,11 @@
 // File generated from our OpenAPI spec by Stainless.
 
 export {
+  ActionRetrieveResponse,
+  ActionListResponse,
+  ActionApplyToResourcesResponse,
+  ActionRemoveFromResourcesResponse,
+  ActionSetRulesResponse,
   ActionListParams,
   ActionApplyToResourcesParams,
   ActionRemoveFromResourcesParams,
@@ -9,9 +14,10 @@ export {
 } from './actions';
 export {
   Firewall,
-  FirewallResponse,
   Rule,
   FirewallCreateResponse,
+  FirewallRetrieveResponse,
+  FirewallUpdateResponse,
   FirewallListResponse,
   FirewallCreateParams,
   FirewallUpdateParams,

@@ -36,7 +36,7 @@ export class Certificates extends APIResource {
   /**
    * Gets a specific Certificate object.
    */
-  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<CertificateResponse> {
+  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<CertificateRetrieveResponse> {
     return this.get(`/certificates/${id}`, options);
   }
 
@@ -55,13 +55,13 @@ export class Certificates extends APIResource {
     id: number,
     body?: CertificateUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<CertificateResponse>;
-  update(id: number, options?: Core.RequestOptions): Core.APIPromise<CertificateResponse>;
+  ): Core.APIPromise<CertificateUpdateResponse>;
+  update(id: number, options?: Core.RequestOptions): Core.APIPromise<CertificateUpdateResponse>;
   update(
     id: number,
     body: CertificateUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<CertificateResponse> {
+  ): Core.APIPromise<CertificateUpdateResponse> {
     if (isRequestOptions(body)) {
       return this.update(id, {}, body);
     }
@@ -94,6 +94,10 @@ export class Certificates extends APIResource {
   }
 }
 
+/**
+ * TLS/SSL Certificates prove the identity of a Server and are used to encrypt
+ * client traffic.
+ */
 export interface Certificate {
   /**
    * ID of the Resource
@@ -155,13 +159,13 @@ export interface Certificate {
   /**
    * Type of the Certificate
    */
-  type?: 'uploaded' | 'managed';
+  type?: 'managed' | 'uploaded';
 }
 
 export namespace Certificate {
   export interface UsedBy {
     /**
-     * ID of resource referenced
+     * ID of the Resource | ID of resource referenced
      */
     id: number;
 
@@ -185,12 +189,12 @@ export namespace Certificate {
     /**
      * Status of the issuance process of the Certificate
      */
-    issuance?: 'pending' | 'completed' | 'failed';
+    issuance?: 'completed' | 'failed' | 'pending';
 
     /**
      * Status of the renewal process of the Certificate.
      */
-    renewal?: 'scheduled' | 'pending' | 'failed' | 'unavailable';
+    renewal?: 'failed' | 'pending' | 'scheduled' | 'unavailable';
   }
 
   export namespace Status {
@@ -206,19 +210,130 @@ export namespace Certificate {
   }
 }
 
-export interface CertificateResponse {
-  certificate: Certificate;
-}
-
+/**
+ * Response to POST https://api.hetzner.cloud/v1/certificates
+ */
 export interface CertificateCreateResponse {
+  /**
+   * TLS/SSL Certificates prove the identity of a Server and are used to encrypt
+   * client traffic.
+   */
   certificate: Certificate;
 
-  action?: Shared.NullableAction | null;
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action?: CertificateCreateResponse.Action | null;
 }
 
+export namespace CertificateCreateResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  export interface Action {
+    /**
+     * ID of the Action
+     */
+    id: number;
+
+    /**
+     * Command executed in the Action
+     */
+    command: string;
+
+    /**
+     * Error message for the Action if error occurred, otherwise null
+     */
+    error: Action.Error | null;
+
+    /**
+     * Point in time when the Action was finished (in ISO-8601 format). Only set if the
+     * Action is finished otherwise null.
+     */
+    finished: string | null;
+
+    /**
+     * Progress of Action in percent
+     */
+    progress: number;
+
+    /**
+     * Resources the Action relates to
+     */
+    resources: Array<Action.Resource>;
+
+    /**
+     * Point in time when the Action was started (in ISO-8601 format)
+     */
+    started: string;
+
+    /**
+     * Status of the Action
+     */
+    status: 'error' | 'running' | 'success';
+  }
+
+  export namespace Action {
+    /**
+     * Error message for the Action if error occurred, otherwise null
+     */
+    export interface Error {
+      /**
+       * Fixed machine readable code
+       */
+      code: string;
+
+      /**
+       * Humanized error message
+       */
+      message: string;
+    }
+
+    export interface Resource {
+      /**
+       * ID of the Resource | ID of resource referenced
+       */
+      id: number;
+
+      /**
+       * Type of resource referenced
+       */
+      type: string;
+    }
+  }
+}
+
+/**
+ * Response to GET https://api.hetzner.cloud/v1/certificates/{id}
+ */
+export interface CertificateRetrieveResponse {
+  /**
+   * TLS/SSL Certificates prove the identity of a Server and are used to encrypt
+   * client traffic.
+   */
+  certificate: Certificate;
+}
+
+/**
+ * Response to PUT https://api.hetzner.cloud/v1/certificates/{id}
+ */
+export interface CertificateUpdateResponse {
+  /**
+   * TLS/SSL Certificates prove the identity of a Server and are used to encrypt
+   * client traffic.
+   */
+  certificate: Certificate;
+}
+
+/**
+ * Response to GET https://api.hetzner.cloud/v1/certificates
+ */
 export interface CertificateListResponse {
   certificates: Array<Certificate>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta?: Shared.ResponseMeta;
 }
 
@@ -243,7 +358,7 @@ export interface CertificateCreateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   /**
    * Certificate key in PEM format. Required for type `uploaded` Certificates.
@@ -254,14 +369,14 @@ export interface CertificateCreateParams {
    * Choose between uploading a Certificate in PEM format or requesting a managed
    * _Let's Encrypt_ Certificate. If omitted defaults to `uploaded`.
    */
-  type?: 'uploaded' | 'managed';
+  type?: 'managed' | 'uploaded';
 }
 
 export interface CertificateUpdateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   /**
    * New Certificate name
@@ -282,8 +397,15 @@ export interface CertificateListParams {
    */
   name?: string;
 
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**
@@ -309,13 +431,17 @@ export interface CertificateListParams {
 
 export namespace Certificates {
   export import Certificate = API.Certificate;
-  export import CertificateResponse = API.CertificateResponse;
   export import CertificateCreateResponse = API.CertificateCreateResponse;
+  export import CertificateRetrieveResponse = API.CertificateRetrieveResponse;
+  export import CertificateUpdateResponse = API.CertificateUpdateResponse;
   export import CertificateListResponse = API.CertificateListResponse;
   export import CertificateCreateParams = API.CertificateCreateParams;
   export import CertificateUpdateParams = API.CertificateUpdateParams;
   export import CertificateListParams = API.CertificateListParams;
 
   export import Actions = API.Actions;
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionRetryResponse = API.ActionRetryResponse;
   export import ActionListParams = API.ActionListParams;
 }

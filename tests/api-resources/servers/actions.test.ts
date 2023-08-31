@@ -47,7 +47,7 @@ describe('resource actions', () => {
     await expect(
       hetzner.servers.actions.list(
         0,
-        { page: 0, per_page: 0, sort: 'id', status: 'running' },
+        { page: 1, per_page: 1, sort: 'id', status: 'running' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -214,7 +214,7 @@ describe('resource actions', () => {
     await expect(
       hetzner.servers.actions.createImage(
         0,
-        { description: 'my image', labels: { labelkey: 'value' }, type: 'snapshot' },
+        { description: 'my image', labels: { foo: 'string' }, type: 'snapshot' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -330,7 +330,7 @@ describe('resource actions', () => {
     await expect(
       hetzner.servers.actions.enableRescue(
         0,
-        { ssh_keys: [0, 0, 0], type: 'linux64' },
+        { ssh_keys: [0, 0, 0], type: 'linux32' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

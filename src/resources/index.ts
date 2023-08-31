@@ -1,11 +1,12 @@
 // File generated from our OpenAPI spec by Stainless.
 
 export * from './shared';
-export { ActionListParams, Actions } from './actions';
+export { ActionRetrieveResponse, ActionListResponse, ActionListParams, Actions } from './actions';
 export {
   Certificate,
-  CertificateResponse,
   CertificateCreateResponse,
+  CertificateRetrieveResponse,
+  CertificateUpdateResponse,
   CertificateListResponse,
   CertificateCreateParams,
   CertificateUpdateParams,
@@ -19,17 +20,11 @@ export {
   Datacenters,
 } from './datacenters';
 export {
-  DeprecationInfo,
-  ServerTypeRetrieveResponse,
-  ServerTypeListResponse,
-  ServerTypeListParams,
-  ServerTypes,
-} from './server-types';
-export {
   Firewall,
-  FirewallResponse,
   Rule,
   FirewallCreateResponse,
+  FirewallRetrieveResponse,
+  FirewallUpdateResponse,
   FirewallListResponse,
   FirewallCreateParams,
   FirewallUpdateParams,
@@ -57,15 +52,8 @@ export {
 } from './images/images';
 export { IsoRetrieveResponse, IsoListResponse, IsoListParams, Isos } from './isos';
 export {
-  LoadBalancerService,
-  LoadBalancerServiceHealthCheck,
-  LoadBalancerServiceHTTP,
-  LoadBalancerTarget,
-  LoadBalancerTargetHealthStatus,
+  LoadBalancer,
   LoadBalancerTargetIp,
-  LoadBalancerTargetLabelSelector,
-  LoadBalancerTargetServer,
-  LoadBalancerTargetTarget,
   LoadBalancerCreateResponse,
   LoadBalancerRetrieveResponse,
   LoadBalancerUpdateResponse,
@@ -94,9 +82,9 @@ export {
 } from './networks/networks';
 export {
   PlacementGroup,
-  PlacementGroupNullable,
-  PlacementGroupResponse,
   PlacementGroupCreateResponse,
+  PlacementGroupRetrieveResponse,
+  PlacementGroupUpdateResponse,
   PlacementGroupListResponse,
   PlacementGroupCreateParams,
   PlacementGroupUpdateParams,
@@ -106,8 +94,9 @@ export {
 export { PricingRetrieveResponse, Pricing } from './pricing';
 export {
   PrimaryIp,
-  PrimaryIpResponse,
   PrimaryIpCreateResponse,
+  PrimaryIpRetrieveResponse,
+  PrimaryIpUpdateResponse,
   PrimaryIpListResponse,
   PrimaryIpCreateParams,
   PrimaryIpUpdateParams,
@@ -116,7 +105,7 @@ export {
 } from './primary-ips/primary-ips';
 export {
   Server,
-  ServerPublicNetFirewall,
+  ServerPublicNet,
   ServerCreateResponse,
   ServerRetrieveResponse,
   ServerUpdateResponse,
@@ -127,6 +116,12 @@ export {
   ServersServersPage,
   Servers,
 } from './servers/servers';
+export {
+  ServerTypeRetrieveResponse,
+  ServerTypeListResponse,
+  ServerTypeListParams,
+  ServerTypes,
+} from './server-types';
 export {
   SshKeyCreateResponse,
   SshKeyRetrieveResponse,

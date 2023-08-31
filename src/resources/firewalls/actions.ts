@@ -15,7 +15,7 @@ export class Actions extends APIResource {
     id: number,
     actionId: number,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionRetrieveResponse> {
     return this.get(`/firewalls/${id}/actions/${actionId}`, options);
   }
 
@@ -27,13 +27,13 @@ export class Actions extends APIResource {
     id: number,
     query?: ActionListParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse>;
-  list(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionsResponse>;
+  ): Core.APIPromise<ActionListResponse>;
+  list(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionListResponse>;
   list(
     id: number,
     query: ActionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse> {
+  ): Core.APIPromise<ActionListResponse> {
     if (isRequestOptions(query)) {
       return this.list(id, {}, query);
     }
@@ -57,7 +57,7 @@ export class Actions extends APIResource {
     id: number,
     body: ActionApplyToResourcesParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse> {
+  ): Core.APIPromise<ActionApplyToResourcesResponse> {
     return this.post(`/firewalls/${id}/actions/apply_to_resources`, { body, ...options });
   }
 
@@ -78,7 +78,7 @@ export class Actions extends APIResource {
     id: number,
     body: ActionRemoveFromResourcesParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse> {
+  ): Core.APIPromise<ActionRemoveFromResourcesResponse> {
     return this.post(`/firewalls/${id}/actions/remove_from_resources`, { body, ...options });
   }
 
@@ -98,14 +98,81 @@ export class Actions extends APIResource {
     id: number,
     body: ActionSetRulesParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse> {
+  ): Core.APIPromise<ActionSetRulesResponse> {
     return this.post(`/firewalls/${id}/actions/set_rules`, { body, ...options });
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/firewalls/{id}/actions/{action_id}
+ */
+export interface ActionRetrieveResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to GET https://api.hetzner.cloud/v1/firewalls/{id}/actions
+ */
+export interface ActionListResponse {
+  actions: Array<Shared.Action>;
+
+  /**
+   * Metadata contained in the response
+   */
+  meta?: Shared.ResponseMeta;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/firewalls/{id}/actions/apply_to_resources
+ */
+export interface ActionApplyToResourcesResponse {
+  actions: Array<Shared.Action>;
+
+  /**
+   * Metadata contained in the response
+   */
+  meta?: Shared.ResponseMeta;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/firewalls/{id}/actions/remove_from_resources
+ */
+export interface ActionRemoveFromResourcesResponse {
+  actions: Array<Shared.Action>;
+
+  /**
+   * Metadata contained in the response
+   */
+  meta?: Shared.ResponseMeta;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/firewalls/{id}/actions/set_rules
+ */
+export interface ActionSetRulesResponse {
+  actions: Array<Shared.Action>;
+
+  /**
+   * Metadata contained in the response
+   */
+  meta?: Shared.ResponseMeta;
+}
+
 export interface ActionListParams {
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**
@@ -128,26 +195,29 @@ export interface ActionApplyToResourcesParams {
 }
 
 export namespace ActionApplyToResourcesParams {
+  /**
+   * Resource a Firewall should be applied to.
+   */
   export interface ApplyTo {
     /**
-     * Configuration for type label_selector, required if type is `label_selector`
+     * Configuration for type LabelSelector, required if type is `label_selector`
      */
     label_selector?: ApplyTo.LabelSelector;
 
     /**
-     * Configuration for type server, required if type is `server`
+     * ID of the Resource
      */
     server?: ApplyTo.Server;
 
     /**
      * Type of the resource
      */
-    type?: 'server' | 'label_selector';
+    type?: 'label_selector' | 'server';
   }
 
   export namespace ApplyTo {
     /**
-     * Configuration for type label_selector, required if type is `label_selector`
+     * Configuration for type LabelSelector, required if type is `label_selector`
      */
     export interface LabelSelector {
       /**
@@ -157,11 +227,11 @@ export namespace ActionApplyToResourcesParams {
     }
 
     /**
-     * Configuration for type server, required if type is `server`
+     * ID of the Resource
      */
     export interface Server {
       /**
-       * ID of the Server
+       * ID of the Resource | ID of the Server
        */
       id: number;
     }
@@ -176,26 +246,29 @@ export interface ActionRemoveFromResourcesParams {
 }
 
 export namespace ActionRemoveFromResourcesParams {
+  /**
+   * Resource a Firewall should be applied to.
+   */
   export interface RemoveFrom {
     /**
-     * Configuration for type label_selector, required if type is `label_selector`
+     * Configuration for type LabelSelector, required if type is `label_selector`
      */
     label_selector?: RemoveFrom.LabelSelector;
 
     /**
-     * Configuration for type server, required if type is `server`
+     * ID of the Resource
      */
     server?: RemoveFrom.Server;
 
     /**
      * Type of the resource
      */
-    type?: 'server' | 'label_selector';
+    type?: 'label_selector' | 'server';
   }
 
   export namespace RemoveFrom {
     /**
-     * Configuration for type label_selector, required if type is `label_selector`
+     * Configuration for type LabelSelector, required if type is `label_selector`
      */
     export interface LabelSelector {
       /**
@@ -205,11 +278,11 @@ export namespace ActionRemoveFromResourcesParams {
     }
 
     /**
-     * Configuration for type server, required if type is `server`
+     * ID of the Resource
      */
     export interface Server {
       /**
-       * ID of the Server
+       * ID of the Resource | ID of the Server
        */
       id: number;
     }
@@ -224,6 +297,11 @@ export interface ActionSetRulesParams {
 }
 
 export namespace Actions {
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionApplyToResourcesResponse = API.ActionApplyToResourcesResponse;
+  export import ActionRemoveFromResourcesResponse = API.ActionRemoveFromResourcesResponse;
+  export import ActionSetRulesResponse = API.ActionSetRulesResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionApplyToResourcesParams = API.ActionApplyToResourcesParams;
   export import ActionRemoveFromResourcesParams = API.ActionRemoveFromResourcesParams;

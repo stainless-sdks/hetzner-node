@@ -1,6 +1,21 @@
 // File generated from our OpenAPI spec by Stainless.
 
 export {
+  ActionRetrieveResponse,
+  ActionListResponse,
+  ActionAddServiceResponse,
+  ActionAssTargetResponse,
+  ActionAttachToNetworkResponse,
+  ActionChangeAlgorithmResponse,
+  ActionChangeDnsPtrResponse,
+  ActionChangeProtectionResponse,
+  ActionChangeTypeResponse,
+  ActionDeleteServiceResponse,
+  ActionDetachFromNetworkResponse,
+  ActionDisablePublicInterfaceResponse,
+  ActionEnablePublicInterfaceResponse,
+  ActionRemoveTargetResponse,
+  ActionUpdateServiceResponse,
   ActionListParams,
   ActionAddServiceParams,
   ActionAssTargetParams,
@@ -16,15 +31,8 @@ export {
   Actions,
 } from './actions';
 export {
-  LoadBalancerService,
-  LoadBalancerServiceHealthCheck,
-  LoadBalancerServiceHTTP,
-  LoadBalancerTarget,
-  LoadBalancerTargetHealthStatus,
+  LoadBalancer,
   LoadBalancerTargetIp,
-  LoadBalancerTargetLabelSelector,
-  LoadBalancerTargetServer,
-  LoadBalancerTargetTarget,
   LoadBalancerCreateResponse,
   LoadBalancerRetrieveResponse,
   LoadBalancerUpdateResponse,

@@ -15,7 +15,7 @@ export class Actions extends APIResource {
     id: number,
     actionId: number,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionRetrieveResponse> {
     return this.get(`/certificates/${id}/actions/${actionId}`, options);
   }
 
@@ -30,13 +30,13 @@ export class Actions extends APIResource {
     id: number,
     query?: ActionListParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse>;
-  list(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionsResponse>;
+  ): Core.APIPromise<ActionListResponse>;
+  list(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionListResponse>;
   list(
     id: number,
     query: ActionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse> {
+  ): Core.APIPromise<ActionListResponse> {
     if (isRequestOptions(query)) {
       return this.list(id, {}, query);
     }
@@ -62,14 +62,54 @@ export class Actions extends APIResource {
    * | `dns_zone_not_found`                                    | DNS zone not found                                                        |
    * | `dns_zone_is_secondary_zone`                            | DNS zone is a secondary zone                                              |
    */
-  retry(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse> {
+  retry(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionRetryResponse> {
     return this.post(`/certificates/${id}/actions/retry`, options);
   }
 }
 
+/**
+ * Response to GET
+ * https://api.hetzner.cloud/v1/certificates/{id}/actions/{action_id}
+ */
+export interface ActionRetrieveResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to GET https://api.hetzner.cloud/v1/certificates/{id}/actions
+ */
+export interface ActionListResponse {
+  actions: Array<Shared.Action>;
+
+  /**
+   * Metadata contained in the response
+   */
+  meta?: Shared.ResponseMeta;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/certificates/{id}/actions/retry
+ */
+export interface ActionRetryResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
 export interface ActionListParams {
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**
@@ -85,5 +125,8 @@ export interface ActionListParams {
 }
 
 export namespace Actions {
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionRetryResponse = API.ActionRetryResponse;
   export import ActionListParams = API.ActionListParams;
 }

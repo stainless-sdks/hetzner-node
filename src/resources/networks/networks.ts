@@ -89,6 +89,9 @@ export class Networks extends APIResource {
   }
 }
 
+/**
+ * Response to POST https://api.hetzner.cloud/v1/networks
+ */
 export interface NetworkCreateResponse {
   network?: NetworkCreateResponse.Network;
 }
@@ -122,7 +125,7 @@ export namespace NetworkCreateResponse {
     /**
      * User-defined labels (key-value pairs)
      */
-    labels: unknown;
+    labels: Record<string, string>;
 
     /**
      * Name of the Network
@@ -130,7 +133,7 @@ export namespace NetworkCreateResponse {
     name: string;
 
     /**
-     * Protection configuration for the Network
+     * Protection configuration for the Resource
      */
     protection: Network.Protection;
 
@@ -157,15 +160,20 @@ export namespace NetworkCreateResponse {
 
   export namespace Network {
     /**
-     * Protection configuration for the Network
+     * Protection configuration for the Resource
      */
     export interface Protection {
       /**
-       * If true, prevents the Network from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
 
+    /**
+     * Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route |
+     * Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route
+     */
     export interface Route {
       /**
        * Destination network or host of this route. Must not overlap with an existing
@@ -178,7 +186,9 @@ export namespace NetworkCreateResponse {
       /**
        * Gateway for the route. Cannot be the first IP of the networks ip_range and also
        * cannot be 172.31.1.1 as this IP is being used as a gateway for the public
-       * network interface of Servers.
+       * network interface of Servers. | Gateway for the route. Cannot be the first IP of
+       * the networks ip_range, an IP behind a vSwitch or 172.31.1.1, as this IP is being
+       * used as a gateway for the public network interface of Servers.
        */
       gateway: string;
     }
@@ -217,6 +227,9 @@ export namespace NetworkCreateResponse {
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/networks/{id}
+ */
 export interface NetworkRetrieveResponse {
   network?: NetworkRetrieveResponse.Network;
 }
@@ -250,7 +263,7 @@ export namespace NetworkRetrieveResponse {
     /**
      * User-defined labels (key-value pairs)
      */
-    labels: unknown;
+    labels: Record<string, string>;
 
     /**
      * Name of the Network
@@ -258,7 +271,7 @@ export namespace NetworkRetrieveResponse {
     name: string;
 
     /**
-     * Protection configuration for the Network
+     * Protection configuration for the Resource
      */
     protection: Network.Protection;
 
@@ -285,15 +298,20 @@ export namespace NetworkRetrieveResponse {
 
   export namespace Network {
     /**
-     * Protection configuration for the Network
+     * Protection configuration for the Resource
      */
     export interface Protection {
       /**
-       * If true, prevents the Network from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
 
+    /**
+     * Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route |
+     * Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route
+     */
     export interface Route {
       /**
        * Destination network or host of this route. Must not overlap with an existing
@@ -306,7 +324,9 @@ export namespace NetworkRetrieveResponse {
       /**
        * Gateway for the route. Cannot be the first IP of the networks ip_range and also
        * cannot be 172.31.1.1 as this IP is being used as a gateway for the public
-       * network interface of Servers.
+       * network interface of Servers. | Gateway for the route. Cannot be the first IP of
+       * the networks ip_range, an IP behind a vSwitch or 172.31.1.1, as this IP is being
+       * used as a gateway for the public network interface of Servers.
        */
       gateway: string;
     }
@@ -345,6 +365,9 @@ export namespace NetworkRetrieveResponse {
   }
 }
 
+/**
+ * Response to PUT https://api.hetzner.cloud/v1/networks/{id}
+ */
 export interface NetworkUpdateResponse {
   network?: NetworkUpdateResponse.Network;
 }
@@ -378,7 +401,7 @@ export namespace NetworkUpdateResponse {
     /**
      * User-defined labels (key-value pairs)
      */
-    labels: unknown;
+    labels: Record<string, string>;
 
     /**
      * Name of the Network
@@ -386,7 +409,7 @@ export namespace NetworkUpdateResponse {
     name: string;
 
     /**
-     * Protection configuration for the Network
+     * Protection configuration for the Resource
      */
     protection: Network.Protection;
 
@@ -413,15 +436,20 @@ export namespace NetworkUpdateResponse {
 
   export namespace Network {
     /**
-     * Protection configuration for the Network
+     * Protection configuration for the Resource
      */
     export interface Protection {
       /**
-       * If true, prevents the Network from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
 
+    /**
+     * Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route |
+     * Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route
+     */
     export interface Route {
       /**
        * Destination network or host of this route. Must not overlap with an existing
@@ -434,7 +462,9 @@ export namespace NetworkUpdateResponse {
       /**
        * Gateway for the route. Cannot be the first IP of the networks ip_range and also
        * cannot be 172.31.1.1 as this IP is being used as a gateway for the public
-       * network interface of Servers.
+       * network interface of Servers. | Gateway for the route. Cannot be the first IP of
+       * the networks ip_range, an IP behind a vSwitch or 172.31.1.1, as this IP is being
+       * used as a gateway for the public network interface of Servers.
        */
       gateway: string;
     }
@@ -473,9 +503,15 @@ export namespace NetworkUpdateResponse {
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/networks
+ */
 export interface NetworkListResponse {
   networks: Array<NetworkListResponse.Network>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta?: Shared.ResponseMeta;
 }
 
@@ -508,7 +544,7 @@ export namespace NetworkListResponse {
     /**
      * User-defined labels (key-value pairs)
      */
-    labels: unknown;
+    labels: Record<string, string>;
 
     /**
      * Name of the Network
@@ -516,7 +552,7 @@ export namespace NetworkListResponse {
     name: string;
 
     /**
-     * Protection configuration for the Network
+     * Protection configuration for the Resource
      */
     protection: Network.Protection;
 
@@ -543,15 +579,20 @@ export namespace NetworkListResponse {
 
   export namespace Network {
     /**
-     * Protection configuration for the Network
+     * Protection configuration for the Resource
      */
     export interface Protection {
       /**
-       * If true, prevents the Network from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
 
+    /**
+     * Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route |
+     * Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route
+     */
     export interface Route {
       /**
        * Destination network or host of this route. Must not overlap with an existing
@@ -564,7 +605,9 @@ export namespace NetworkListResponse {
       /**
        * Gateway for the route. Cannot be the first IP of the networks ip_range and also
        * cannot be 172.31.1.1 as this IP is being used as a gateway for the public
-       * network interface of Servers.
+       * network interface of Servers. | Gateway for the route. Cannot be the first IP of
+       * the networks ip_range, an IP behind a vSwitch or 172.31.1.1, as this IP is being
+       * used as a gateway for the public network interface of Servers.
        */
       gateway: string;
     }
@@ -628,7 +671,7 @@ export interface NetworkCreateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: NetworkCreateParams.Labels;
+  labels?: Record<string, string>;
 
   /**
    * Array of routes set in this network. The destination of the route must be one of
@@ -648,15 +691,9 @@ export interface NetworkCreateParams {
 
 export namespace NetworkCreateParams {
   /**
-   * User-defined labels (key-value pairs)
+   * Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route |
+   * Request for POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route
    */
-  export interface Labels {
-    /**
-     * New label
-     */
-    labelkey?: string;
-  }
-
   export interface Route {
     /**
      * Destination network or host of this route. Must not overlap with an existing
@@ -669,11 +706,17 @@ export namespace NetworkCreateParams {
     /**
      * Gateway for the route. Cannot be the first IP of the networks ip_range and also
      * cannot be 172.31.1.1 as this IP is being used as a gateway for the public
-     * network interface of Servers.
+     * network interface of Servers. | Gateway for the route. Cannot be the first IP of
+     * the networks ip_range, an IP behind a vSwitch or 172.31.1.1, as this IP is being
+     * used as a gateway for the public network interface of Servers.
      */
     gateway: string;
   }
 
+  /**
+   * Subnets divide the ip_range from the parent Network object into multiple
+   * Subnetworks that you can use for different specific purposes.
+   */
   export interface Subnet {
     /**
      * Name of Network zone. The Location object contains the `network_zone` property
@@ -690,7 +733,11 @@ export namespace NetworkCreateParams {
      * Range to allocate IPs from. Must be a Subnet of the ip_range of the parent
      * network object and must not overlap with any other subnets or with any
      * destinations in routes. Minimum Network size is /30. We suggest that you pick a
-     * bigger Network with a /24 netmask.
+     * bigger Network with a /24 netmask. | Range to allocate IPs from. Must be a
+     * Subnet of the ip_range of the parent network object and must not overlap with
+     * any other subnets or with any destinations in routes. If the Subnet is of type
+     * vSwitch, it also can not overlap with any gateway in routes. Minimum Network
+     * size is /30. We suggest that you pick a bigger Network with a /24 netmask.
      */
     ip_range?: string;
 
@@ -714,21 +761,12 @@ export interface NetworkUpdateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: NetworkUpdateParams.Labels;
+  labels?: Record<string, string>;
 
   /**
    * New network name
    */
   name?: string;
-}
-
-export namespace NetworkUpdateParams {
-  /**
-   * User-defined labels (key-value pairs)
-   */
-  export interface Labels {
-    labelkey?: string;
-  }
 }
 
 export interface NetworkListParams {
@@ -744,8 +782,15 @@ export interface NetworkListParams {
    */
   name?: string;
 
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 }
 
@@ -759,6 +804,14 @@ export namespace Networks {
   export import NetworkListParams = API.NetworkListParams;
 
   export import Actions = API.Actions;
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionAddRouteResponse = API.ActionAddRouteResponse;
+  export import ActionAddSubnetResponse = API.ActionAddSubnetResponse;
+  export import ActionChangeIpRangeResponse = API.ActionChangeIpRangeResponse;
+  export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
+  export import ActionDeleteRouteResponse = API.ActionDeleteRouteResponse;
+  export import ActionDeleteSubnetResponse = API.ActionDeleteSubnetResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAddRouteParams = API.ActionAddRouteParams;
   export import ActionAddSubnetParams = API.ActionAddSubnetParams;
