@@ -32,270 +32,149 @@ export class ServerTypes extends APIResource {
 }
 
 /**
+ * Type of cpu
+ */
+export type CpuType = 'dedicated' | 'shared';
+
+export interface ServerType {
+  /**
+   * ID of the Server type
+   */
+  id: number;
+
+  /**
+   * Type of cpu architecture this image is compatible with. | Type of cpu
+   * architecture
+   */
+  architecture: 'arm' | 'x86';
+
+  /**
+   * Number of cpu cores a Server of this type will have
+   */
+  cores: number;
+
+  /**
+   * Type of cpu
+   */
+  cpu_type: CpuType;
+
+  /**
+   * This field is deprecated. Use the deprecation object instead
+   */
+  deprecated: boolean | null;
+
+  /**
+   * Description of the Server type
+   */
+  description: string;
+
+  /**
+   * Disk size a Server of this type will have in GB
+   */
+  disk: number;
+
+  /**
+   * Free traffic per month in bytes
+   */
+  included_traffic: number;
+
+  /**
+   * Memory a Server of this type will have in GB
+   */
+  memory: number;
+
+  /**
+   * Unique identifier of the Server type
+   */
+  name: string;
+
+  /**
+   * Prices in different Locations
+   */
+  prices: Array<ServerType.Price>;
+
+  /**
+   * Type of Server boot drive. Local has higher speed. Network has better
+   * availability.
+   */
+  storage_type: 'local' | 'network';
+
+  /**
+   * Describes if, when & how the resources was deprecated. If this field is set to
+   * `null` the resource is not deprecated. If it has a value, it is considered
+   * deprecated.
+   */
+  deprecation?: ServerType.Deprecation | null;
+}
+
+export namespace ServerType {
+  export interface Price {
+    /**
+     * Name of the Location the price is for
+     */
+    location: string;
+
+    /**
+     * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
+     * this Location | Monthly costs for a Floating IP type in this Location | Hourly
+     * costs for a Load Balancer type in this network zone | Monthly costs for a Load
+     * Balancer type in this network zone | Hourly costs for a Primary IP type in this
+     * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
+     * for a Server type in this Location | Monthly costs for a Server type in this
+     * Location
+     */
+    price_hourly: Pricing.Price;
+
+    /**
+     * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
+     * this Location | Monthly costs for a Floating IP type in this Location | Hourly
+     * costs for a Load Balancer type in this network zone | Monthly costs for a Load
+     * Balancer type in this network zone | Hourly costs for a Primary IP type in this
+     * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
+     * for a Server type in this Location | Monthly costs for a Server type in this
+     * Location
+     */
+    price_monthly: Pricing.Price;
+  }
+
+  /**
+   * Describes if, when & how the resources was deprecated. If this field is set to
+   * `null` the resource is not deprecated. If it has a value, it is considered
+   * deprecated.
+   */
+  export interface Deprecation {
+    /**
+     * Date of when the deprecation was announced.
+     */
+    announced: string;
+
+    /**
+     * After the time in this field, the resource will not be available from the
+     * general listing endpoint of the resource type, and it can not be used in new
+     * resources. For example, if this is an image, you can not create new servers with
+     * this image after the mentioned date.
+     */
+    unavailable_after: string;
+  }
+}
+
+/**
  * Response to GET https://api.hetzner.cloud/v1/server_types/{id}
  */
 export interface ServerTypeRetrieveResponse {
-  server_type: ServerTypeRetrieveResponse.ServerType;
-}
-
-export namespace ServerTypeRetrieveResponse {
-  export interface ServerType {
-    /**
-     * ID of the Server type
-     */
-    id: number;
-
-    /**
-     * Type of cpu architecture this image is compatible with. | Type of cpu
-     * architecture
-     */
-    architecture: 'arm' | 'x86';
-
-    /**
-     * Number of cpu cores a Server of this type will have
-     */
-    cores: number;
-
-    /**
-     * Type of cpu
-     */
-    cpu_type: 'dedicated' | 'shared';
-
-    /**
-     * This field is deprecated. Use the deprecation object instead
-     */
-    deprecated: boolean | null;
-
-    /**
-     * Description of the Server type
-     */
-    description: string;
-
-    /**
-     * Disk size a Server of this type will have in GB
-     */
-    disk: number;
-
-    /**
-     * Free traffic per month in bytes
-     */
-    included_traffic: number;
-
-    /**
-     * Memory a Server of this type will have in GB
-     */
-    memory: number;
-
-    /**
-     * Unique identifier of the Server type
-     */
-    name: string;
-
-    /**
-     * Prices in different Locations
-     */
-    prices: Array<ServerType.Price>;
-
-    /**
-     * Type of Server boot drive. Local has higher speed. Network has better
-     * availability.
-     */
-    storage_type: 'local' | 'network';
-
-    /**
-     * Describes if, when & how the resources was deprecated. If this field is set to
-     * `null` the resource is not deprecated. If it has a value, it is considered
-     * deprecated.
-     */
-    deprecation?: ServerType.Deprecation | null;
-  }
-
-  export namespace ServerType {
-    export interface Price {
-      /**
-       * Name of the Location the price is for
-       */
-      location: string;
-
-      /**
-       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
-       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
-       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
-       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-       * for a Server type in this Location | Monthly costs for a Server type in this
-       * Location
-       */
-      price_hourly: Pricing.Price;
-
-      /**
-       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
-       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
-       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
-       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-       * for a Server type in this Location | Monthly costs for a Server type in this
-       * Location
-       */
-      price_monthly: Pricing.Price;
-    }
-
-    /**
-     * Describes if, when & how the resources was deprecated. If this field is set to
-     * `null` the resource is not deprecated. If it has a value, it is considered
-     * deprecated.
-     */
-    export interface Deprecation {
-      /**
-       * Date of when the deprecation was announced.
-       */
-      announced: string;
-
-      /**
-       * After the time in this field, the resource will not be available from the
-       * general listing endpoint of the resource type, and it can not be used in new
-       * resources. For example, if this is an image, you can not create new servers with
-       * this image after the mentioned date.
-       */
-      unavailable_after: string;
-    }
-  }
+  server_type: ServerType;
 }
 
 /**
  * Response to GET https://api.hetzner.cloud/v1/server_types
  */
 export interface ServerTypeListResponse {
-  server_types: Array<ServerTypeListResponse.ServerType>;
+  server_types: Array<ServerType>;
 
   /**
    * Metadata contained in the response
    */
   meta?: Shared.ResponseMeta;
-}
-
-export namespace ServerTypeListResponse {
-  export interface ServerType {
-    /**
-     * ID of the Server type
-     */
-    id: number;
-
-    /**
-     * Type of cpu architecture this image is compatible with. | Type of cpu
-     * architecture
-     */
-    architecture: 'arm' | 'x86';
-
-    /**
-     * Number of cpu cores a Server of this type will have
-     */
-    cores: number;
-
-    /**
-     * Type of cpu
-     */
-    cpu_type: 'dedicated' | 'shared';
-
-    /**
-     * This field is deprecated. Use the deprecation object instead
-     */
-    deprecated: boolean | null;
-
-    /**
-     * Description of the Server type
-     */
-    description: string;
-
-    /**
-     * Disk size a Server of this type will have in GB
-     */
-    disk: number;
-
-    /**
-     * Free traffic per month in bytes
-     */
-    included_traffic: number;
-
-    /**
-     * Memory a Server of this type will have in GB
-     */
-    memory: number;
-
-    /**
-     * Unique identifier of the Server type
-     */
-    name: string;
-
-    /**
-     * Prices in different Locations
-     */
-    prices: Array<ServerType.Price>;
-
-    /**
-     * Type of Server boot drive. Local has higher speed. Network has better
-     * availability.
-     */
-    storage_type: 'local' | 'network';
-
-    /**
-     * Describes if, when & how the resources was deprecated. If this field is set to
-     * `null` the resource is not deprecated. If it has a value, it is considered
-     * deprecated.
-     */
-    deprecation?: ServerType.Deprecation | null;
-  }
-
-  export namespace ServerType {
-    export interface Price {
-      /**
-       * Name of the Location the price is for
-       */
-      location: string;
-
-      /**
-       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
-       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
-       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
-       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-       * for a Server type in this Location | Monthly costs for a Server type in this
-       * Location
-       */
-      price_hourly: Pricing.Price;
-
-      /**
-       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
-       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
-       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
-       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-       * for a Server type in this Location | Monthly costs for a Server type in this
-       * Location
-       */
-      price_monthly: Pricing.Price;
-    }
-
-    /**
-     * Describes if, when & how the resources was deprecated. If this field is set to
-     * `null` the resource is not deprecated. If it has a value, it is considered
-     * deprecated.
-     */
-    export interface Deprecation {
-      /**
-       * Date of when the deprecation was announced.
-       */
-      announced: string;
-
-      /**
-       * After the time in this field, the resource will not be available from the
-       * general listing endpoint of the resource type, and it can not be used in new
-       * resources. For example, if this is an image, you can not create new servers with
-       * this image after the mentioned date.
-       */
-      unavailable_after: string;
-    }
-  }
 }
 
 export interface ServerTypeListParams {
@@ -318,6 +197,8 @@ export interface ServerTypeListParams {
 }
 
 export namespace ServerTypes {
+  export import CpuType = API.CpuType;
+  export import ServerType = API.ServerType;
   export import ServerTypeRetrieveResponse = API.ServerTypeRetrieveResponse;
   export import ServerTypeListResponse = API.ServerTypeListResponse;
   export import ServerTypeListParams = API.ServerTypeListParams;

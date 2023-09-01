@@ -375,6 +375,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/server-types.ts">CpuType</a></code>
+- <code><a href="./src/resources/server-types.ts">ServerType</a></code>
 - <code><a href="./src/resources/server-types.ts">ServerTypeRetrieveResponse</a></code>
 - <code><a href="./src/resources/server-types.ts">ServerTypeListResponse</a></code>
 

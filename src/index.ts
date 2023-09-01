@@ -305,6 +305,8 @@ export namespace Hetzner {
   export import PrimaryIpListParams = API.PrimaryIpListParams;
 
   export import ServerTypes = API.ServerTypes;
+  export import CpuType = API.CpuType;
+  export import ServerType = API.ServerType;
   export import ServerTypeRetrieveResponse = API.ServerTypeRetrieveResponse;
   export import ServerTypeListResponse = API.ServerTypeListResponse;
   export import ServerTypeListParams = API.ServerTypeListParams;

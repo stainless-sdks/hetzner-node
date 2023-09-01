@@ -14,6 +14,14 @@ export {
   Certificates,
 } from './certificates/certificates';
 export {
+  CpuType,
+  ServerType,
+  ServerTypeRetrieveResponse,
+  ServerTypeListResponse,
+  ServerTypeListParams,
+  ServerTypes,
+} from './server-types';
+export {
   DatacenterRetrieveResponse,
   DatacenterListResponse,
   DatacenterListParams,
@@ -123,12 +131,6 @@ export {
   ServersServersPage,
   Servers,
 } from './servers/servers';
-export {
-  ServerTypeRetrieveResponse,
-  ServerTypeListResponse,
-  ServerTypeListParams,
-  ServerTypes,
-} from './server-types';
 export {
   SshKeyCreateResponse,
   SshKeyRetrieveResponse,

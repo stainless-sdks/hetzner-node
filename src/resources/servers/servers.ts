@@ -3,6 +3,7 @@
 import * as Core from 'hetzner/core';
 import { APIResource } from 'hetzner/resource';
 import { isRequestOptions } from 'hetzner/core';
+import * as ServerTypes from 'hetzner/resources/server-types';
 import * as Pricing from 'hetzner/resources/pricing';
 import * as Shared from 'hetzner/resources/shared';
 import { Actions } from './actions';
@@ -512,7 +513,7 @@ export namespace Server {
     /**
      * Type of cpu
      */
-    cpu_type: 'dedicated' | 'shared';
+    cpu_type: ServerTypes.CpuType;
 
     /**
      * True if Server type is deprecated
