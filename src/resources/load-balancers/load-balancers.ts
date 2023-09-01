@@ -408,7 +408,7 @@ export namespace LoadBalancer {
      * services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as
      * well. Only present for target type "ip".
      */
-    ip?: LoadBalancerTargetIp;
+    ip?: LoadBalancerTargetIP;
 
     /**
      * Configuration for type LabelSelector, required if type is `label_selector`
@@ -641,7 +641,7 @@ export namespace LoadBalancerServiceModel {
  * services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as
  * well. Only present for target type "ip".
  */
-export interface LoadBalancerTargetIp {
+export interface LoadBalancerTargetIP {
   /**
    * IP of a server that belongs to the same customer (public IPv4/IPv6) or private
    * IP in a Subnetwork type vswitch.
@@ -774,7 +774,7 @@ export namespace LoadBalancerCreateParams {
      * services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as
      * well. Only present for target type "ip".
      */
-    ip?: LoadBalancerTargetIp;
+    ip?: LoadBalancerTargetIP;
 
     /**
      * Configuration for type LabelSelector, required if type is `label_selector`
@@ -912,7 +912,7 @@ export interface LoadBalancerListParams {
 export namespace LoadBalancers {
   export import LoadBalancer = API.LoadBalancer;
   export import LoadBalancerServiceModel = API.LoadBalancerServiceModel;
-  export import LoadBalancerTargetIp = API.LoadBalancerTargetIp;
+  export import LoadBalancerTargetIP = API.LoadBalancerTargetIP;
   export import LoadBalancerCreateResponse = API.LoadBalancerCreateResponse;
   export import LoadBalancerRetrieveResponse = API.LoadBalancerRetrieveResponse;
   export import LoadBalancerUpdateResponse = API.LoadBalancerUpdateResponse;
@@ -928,7 +928,7 @@ export namespace LoadBalancers {
   export import ActionAssTargetResponse = API.ActionAssTargetResponse;
   export import ActionAttachToNetworkResponse = API.ActionAttachToNetworkResponse;
   export import ActionChangeAlgorithmResponse = API.ActionChangeAlgorithmResponse;
-  export import ActionChangeDnsPtrResponse = API.ActionChangeDnsPtrResponse;
+  export import ActionChangeDNSPtrResponse = API.ActionChangeDNSPtrResponse;
   export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
   export import ActionChangeTypeResponse = API.ActionChangeTypeResponse;
   export import ActionDeleteServiceResponse = API.ActionDeleteServiceResponse;
@@ -942,7 +942,7 @@ export namespace LoadBalancers {
   export import ActionAssTargetParams = API.ActionAssTargetParams;
   export import ActionAttachToNetworkParams = API.ActionAttachToNetworkParams;
   export import ActionChangeAlgorithmParams = API.ActionChangeAlgorithmParams;
-  export import ActionChangeDnsPtrParams = API.ActionChangeDnsPtrParams;
+  export import ActionChangeDNSPtrParams = API.ActionChangeDNSPtrParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
   export import ActionChangeTypeParams = API.ActionChangeTypeParams;
   export import ActionDeleteServiceParams = API.ActionDeleteServiceParams;

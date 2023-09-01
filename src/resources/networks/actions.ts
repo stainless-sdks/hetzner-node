@@ -87,11 +87,11 @@ export class Actions extends APIResource {
    * Note: if the Network object changes during the request, the response will be a
    * “conflict” error.
    */
-  changeIpRange(
+  changeIPRange(
     id: number,
-    body: ActionChangeIpRangeParams,
+    body: ActionChangeIPRangeParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ActionChangeIpRangeResponse> {
+  ): Core.APIPromise<ActionChangeIPRangeResponse> {
     return this.post(`/networks/${id}/actions/change_ip_range`, { body, ...options });
   }
 
@@ -199,7 +199,7 @@ export interface ActionAddSubnetResponse {
  * Response to POST
  * https://api.hetzner.cloud/v1/networks/{id}/actions/change_ip_range
  */
-export interface ActionChangeIpRangeResponse {
+export interface ActionChangeIPRangeResponse {
   /**
    * Actions show the results and progress of asynchronous requests to the API.
    */
@@ -311,7 +311,7 @@ export interface ActionAddSubnetParams {
   vswitch_id?: number;
 }
 
-export interface ActionChangeIpRangeParams {
+export interface ActionChangeIPRangeParams {
   /**
    * The new prefix for the whole Network
    */
@@ -356,14 +356,14 @@ export namespace Actions {
   export import ActionListResponse = API.ActionListResponse;
   export import ActionAddRouteResponse = API.ActionAddRouteResponse;
   export import ActionAddSubnetResponse = API.ActionAddSubnetResponse;
-  export import ActionChangeIpRangeResponse = API.ActionChangeIpRangeResponse;
+  export import ActionChangeIPRangeResponse = API.ActionChangeIPRangeResponse;
   export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
   export import ActionDeleteRouteResponse = API.ActionDeleteRouteResponse;
   export import ActionDeleteSubnetResponse = API.ActionDeleteSubnetResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAddRouteParams = API.ActionAddRouteParams;
   export import ActionAddSubnetParams = API.ActionAddSubnetParams;
-  export import ActionChangeIpRangeParams = API.ActionChangeIpRangeParams;
+  export import ActionChangeIPRangeParams = API.ActionChangeIPRangeParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
   export import ActionDeleteRouteParams = API.ActionDeleteRouteParams;
   export import ActionDeleteSubnetParams = API.ActionDeleteSubnetParams;

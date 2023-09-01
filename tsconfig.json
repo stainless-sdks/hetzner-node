@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "hetzner/_shims/*": ["src/_shims/*.node"],
+      "hetzner/_shims/*": ["src/_shims/*-node"],
       "hetzner": ["src/index.ts"],
       "hetzner/*": ["src/*"],
       "digest-fetch": ["./typings/digest-fetch"]

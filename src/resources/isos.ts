@@ -6,23 +6,23 @@ import { isRequestOptions } from 'hetzner/core';
 import * as Shared from 'hetzner/resources/shared';
 import * as API from './index';
 
-export class Isos extends APIResource {
+export class ISOs extends APIResource {
   /**
    * Returns a specific ISO object.
    */
-  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<IsoRetrieveResponse> {
+  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<ISORetrieveResponse> {
     return this.get(`/isos/${id}`, options);
   }
 
   /**
    * Returns all available ISO objects.
    */
-  list(query?: IsoListParams, options?: Core.RequestOptions): Core.APIPromise<IsoListResponse>;
-  list(options?: Core.RequestOptions): Core.APIPromise<IsoListResponse>;
+  list(query?: ISOListParams, options?: Core.RequestOptions): Core.APIPromise<ISOListResponse>;
+  list(options?: Core.RequestOptions): Core.APIPromise<ISOListResponse>;
   list(
-    query: IsoListParams | Core.RequestOptions = {},
+    query: ISOListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<IsoListResponse> {
+  ): Core.APIPromise<ISOListResponse> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -33,12 +33,12 @@ export class Isos extends APIResource {
 /**
  * Response to GET https://api.hetzner.cloud/v1/isos/{id}
  */
-export interface IsoRetrieveResponse {
-  iso: IsoRetrieveResponse.Iso;
+export interface ISORetrieveResponse {
+  iso: ISORetrieveResponse.ISO;
 }
 
-export namespace IsoRetrieveResponse {
-  export interface Iso {
+export namespace ISORetrieveResponse {
+  export interface ISO {
     /**
      * ID of the Resource
      */
@@ -76,8 +76,8 @@ export namespace IsoRetrieveResponse {
 /**
  * Response to GET https://api.hetzner.cloud/v1/isos
  */
-export interface IsoListResponse {
-  isos: Array<IsoListResponse.Iso>;
+export interface ISOListResponse {
+  isos: Array<ISOListResponse.ISO>;
 
   /**
    * Metadata contained in the response
@@ -85,8 +85,8 @@ export interface IsoListResponse {
   meta?: Shared.ResponseMeta;
 }
 
-export namespace IsoListResponse {
-  export interface Iso {
+export namespace ISOListResponse {
+  export interface ISO {
     /**
      * ID of the Resource
      */
@@ -121,7 +121,7 @@ export namespace IsoListResponse {
   }
 }
 
-export interface IsoListParams {
+export interface ISOListParams {
   /**
    * Return only ISOs with the given architecture.
    */
@@ -151,8 +151,8 @@ export interface IsoListParams {
   per_page?: number;
 }
 
-export namespace Isos {
-  export import IsoRetrieveResponse = API.IsoRetrieveResponse;
-  export import IsoListResponse = API.IsoListResponse;
-  export import IsoListParams = API.IsoListParams;
+export namespace ISOs {
+  export import ISORetrieveResponse = API.ISORetrieveResponse;
+  export import ISOListResponse = API.ISOListResponse;
+  export import ISOListParams = API.ISOListParams;
 }

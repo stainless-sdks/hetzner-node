@@ -1,7 +1,7 @@
 import { type RequestOptions } from './core';
 import { type Readable } from 'hetzner/_shims/node-readable';
 import { type BodyInit } from 'hetzner/_shims/fetch';
-import { FormData, File, type Blob, type FilePropertyBag } from 'hetzner/_shims/formdata';
+import { FormData, File, type Blob, type FilePropertyBag } from 'hetzner/_shims/form-data';
 import { getMultipartRequestOptions } from 'hetzner/_shims/getMultipartRequestOptions';
 import { fileFromPath } from 'hetzner/_shims/fileFromPath';
 import { type FsReadStream, isFsReadStream } from 'hetzner/_shims/node-readable';

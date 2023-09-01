@@ -34,7 +34,7 @@ export class ServerTypes extends APIResource {
 /**
  * Type of cpu
  */
-export type CpuType = 'dedicated' | 'shared';
+export type CPUType = 'dedicated' | 'shared';
 
 export interface ServerType {
   /**
@@ -56,7 +56,7 @@ export interface ServerType {
   /**
    * Type of cpu
    */
-  cpu_type: CpuType;
+  cpu_type: CPUType;
 
   /**
    * This field is deprecated. Use the deprecation object instead
@@ -197,7 +197,7 @@ export interface ServerTypeListParams {
 }
 
 export namespace ServerTypes {
-  export import CpuType = API.CpuType;
+  export import CPUType = API.CPUType;
   export import ServerType = API.ServerType;
   export import ServerTypeRetrieveResponse = API.ServerTypeRetrieveResponse;
   export import ServerTypeListResponse = API.ServerTypeListResponse;

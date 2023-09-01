@@ -66,11 +66,11 @@ export class Actions extends APIResource {
    * Servers with attached ISOs have a modified boot order: They will try to boot
    * from the ISO first before falling back to hard disk.
    */
-  attachIso(
+  attachISO(
     id: number,
-    body: ActionAttachIsoParams,
+    body: ActionAttachISOParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ActionAttachIsoResponse> {
+  ): Core.APIPromise<ActionAttachISOResponse> {
     return this.post(`/servers/${id}/actions/attach_iso`, { body, ...options });
   }
 
@@ -109,11 +109,11 @@ export class Actions extends APIResource {
    * request body. So if you want to add an alias IP, you have to provide the
    * existing ones from the Network plus the new alias IP in the request body.
    */
-  changeAliasIps(
+  changeAliasIPs(
     id: number,
-    body: ActionChangeAliasIpsParams,
+    body: ActionChangeAliasIPsParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ActionChangeAliasIpsResponse> {
+  ): Core.APIPromise<ActionChangeAliasIPsResponse> {
     return this.post(`/servers/${id}/actions/change_alias_ips`, { body, ...options });
   }
 
@@ -123,11 +123,11 @@ export class Actions extends APIResource {
    *
    * Floating IPs assigned to the Server are not affected by this.
    */
-  changeDnsPtr(
+  changeDNSPtr(
     id: number,
-    body: ActionChangeDnsPtrParams,
+    body: ActionChangeDNSPtrParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ActionChangeDnsPtrResponse> {
+  ): Core.APIPromise<ActionChangeDNSPtrResponse> {
     return this.post(`/servers/${id}/actions/change_dns_ptr`, { body, ...options });
   }
 
@@ -229,7 +229,7 @@ export class Actions extends APIResource {
    * Detaches an ISO from a Server. In case no ISO Image is attached to the Server,
    * the status of the returned Action is immediately set to `success`
    */
-  detachIso(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionDetachIsoResponse> {
+  detachISO(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionDetachISOResponse> {
     return this.post(`/servers/${id}/actions/detach_iso`, options);
   }
 
@@ -438,7 +438,7 @@ export interface ActionAddToPlacementGroupResponse {
 /**
  * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_iso
  */
-export interface ActionAttachIsoResponse {
+export interface ActionAttachISOResponse {
   /**
    * Actions show the results and progress of asynchronous requests to the API.
    */
@@ -460,7 +460,7 @@ export interface ActionAttachToNetworkResponse {
  * Response to POST
  * https://api.hetzner.cloud/v1/servers/{id}/actions/change_alias_ips
  */
-export interface ActionChangeAliasIpsResponse {
+export interface ActionChangeAliasIPsResponse {
   /**
    * Actions show the results and progress of asynchronous requests to the API.
    */
@@ -471,7 +471,7 @@ export interface ActionChangeAliasIpsResponse {
  * Response to POST
  * https://api.hetzner.cloud/v1/servers/{id}/actions/change_dns_ptr
  */
-export interface ActionChangeDnsPtrResponse {
+export interface ActionChangeDNSPtrResponse {
   /**
    * Actions show the results and progress of asynchronous requests to the API.
    */
@@ -649,7 +649,7 @@ export interface ActionDetachFromNetworkResponse {
 /**
  * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_iso
  */
-export interface ActionDetachIsoResponse {
+export interface ActionDetachISOResponse {
   /**
    * Actions show the results and progress of asynchronous requests to the API.
    */
@@ -849,7 +849,7 @@ export interface ActionAddToPlacementGroupParams {
   placement_group: number;
 }
 
-export interface ActionAttachIsoParams {
+export interface ActionAttachISOParams {
   /**
    * ID or name of ISO to attach to the Server as listed in GET `/isos`
    */
@@ -874,7 +874,7 @@ export interface ActionAttachToNetworkParams {
   ip?: string;
 }
 
-export interface ActionChangeAliasIpsParams {
+export interface ActionChangeAliasIPsParams {
   /**
    * New alias IPs to set for this Server
    */
@@ -886,7 +886,7 @@ export interface ActionChangeAliasIpsParams {
   network: number;
 }
 
-export interface ActionChangeDnsPtrParams {
+export interface ActionChangeDNSPtrParams {
   /**
    * Hostname to set as a reverse DNS PTR entry, reset to original value if `null`
    */
@@ -972,15 +972,15 @@ export namespace Actions {
   export import ActionRetrieveResponse = API.ActionRetrieveResponse;
   export import ActionListResponse = API.ActionListResponse;
   export import ActionAddToPlacementGroupResponse = API.ActionAddToPlacementGroupResponse;
-  export import ActionAttachIsoResponse = API.ActionAttachIsoResponse;
+  export import ActionAttachISOResponse = API.ActionAttachISOResponse;
   export import ActionAttachToNetworkResponse = API.ActionAttachToNetworkResponse;
-  export import ActionChangeAliasIpsResponse = API.ActionChangeAliasIpsResponse;
-  export import ActionChangeDnsPtrResponse = API.ActionChangeDnsPtrResponse;
+  export import ActionChangeAliasIPsResponse = API.ActionChangeAliasIPsResponse;
+  export import ActionChangeDNSPtrResponse = API.ActionChangeDNSPtrResponse;
   export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
   export import ActionChangeTypeResponse = API.ActionChangeTypeResponse;
   export import ActionCreateImageResponse = API.ActionCreateImageResponse;
   export import ActionDetachFromNetworkResponse = API.ActionDetachFromNetworkResponse;
-  export import ActionDetachIsoResponse = API.ActionDetachIsoResponse;
+  export import ActionDetachISOResponse = API.ActionDetachISOResponse;
   export import ActionDisableBackupResponse = API.ActionDisableBackupResponse;
   export import ActionDisableRescueResponse = API.ActionDisableRescueResponse;
   export import ActionEnableBackupResponse = API.ActionEnableBackupResponse;
@@ -996,10 +996,10 @@ export namespace Actions {
   export import ActionShutdownResponse = API.ActionShutdownResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAddToPlacementGroupParams = API.ActionAddToPlacementGroupParams;
-  export import ActionAttachIsoParams = API.ActionAttachIsoParams;
+  export import ActionAttachISOParams = API.ActionAttachISOParams;
   export import ActionAttachToNetworkParams = API.ActionAttachToNetworkParams;
-  export import ActionChangeAliasIpsParams = API.ActionChangeAliasIpsParams;
-  export import ActionChangeDnsPtrParams = API.ActionChangeDnsPtrParams;
+  export import ActionChangeAliasIPsParams = API.ActionChangeAliasIPsParams;
+  export import ActionChangeDNSPtrParams = API.ActionChangeDNSPtrParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
   export import ActionChangeTypeParams = API.ActionChangeTypeParams;
   export import ActionCreateImageParams = API.ActionCreateImageParams;

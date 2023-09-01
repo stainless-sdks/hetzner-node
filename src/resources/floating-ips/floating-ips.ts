@@ -6,9 +6,9 @@ import { isRequestOptions } from 'hetzner/core';
 import * as Shared from 'hetzner/resources/shared';
 import { Actions } from './actions';
 import * as API from './index';
-import { FloatingIpsPage, FloatingIpsPageParams } from 'hetzner/pagination';
+import { FloatingIPsPage, FloatingIPsPageParams } from 'hetzner/pagination';
 
-export class FloatingIps extends APIResource {
+export class FloatingIPs extends APIResource {
   actions: Actions = new Actions(this.client);
 
   /**
@@ -20,16 +20,16 @@ export class FloatingIps extends APIResource {
    * in the same Location it was created in.
    */
   create(
-    body: FloatingIpCreateParams,
+    body: FloatingIPCreateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<FloatingIpCreateResponse> {
+  ): Core.APIPromise<FloatingIPCreateResponse> {
     return this.post('/floating_ips', { body, ...options });
   }
 
   /**
    * Returns a specific Floating IP object.
    */
-  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<FloatingIpRetrieveResponse> {
+  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<FloatingIPRetrieveResponse> {
     return this.get(`/floating_ips/${id}`, options);
   }
 
@@ -41,15 +41,15 @@ export class FloatingIps extends APIResource {
    */
   update(
     id: number,
-    body?: FloatingIpUpdateParams,
+    body?: FloatingIPUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<FloatingIpUpdateResponse>;
-  update(id: number, options?: Core.RequestOptions): Core.APIPromise<FloatingIpUpdateResponse>;
+  ): Core.APIPromise<FloatingIPUpdateResponse>;
+  update(id: number, options?: Core.RequestOptions): Core.APIPromise<FloatingIPUpdateResponse>;
   update(
     id: number,
-    body: FloatingIpUpdateParams | Core.RequestOptions = {},
+    body: FloatingIPUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<FloatingIpUpdateResponse> {
+  ): Core.APIPromise<FloatingIPUpdateResponse> {
     if (isRequestOptions(body)) {
       return this.update(id, {}, body);
     }
@@ -60,18 +60,18 @@ export class FloatingIps extends APIResource {
    * Returns all Floating IP objects.
    */
   list(
-    query?: FloatingIpListParams,
+    query?: FloatingIPListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FloatingIpsFloatingIpsPage, FloatingIp>;
-  list(options?: Core.RequestOptions): Core.PagePromise<FloatingIpsFloatingIpsPage, FloatingIp>;
+  ): Core.PagePromise<FloatingIPsFloatingIPsPage, FloatingIP>;
+  list(options?: Core.RequestOptions): Core.PagePromise<FloatingIPsFloatingIPsPage, FloatingIP>;
   list(
-    query: FloatingIpListParams | Core.RequestOptions = {},
+    query: FloatingIPListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FloatingIpsFloatingIpsPage, FloatingIp> {
+  ): Core.PagePromise<FloatingIPsFloatingIPsPage, FloatingIP> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/floating_ips', FloatingIpsFloatingIpsPage, { query, ...options });
+    return this.getAPIList('/floating_ips', FloatingIPsFloatingIPsPage, { query, ...options });
   }
 
   /**
@@ -83,11 +83,11 @@ export class FloatingIps extends APIResource {
   }
 }
 
-export class FloatingIpsFloatingIpsPage extends FloatingIpsPage<FloatingIp> {}
+export class FloatingIPsFloatingIPsPage extends FloatingIPsPage<FloatingIP> {}
 // alias so we can export it in the namespace
-type _FloatingIpsFloatingIpsPage = FloatingIpsFloatingIpsPage;
+type _FloatingIPsFloatingIPsPage = FloatingIPsFloatingIPsPage;
 
-export interface FloatingIp {
+export interface FloatingIP {
   /**
    * ID of the Resource
    */
@@ -111,14 +111,14 @@ export interface FloatingIp {
   /**
    * Array of reverse DNS entries
    */
-  dns_ptr: Array<FloatingIp.DnsPtr>;
+  dns_ptr: Array<FloatingIP.DNSPtr>;
 
   /**
    * Location the Floating IP was created in. Routing is optimized for this Location.
    * | Location of the Volume. Volume can only be attached to Servers in the same
    * Location.
    */
-  home_location: FloatingIp.HomeLocation;
+  home_location: FloatingIP.HomeLocation;
 
   /**
    * IP address
@@ -138,7 +138,7 @@ export interface FloatingIp {
   /**
    * Protection configuration for the Resource
    */
-  protection: FloatingIp.Protection;
+  protection: FloatingIP.Protection;
 
   /**
    * ID of the Server the Floating IP is assigned to, null if it is not assigned at
@@ -152,8 +152,8 @@ export interface FloatingIp {
   type: 'ipv4' | 'ipv6';
 }
 
-export namespace FloatingIp {
-  export interface DnsPtr {
+export namespace FloatingIP {
+  export interface DNSPtr {
     /**
      * DNS pointer for the specific IP address
      */
@@ -228,8 +228,8 @@ export namespace FloatingIp {
 /**
  * Response to POST https://api.hetzner.cloud/v1/floating_ips
  */
-export interface FloatingIpCreateResponse {
-  floating_ip: FloatingIp;
+export interface FloatingIPCreateResponse {
+  floating_ip: FloatingIP;
 
   /**
    * Actions show the results and progress of asynchronous requests to the API.
@@ -240,18 +240,18 @@ export interface FloatingIpCreateResponse {
 /**
  * Response to GET https://api.hetzner.cloud/v1/floating_ips/{id}
  */
-export interface FloatingIpRetrieveResponse {
-  floating_ip: FloatingIp;
+export interface FloatingIPRetrieveResponse {
+  floating_ip: FloatingIP;
 }
 
 /**
  * Response to PUT https://api.hetzner.cloud/v1/floating_ips/{id}
  */
-export interface FloatingIpUpdateResponse {
-  floating_ip: FloatingIp;
+export interface FloatingIPUpdateResponse {
+  floating_ip: FloatingIP;
 }
 
-export interface FloatingIpCreateParams {
+export interface FloatingIPCreateParams {
   /**
    * The type of the IP
    */
@@ -278,7 +278,7 @@ export interface FloatingIpCreateParams {
   server?: number;
 }
 
-export interface FloatingIpUpdateParams {
+export interface FloatingIPUpdateParams {
   /**
    * New Description to set
    */
@@ -295,7 +295,7 @@ export interface FloatingIpUpdateParams {
   name?: string;
 }
 
-export interface FloatingIpListParams extends FloatingIpsPageParams {
+export interface FloatingIPListParams extends FloatingIPsPageParams {
   /**
    * Can be used to filter Floating IPs by labels. The response will only contain
    * Floating IPs matching the label selector.
@@ -315,25 +315,25 @@ export interface FloatingIpListParams extends FloatingIpsPageParams {
   sort?: 'id' | 'id:asc' | 'id:desc' | 'created' | 'created:asc' | 'created:desc';
 }
 
-export namespace FloatingIps {
-  export import FloatingIp = API.FloatingIp;
-  export import FloatingIpCreateResponse = API.FloatingIpCreateResponse;
-  export import FloatingIpRetrieveResponse = API.FloatingIpRetrieveResponse;
-  export import FloatingIpUpdateResponse = API.FloatingIpUpdateResponse;
-  export type FloatingIpsFloatingIpsPage = _FloatingIpsFloatingIpsPage;
-  export import FloatingIpCreateParams = API.FloatingIpCreateParams;
-  export import FloatingIpUpdateParams = API.FloatingIpUpdateParams;
-  export import FloatingIpListParams = API.FloatingIpListParams;
+export namespace FloatingIPs {
+  export import FloatingIP = API.FloatingIP;
+  export import FloatingIPCreateResponse = API.FloatingIPCreateResponse;
+  export import FloatingIPRetrieveResponse = API.FloatingIPRetrieveResponse;
+  export import FloatingIPUpdateResponse = API.FloatingIPUpdateResponse;
+  export type FloatingIPsFloatingIPsPage = _FloatingIPsFloatingIPsPage;
+  export import FloatingIPCreateParams = API.FloatingIPCreateParams;
+  export import FloatingIPUpdateParams = API.FloatingIPUpdateParams;
+  export import FloatingIPListParams = API.FloatingIPListParams;
 
   export import Actions = API.Actions;
   export import ActionRetrieveResponse = API.ActionRetrieveResponse;
   export import ActionListResponse = API.ActionListResponse;
   export import ActionAssignResponse = API.ActionAssignResponse;
-  export import ActionChangeDnsPtrResponse = API.ActionChangeDnsPtrResponse;
+  export import ActionChangeDNSPtrResponse = API.ActionChangeDNSPtrResponse;
   export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
   export import ActionUnassignResponse = API.ActionUnassignResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAssignParams = API.ActionAssignParams;
-  export import ActionChangeDnsPtrParams = API.ActionChangeDnsPtrParams;
+  export import ActionChangeDNSPtrParams = API.ActionChangeDNSPtrParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
 }

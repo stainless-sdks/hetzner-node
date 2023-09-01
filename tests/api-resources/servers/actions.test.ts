@@ -68,8 +68,8 @@ describe('resource actions', () => {
     const response = await hetzner.servers.actions.addToPlacementGroup(0, { placement_group: 1 });
   });
 
-  test('attachIso: only required params', async () => {
-    const responsePromise = hetzner.servers.actions.attachIso(0, { iso: 'FreeBSD-11.0-RELEASE-amd64-dvd1' });
+  test('attachISO: only required params', async () => {
+    const responsePromise = hetzner.servers.actions.attachISO(0, { iso: 'FreeBSD-11.0-RELEASE-amd64-dvd1' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -79,8 +79,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('attachIso: required and optional params', async () => {
-    const response = await hetzner.servers.actions.attachIso(0, { iso: 'FreeBSD-11.0-RELEASE-amd64-dvd1' });
+  test('attachISO: required and optional params', async () => {
+    const response = await hetzner.servers.actions.attachISO(0, { iso: 'FreeBSD-11.0-RELEASE-amd64-dvd1' });
   });
 
   test('attachToNetwork: only required params', async () => {
@@ -102,8 +102,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('changeAliasIps: only required params', async () => {
-    const responsePromise = hetzner.servers.actions.changeAliasIps(0, {
+  test('changeAliasIPs: only required params', async () => {
+    const responsePromise = hetzner.servers.actions.changeAliasIPs(0, {
       alias_ips: ['string', 'string', 'string'],
       network: 4711,
     });
@@ -116,15 +116,15 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('changeAliasIps: required and optional params', async () => {
-    const response = await hetzner.servers.actions.changeAliasIps(0, {
+  test('changeAliasIPs: required and optional params', async () => {
+    const response = await hetzner.servers.actions.changeAliasIPs(0, {
       alias_ips: ['string', 'string', 'string'],
       network: 4711,
     });
   });
 
-  test('changeDnsPtr: only required params', async () => {
-    const responsePromise = hetzner.servers.actions.changeDnsPtr(0, {
+  test('changeDNSPtr: only required params', async () => {
+    const responsePromise = hetzner.servers.actions.changeDNSPtr(0, {
       dns_ptr: 'server01.example.com',
       ip: '1.2.3.4',
     });
@@ -137,8 +137,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('changeDnsPtr: required and optional params', async () => {
-    const response = await hetzner.servers.actions.changeDnsPtr(0, {
+  test('changeDNSPtr: required and optional params', async () => {
+    const response = await hetzner.servers.actions.changeDNSPtr(0, {
       dns_ptr: 'server01.example.com',
       ip: '1.2.3.4',
     });
@@ -235,8 +235,8 @@ describe('resource actions', () => {
     const response = await hetzner.servers.actions.detachFromNetwork(0, { network: 4711 });
   });
 
-  test('detachIso', async () => {
-    const responsePromise = hetzner.servers.actions.detachIso(0);
+  test('detachISO', async () => {
+    const responsePromise = hetzner.servers.actions.detachISO(0);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -246,9 +246,9 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('detachIso: request options instead of params are passed correctly', async () => {
+  test('detachISO: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(hetzner.servers.actions.detachIso(0, { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(hetzner.servers.actions.detachISO(0, { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Hetzner.NotFoundError,
     );
   });

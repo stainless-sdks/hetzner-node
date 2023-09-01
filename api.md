@@ -91,22 +91,22 @@ Methods:
 - <code title="post /firewalls/{id}/actions/remove_from_resources">client.firewalls.actions.<a href="./src/resources/firewalls/actions.ts">removeFromResources</a>(id, { ...params }) -> ActionRemoveFromResourcesResponse</code>
 - <code title="post /firewalls/{id}/actions/set_rules">client.firewalls.actions.<a href="./src/resources/firewalls/actions.ts">setRules</a>(id, { ...params }) -> ActionSetRulesResponse</code>
 
-# FloatingIps
+# FloatingIPs
 
 Types:
 
-- <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIp</a></code>
-- <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIpCreateResponse</a></code>
-- <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIpRetrieveResponse</a></code>
-- <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIpUpdateResponse</a></code>
+- <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIP</a></code>
+- <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIPCreateResponse</a></code>
+- <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIPRetrieveResponse</a></code>
+- <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIPUpdateResponse</a></code>
 
 Methods:
 
-- <code title="post /floating_ips">client.floatingIps.<a href="./src/resources/floating-ips/floating-ips.ts">create</a>({ ...params }) -> FloatingIpCreateResponse</code>
-- <code title="get /floating_ips/{id}">client.floatingIps.<a href="./src/resources/floating-ips/floating-ips.ts">retrieve</a>(id) -> FloatingIpRetrieveResponse</code>
-- <code title="put /floating_ips/{id}">client.floatingIps.<a href="./src/resources/floating-ips/floating-ips.ts">update</a>(id, { ...params }) -> FloatingIpUpdateResponse</code>
-- <code title="get /floating_ips">client.floatingIps.<a href="./src/resources/floating-ips/floating-ips.ts">list</a>({ ...params }) -> FloatingIpsFloatingIpsPage</code>
-- <code title="delete /floating_ips/{id}">client.floatingIps.<a href="./src/resources/floating-ips/floating-ips.ts">del</a>(id) -> void</code>
+- <code title="post /floating_ips">client.floatingIPs.<a href="./src/resources/floating-ips/floating-ips.ts">create</a>({ ...params }) -> FloatingIPCreateResponse</code>
+- <code title="get /floating_ips/{id}">client.floatingIPs.<a href="./src/resources/floating-ips/floating-ips.ts">retrieve</a>(id) -> FloatingIPRetrieveResponse</code>
+- <code title="put /floating_ips/{id}">client.floatingIPs.<a href="./src/resources/floating-ips/floating-ips.ts">update</a>(id, { ...params }) -> FloatingIPUpdateResponse</code>
+- <code title="get /floating_ips">client.floatingIPs.<a href="./src/resources/floating-ips/floating-ips.ts">list</a>({ ...params }) -> FloatingIPsFloatingIPsPage</code>
+- <code title="delete /floating_ips/{id}">client.floatingIPs.<a href="./src/resources/floating-ips/floating-ips.ts">del</a>(id) -> void</code>
 
 ## Actions
 
@@ -115,18 +115,18 @@ Types:
 - <code><a href="./src/resources/floating-ips/actions.ts">ActionRetrieveResponse</a></code>
 - <code><a href="./src/resources/floating-ips/actions.ts">ActionListResponse</a></code>
 - <code><a href="./src/resources/floating-ips/actions.ts">ActionAssignResponse</a></code>
-- <code><a href="./src/resources/floating-ips/actions.ts">ActionChangeDnsPtrResponse</a></code>
+- <code><a href="./src/resources/floating-ips/actions.ts">ActionChangeDNSPtrResponse</a></code>
 - <code><a href="./src/resources/floating-ips/actions.ts">ActionChangeProtectionResponse</a></code>
 - <code><a href="./src/resources/floating-ips/actions.ts">ActionUnassignResponse</a></code>
 
 Methods:
 
-- <code title="get /floating_ips/{id}/actions/{action_id}">client.floatingIps.actions.<a href="./src/resources/floating-ips/actions.ts">retrieve</a>(id, actionId) -> ActionRetrieveResponse</code>
-- <code title="get /floating_ips/{id}/actions">client.floatingIps.actions.<a href="./src/resources/floating-ips/actions.ts">list</a>(id, { ...params }) -> ActionListResponse</code>
-- <code title="post /floating_ips/{id}/actions/assign">client.floatingIps.actions.<a href="./src/resources/floating-ips/actions.ts">assign</a>(id, { ...params }) -> ActionAssignResponse</code>
-- <code title="post /floating_ips/{id}/actions/change_dns_ptr">client.floatingIps.actions.<a href="./src/resources/floating-ips/actions.ts">changeDnsPtr</a>(id, { ...params }) -> ActionChangeDnsPtrResponse</code>
-- <code title="post /floating_ips/{id}/actions/change_protection">client.floatingIps.actions.<a href="./src/resources/floating-ips/actions.ts">changeProtection</a>(id, { ...params }) -> ActionChangeProtectionResponse</code>
-- <code title="post /floating_ips/{id}/actions/unassign">client.floatingIps.actions.<a href="./src/resources/floating-ips/actions.ts">unassign</a>(id) -> ActionUnassignResponse</code>
+- <code title="get /floating_ips/{id}/actions/{action_id}">client.floatingIPs.actions.<a href="./src/resources/floating-ips/actions.ts">retrieve</a>(id, actionId) -> ActionRetrieveResponse</code>
+- <code title="get /floating_ips/{id}/actions">client.floatingIPs.actions.<a href="./src/resources/floating-ips/actions.ts">list</a>(id, { ...params }) -> ActionListResponse</code>
+- <code title="post /floating_ips/{id}/actions/assign">client.floatingIPs.actions.<a href="./src/resources/floating-ips/actions.ts">assign</a>(id, { ...params }) -> ActionAssignResponse</code>
+- <code title="post /floating_ips/{id}/actions/change_dns_ptr">client.floatingIPs.actions.<a href="./src/resources/floating-ips/actions.ts">changeDNSPtr</a>(id, { ...params }) -> ActionChangeDNSPtrResponse</code>
+- <code title="post /floating_ips/{id}/actions/change_protection">client.floatingIPs.actions.<a href="./src/resources/floating-ips/actions.ts">changeProtection</a>(id, { ...params }) -> ActionChangeProtectionResponse</code>
+- <code title="post /floating_ips/{id}/actions/unassign">client.floatingIPs.actions.<a href="./src/resources/floating-ips/actions.ts">unassign</a>(id) -> ActionUnassignResponse</code>
 
 # Images
 
@@ -157,17 +157,17 @@ Methods:
 - <code title="get /images/{id}/actions">client.images.actions.<a href="./src/resources/images/actions.ts">list</a>(id, { ...params }) -> ActionListResponse</code>
 - <code title="post /images/{id}/actions/change_protection">client.images.actions.<a href="./src/resources/images/actions.ts">changeProtection</a>(id, { ...params }) -> ActionChangeProtectionResponse</code>
 
-# Isos
+# ISOs
 
 Types:
 
-- <code><a href="./src/resources/isos.ts">IsoRetrieveResponse</a></code>
-- <code><a href="./src/resources/isos.ts">IsoListResponse</a></code>
+- <code><a href="./src/resources/isos.ts">ISORetrieveResponse</a></code>
+- <code><a href="./src/resources/isos.ts">ISOListResponse</a></code>
 
 Methods:
 
-- <code title="get /isos/{id}">client.isos.<a href="./src/resources/isos.ts">retrieve</a>(id) -> IsoRetrieveResponse</code>
-- <code title="get /isos">client.isos.<a href="./src/resources/isos.ts">list</a>({ ...params }) -> IsoListResponse</code>
+- <code title="get /isos/{id}">client.isos.<a href="./src/resources/isos.ts">retrieve</a>(id) -> ISORetrieveResponse</code>
+- <code title="get /isos">client.isos.<a href="./src/resources/isos.ts">list</a>({ ...params }) -> ISOListResponse</code>
 
 # LoadBalancerTypes
 
@@ -187,7 +187,7 @@ Types:
 
 - <code><a href="./src/resources/load-balancers/load-balancers.ts">LoadBalancer</a></code>
 - <code><a href="./src/resources/load-balancers/load-balancers.ts">LoadBalancerServiceModel</a></code>
-- <code><a href="./src/resources/load-balancers/load-balancers.ts">LoadBalancerTargetIp</a></code>
+- <code><a href="./src/resources/load-balancers/load-balancers.ts">LoadBalancerTargetIP</a></code>
 - <code><a href="./src/resources/load-balancers/load-balancers.ts">LoadBalancerCreateResponse</a></code>
 - <code><a href="./src/resources/load-balancers/load-balancers.ts">LoadBalancerRetrieveResponse</a></code>
 - <code><a href="./src/resources/load-balancers/load-balancers.ts">LoadBalancerUpdateResponse</a></code>
@@ -211,7 +211,7 @@ Types:
 - <code><a href="./src/resources/load-balancers/actions.ts">ActionAssTargetResponse</a></code>
 - <code><a href="./src/resources/load-balancers/actions.ts">ActionAttachToNetworkResponse</a></code>
 - <code><a href="./src/resources/load-balancers/actions.ts">ActionChangeAlgorithmResponse</a></code>
-- <code><a href="./src/resources/load-balancers/actions.ts">ActionChangeDnsPtrResponse</a></code>
+- <code><a href="./src/resources/load-balancers/actions.ts">ActionChangeDNSPtrResponse</a></code>
 - <code><a href="./src/resources/load-balancers/actions.ts">ActionChangeProtectionResponse</a></code>
 - <code><a href="./src/resources/load-balancers/actions.ts">ActionChangeTypeResponse</a></code>
 - <code><a href="./src/resources/load-balancers/actions.ts">ActionDeleteServiceResponse</a></code>
@@ -229,7 +229,7 @@ Methods:
 - <code title="post /load_balancers/{id}/actions/add_target">client.loadBalancers.actions.<a href="./src/resources/load-balancers/actions.ts">assTarget</a>(id, { ...params }) -> ActionAssTargetResponse</code>
 - <code title="post /load_balancers/{id}/actions/attach_to_network">client.loadBalancers.actions.<a href="./src/resources/load-balancers/actions.ts">attachToNetwork</a>(id, { ...params }) -> ActionAttachToNetworkResponse</code>
 - <code title="post /load_balancers/{id}/actions/change_algorithm">client.loadBalancers.actions.<a href="./src/resources/load-balancers/actions.ts">changeAlgorithm</a>(id, { ...params }) -> ActionChangeAlgorithmResponse</code>
-- <code title="post /load_balancers/{id}/actions/change_dns_ptr">client.loadBalancers.actions.<a href="./src/resources/load-balancers/actions.ts">changeDnsPtr</a>(id, { ...params }) -> ActionChangeDnsPtrResponse</code>
+- <code title="post /load_balancers/{id}/actions/change_dns_ptr">client.loadBalancers.actions.<a href="./src/resources/load-balancers/actions.ts">changeDNSPtr</a>(id, { ...params }) -> ActionChangeDNSPtrResponse</code>
 - <code title="post /load_balancers/{id}/actions/change_protection">client.loadBalancers.actions.<a href="./src/resources/load-balancers/actions.ts">changeProtection</a>(id, { ...params }) -> ActionChangeProtectionResponse</code>
 - <code title="post /load_balancers/{id}/actions/change_type">client.loadBalancers.actions.<a href="./src/resources/load-balancers/actions.ts">changeType</a>(id, { ...params }) -> ActionChangeTypeResponse</code>
 - <code title="post /load_balancers/{id}/actions/delete_service">client.loadBalancers.actions.<a href="./src/resources/load-balancers/actions.ts">deleteService</a>(id, { ...params }) -> ActionDeleteServiceResponse</code>
@@ -286,7 +286,7 @@ Types:
 - <code><a href="./src/resources/networks/actions.ts">ActionListResponse</a></code>
 - <code><a href="./src/resources/networks/actions.ts">ActionAddRouteResponse</a></code>
 - <code><a href="./src/resources/networks/actions.ts">ActionAddSubnetResponse</a></code>
-- <code><a href="./src/resources/networks/actions.ts">ActionChangeIpRangeResponse</a></code>
+- <code><a href="./src/resources/networks/actions.ts">ActionChangeIPRangeResponse</a></code>
 - <code><a href="./src/resources/networks/actions.ts">ActionChangeProtectionResponse</a></code>
 - <code><a href="./src/resources/networks/actions.ts">ActionDeleteRouteResponse</a></code>
 - <code><a href="./src/resources/networks/actions.ts">ActionDeleteSubnetResponse</a></code>
@@ -297,7 +297,7 @@ Methods:
 - <code title="get /networks/{id}/actions">client.networks.actions.<a href="./src/resources/networks/actions.ts">list</a>(id, { ...params }) -> ActionListResponse</code>
 - <code title="post /networks/{id}/actions/add_route">client.networks.actions.<a href="./src/resources/networks/actions.ts">addRoute</a>(id, { ...params }) -> ActionAddRouteResponse</code>
 - <code title="post /networks/{id}/actions/add_subnet">client.networks.actions.<a href="./src/resources/networks/actions.ts">addSubnet</a>(id, { ...params }) -> ActionAddSubnetResponse</code>
-- <code title="post /networks/{id}/actions/change_ip_range">client.networks.actions.<a href="./src/resources/networks/actions.ts">changeIpRange</a>(id, { ...params }) -> ActionChangeIpRangeResponse</code>
+- <code title="post /networks/{id}/actions/change_ip_range">client.networks.actions.<a href="./src/resources/networks/actions.ts">changeIPRange</a>(id, { ...params }) -> ActionChangeIPRangeResponse</code>
 - <code title="post /networks/{id}/actions/change_protection">client.networks.actions.<a href="./src/resources/networks/actions.ts">changeProtection</a>(id, { ...params }) -> ActionChangeProtectionResponse</code>
 - <code title="post /networks/{id}/actions/delete_route">client.networks.actions.<a href="./src/resources/networks/actions.ts">deleteRoute</a>(id, { ...params }) -> ActionDeleteRouteResponse</code>
 - <code title="post /networks/{id}/actions/delete_subnet">client.networks.actions.<a href="./src/resources/networks/actions.ts">deleteSubnet</a>(id, { ...params }) -> ActionDeleteSubnetResponse</code>
@@ -324,7 +324,7 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/pricing.ts">FloatingIpPriceDetails</a></code>
+- <code><a href="./src/resources/pricing.ts">FloatingIPPriceDetails</a></code>
 - <code><a href="./src/resources/pricing.ts">Price</a></code>
 - <code><a href="./src/resources/pricing.ts">PricePerTimeMonthly</a></code>
 - <code><a href="./src/resources/pricing.ts">PricingRetrieveResponse</a></code>
@@ -333,23 +333,23 @@ Methods:
 
 - <code title="get /pricing">client.pricing.<a href="./src/resources/pricing.ts">retrieve</a>() -> PricingRetrieveResponse</code>
 
-# PrimaryIps
+# PrimaryIPs
 
 Types:
 
-- <code><a href="./src/resources/primary-ips/primary-ips.ts">PrimaryIp</a></code>
-- <code><a href="./src/resources/primary-ips/primary-ips.ts">PrimaryIpCreateResponse</a></code>
-- <code><a href="./src/resources/primary-ips/primary-ips.ts">PrimaryIpRetrieveResponse</a></code>
-- <code><a href="./src/resources/primary-ips/primary-ips.ts">PrimaryIpUpdateResponse</a></code>
-- <code><a href="./src/resources/primary-ips/primary-ips.ts">PrimaryIpListResponse</a></code>
+- <code><a href="./src/resources/primary-ips/primary-ips.ts">PrimaryIP</a></code>
+- <code><a href="./src/resources/primary-ips/primary-ips.ts">PrimaryIPCreateResponse</a></code>
+- <code><a href="./src/resources/primary-ips/primary-ips.ts">PrimaryIPRetrieveResponse</a></code>
+- <code><a href="./src/resources/primary-ips/primary-ips.ts">PrimaryIPUpdateResponse</a></code>
+- <code><a href="./src/resources/primary-ips/primary-ips.ts">PrimaryIPListResponse</a></code>
 
 Methods:
 
-- <code title="post /primary_ips">client.primaryIps.<a href="./src/resources/primary-ips/primary-ips.ts">create</a>({ ...params }) -> PrimaryIpCreateResponse</code>
-- <code title="get /primary_ips/{id}">client.primaryIps.<a href="./src/resources/primary-ips/primary-ips.ts">retrieve</a>(id) -> PrimaryIpRetrieveResponse</code>
-- <code title="put /primary_ips/{id}">client.primaryIps.<a href="./src/resources/primary-ips/primary-ips.ts">update</a>(id, { ...params }) -> PrimaryIpUpdateResponse</code>
-- <code title="get /primary_ips">client.primaryIps.<a href="./src/resources/primary-ips/primary-ips.ts">list</a>({ ...params }) -> PrimaryIpListResponse</code>
-- <code title="delete /primary_ips/{id}">client.primaryIps.<a href="./src/resources/primary-ips/primary-ips.ts">del</a>(id) -> void</code>
+- <code title="post /primary_ips">client.primaryIPs.<a href="./src/resources/primary-ips/primary-ips.ts">create</a>({ ...params }) -> PrimaryIPCreateResponse</code>
+- <code title="get /primary_ips/{id}">client.primaryIPs.<a href="./src/resources/primary-ips/primary-ips.ts">retrieve</a>(id) -> PrimaryIPRetrieveResponse</code>
+- <code title="put /primary_ips/{id}">client.primaryIPs.<a href="./src/resources/primary-ips/primary-ips.ts">update</a>(id, { ...params }) -> PrimaryIPUpdateResponse</code>
+- <code title="get /primary_ips">client.primaryIPs.<a href="./src/resources/primary-ips/primary-ips.ts">list</a>({ ...params }) -> PrimaryIPListResponse</code>
+- <code title="delete /primary_ips/{id}">client.primaryIPs.<a href="./src/resources/primary-ips/primary-ips.ts">del</a>(id) -> void</code>
 
 ## Actions
 
@@ -358,24 +358,24 @@ Types:
 - <code><a href="./src/resources/primary-ips/actions.ts">ActionRetrieveResponse</a></code>
 - <code><a href="./src/resources/primary-ips/actions.ts">ActionListResponse</a></code>
 - <code><a href="./src/resources/primary-ips/actions.ts">ActionAssignResponse</a></code>
-- <code><a href="./src/resources/primary-ips/actions.ts">ActionChangeDnsPtrResponse</a></code>
+- <code><a href="./src/resources/primary-ips/actions.ts">ActionChangeDNSPtrResponse</a></code>
 - <code><a href="./src/resources/primary-ips/actions.ts">ActionChangeProtectionResponse</a></code>
 - <code><a href="./src/resources/primary-ips/actions.ts">ActionUnassignResponse</a></code>
 
 Methods:
 
-- <code title="get /primary_ips/actions/{id}">client.primaryIps.actions.<a href="./src/resources/primary-ips/actions.ts">retrieve</a>(id) -> ActionRetrieveResponse</code>
-- <code title="get /primary_ips/actions">client.primaryIps.actions.<a href="./src/resources/primary-ips/actions.ts">list</a>({ ...params }) -> ActionListResponse</code>
-- <code title="post /primary_ips/{id}/actions/assign">client.primaryIps.actions.<a href="./src/resources/primary-ips/actions.ts">assign</a>(id, { ...params }) -> ActionAssignResponse</code>
-- <code title="post /primary_ips/{id}/actions/change_dns_ptr">client.primaryIps.actions.<a href="./src/resources/primary-ips/actions.ts">changeDnsPtr</a>(id, { ...params }) -> ActionChangeDnsPtrResponse</code>
-- <code title="post /primary_ips/{id}/actions/change_protection">client.primaryIps.actions.<a href="./src/resources/primary-ips/actions.ts">changeProtection</a>(id, { ...params }) -> ActionChangeProtectionResponse</code>
-- <code title="post /primary_ips/{id}/actions/unassign">client.primaryIps.actions.<a href="./src/resources/primary-ips/actions.ts">unassign</a>(id) -> ActionUnassignResponse</code>
+- <code title="get /primary_ips/actions/{id}">client.primaryIPs.actions.<a href="./src/resources/primary-ips/actions.ts">retrieve</a>(id) -> ActionRetrieveResponse</code>
+- <code title="get /primary_ips/actions">client.primaryIPs.actions.<a href="./src/resources/primary-ips/actions.ts">list</a>({ ...params }) -> ActionListResponse</code>
+- <code title="post /primary_ips/{id}/actions/assign">client.primaryIPs.actions.<a href="./src/resources/primary-ips/actions.ts">assign</a>(id, { ...params }) -> ActionAssignResponse</code>
+- <code title="post /primary_ips/{id}/actions/change_dns_ptr">client.primaryIPs.actions.<a href="./src/resources/primary-ips/actions.ts">changeDNSPtr</a>(id, { ...params }) -> ActionChangeDNSPtrResponse</code>
+- <code title="post /primary_ips/{id}/actions/change_protection">client.primaryIPs.actions.<a href="./src/resources/primary-ips/actions.ts">changeProtection</a>(id, { ...params }) -> ActionChangeProtectionResponse</code>
+- <code title="post /primary_ips/{id}/actions/unassign">client.primaryIPs.actions.<a href="./src/resources/primary-ips/actions.ts">unassign</a>(id) -> ActionUnassignResponse</code>
 
 # ServerTypes
 
 Types:
 
-- <code><a href="./src/resources/server-types.ts">CpuType</a></code>
+- <code><a href="./src/resources/server-types.ts">CPUType</a></code>
 - <code><a href="./src/resources/server-types.ts">ServerType</a></code>
 - <code><a href="./src/resources/server-types.ts">ServerTypeRetrieveResponse</a></code>
 - <code><a href="./src/resources/server-types.ts">ServerTypeListResponse</a></code>
@@ -411,15 +411,15 @@ Types:
 - <code><a href="./src/resources/servers/actions.ts">ActionRetrieveResponse</a></code>
 - <code><a href="./src/resources/servers/actions.ts">ActionListResponse</a></code>
 - <code><a href="./src/resources/servers/actions.ts">ActionAddToPlacementGroupResponse</a></code>
-- <code><a href="./src/resources/servers/actions.ts">ActionAttachIsoResponse</a></code>
+- <code><a href="./src/resources/servers/actions.ts">ActionAttachISOResponse</a></code>
 - <code><a href="./src/resources/servers/actions.ts">ActionAttachToNetworkResponse</a></code>
-- <code><a href="./src/resources/servers/actions.ts">ActionChangeAliasIpsResponse</a></code>
-- <code><a href="./src/resources/servers/actions.ts">ActionChangeDnsPtrResponse</a></code>
+- <code><a href="./src/resources/servers/actions.ts">ActionChangeAliasIPsResponse</a></code>
+- <code><a href="./src/resources/servers/actions.ts">ActionChangeDNSPtrResponse</a></code>
 - <code><a href="./src/resources/servers/actions.ts">ActionChangeProtectionResponse</a></code>
 - <code><a href="./src/resources/servers/actions.ts">ActionChangeTypeResponse</a></code>
 - <code><a href="./src/resources/servers/actions.ts">ActionCreateImageResponse</a></code>
 - <code><a href="./src/resources/servers/actions.ts">ActionDetachFromNetworkResponse</a></code>
-- <code><a href="./src/resources/servers/actions.ts">ActionDetachIsoResponse</a></code>
+- <code><a href="./src/resources/servers/actions.ts">ActionDetachISOResponse</a></code>
 - <code><a href="./src/resources/servers/actions.ts">ActionDisableBackupResponse</a></code>
 - <code><a href="./src/resources/servers/actions.ts">ActionDisableRescueResponse</a></code>
 - <code><a href="./src/resources/servers/actions.ts">ActionEnableBackupResponse</a></code>
@@ -439,15 +439,15 @@ Methods:
 - <code title="get /servers/{id}/actions/{action_id}">client.servers.actions.<a href="./src/resources/servers/actions.ts">retrieve</a>(id, actionId) -> ActionRetrieveResponse</code>
 - <code title="get /servers/{id}/actions">client.servers.actions.<a href="./src/resources/servers/actions.ts">list</a>(id, { ...params }) -> ActionListResponse</code>
 - <code title="post /servers/{id}/actions/add_to_placement_group">client.servers.actions.<a href="./src/resources/servers/actions.ts">addToPlacementGroup</a>(id, { ...params }) -> ActionAddToPlacementGroupResponse</code>
-- <code title="post /servers/{id}/actions/attach_iso">client.servers.actions.<a href="./src/resources/servers/actions.ts">attachIso</a>(id, { ...params }) -> ActionAttachIsoResponse</code>
+- <code title="post /servers/{id}/actions/attach_iso">client.servers.actions.<a href="./src/resources/servers/actions.ts">attachISO</a>(id, { ...params }) -> ActionAttachISOResponse</code>
 - <code title="post /servers/{id}/actions/attach_to_network">client.servers.actions.<a href="./src/resources/servers/actions.ts">attachToNetwork</a>(id, { ...params }) -> ActionAttachToNetworkResponse</code>
-- <code title="post /servers/{id}/actions/change_alias_ips">client.servers.actions.<a href="./src/resources/servers/actions.ts">changeAliasIps</a>(id, { ...params }) -> ActionChangeAliasIpsResponse</code>
-- <code title="post /servers/{id}/actions/change_dns_ptr">client.servers.actions.<a href="./src/resources/servers/actions.ts">changeDnsPtr</a>(id, { ...params }) -> ActionChangeDnsPtrResponse</code>
+- <code title="post /servers/{id}/actions/change_alias_ips">client.servers.actions.<a href="./src/resources/servers/actions.ts">changeAliasIPs</a>(id, { ...params }) -> ActionChangeAliasIPsResponse</code>
+- <code title="post /servers/{id}/actions/change_dns_ptr">client.servers.actions.<a href="./src/resources/servers/actions.ts">changeDNSPtr</a>(id, { ...params }) -> ActionChangeDNSPtrResponse</code>
 - <code title="post /servers/{id}/actions/change_protection">client.servers.actions.<a href="./src/resources/servers/actions.ts">changeProtection</a>(id, { ...params }) -> ActionChangeProtectionResponse</code>
 - <code title="post /servers/{id}/actions/change_type">client.servers.actions.<a href="./src/resources/servers/actions.ts">changeType</a>(id, { ...params }) -> ActionChangeTypeResponse</code>
 - <code title="post /servers/{id}/actions/create_image">client.servers.actions.<a href="./src/resources/servers/actions.ts">createImage</a>(id, { ...params }) -> ActionCreateImageResponse</code>
 - <code title="post /servers/{id}/actions/detach_from_network">client.servers.actions.<a href="./src/resources/servers/actions.ts">detachFromNetwork</a>(id, { ...params }) -> ActionDetachFromNetworkResponse</code>
-- <code title="post /servers/{id}/actions/detach_iso">client.servers.actions.<a href="./src/resources/servers/actions.ts">detachIso</a>(id) -> ActionDetachIsoResponse</code>
+- <code title="post /servers/{id}/actions/detach_iso">client.servers.actions.<a href="./src/resources/servers/actions.ts">detachISO</a>(id) -> ActionDetachISOResponse</code>
 - <code title="post /servers/{id}/actions/disable_backup">client.servers.actions.<a href="./src/resources/servers/actions.ts">disableBackup</a>(id) -> ActionDisableBackupResponse</code>
 - <code title="post /servers/{id}/actions/disable_rescue">client.servers.actions.<a href="./src/resources/servers/actions.ts">disableRescue</a>(id) -> ActionDisableRescueResponse</code>
 - <code title="post /servers/{id}/actions/enable_backup">client.servers.actions.<a href="./src/resources/servers/actions.ts">enableBackup</a>(id) -> ActionEnableBackupResponse</code>

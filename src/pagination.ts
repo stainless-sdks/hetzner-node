@@ -6,7 +6,7 @@ import * as Shared from './resources/shared';
 /**
  * Response to GET https://api.hetzner.cloud/v1/floating_ips
  */
-export interface FloatingIpsPageResponse<Item> {
+export interface FloatingIPsPageResponse<Item> {
   floating_ips: Array<Item>;
 
   /**
@@ -15,7 +15,7 @@ export interface FloatingIpsPageResponse<Item> {
   meta: Shared.ResponseMeta;
 }
 
-export interface FloatingIpsPageParams {
+export interface FloatingIPsPageParams {
   /**
    * Specifies the page to fetch. The number of the first page is 1
    */
@@ -28,7 +28,7 @@ export interface FloatingIpsPageParams {
   per_page?: number;
 }
 
-export class FloatingIpsPage<Item> extends AbstractPage<Item> implements FloatingIpsPageResponse<Item> {
+export class FloatingIPsPage<Item> extends AbstractPage<Item> implements FloatingIPsPageResponse<Item> {
   floating_ips: Array<Item>;
 
   /**
@@ -39,7 +39,7 @@ export class FloatingIpsPage<Item> extends AbstractPage<Item> implements Floatin
   constructor(
     client: APIClient,
     response: Response,
-    body: FloatingIpsPageResponse<Item>,
+    body: FloatingIPsPageResponse<Item>,
     options: FinalRequestOptions,
   ) {
     super(client, response, body, options);
@@ -53,7 +53,7 @@ export class FloatingIpsPage<Item> extends AbstractPage<Item> implements Floatin
   }
 
   // @deprecated Please use `nextPageInfo()` instead
-  nextPageParams(): Partial<FloatingIpsPageParams> | null {
+  nextPageParams(): Partial<FloatingIPsPageParams> | null {
     const info = this.nextPageInfo();
     if (!info) return null;
     if ('params' in info) return info.params;

@@ -16,7 +16,7 @@ export class Pricing extends APIResource {
   }
 }
 
-export interface FloatingIpPriceDetails {
+export interface FloatingIPPriceDetails {
   /**
    * Floating IP type costs per Location
    */
@@ -84,12 +84,12 @@ export namespace PricingRetrieveResponse {
     /**
      * The cost of one Floating IP per month
      */
-    floating_ip: Pricing.FloatingIp;
+    floating_ip: Pricing.FloatingIP;
 
     /**
      * Costs of Floating IPs types per Location and type
      */
-    floating_ips: Array<FloatingIpPriceDetails>;
+    floating_ips: Array<FloatingIPPriceDetails>;
 
     /**
      * The cost of Image per GB/month
@@ -104,7 +104,7 @@ export namespace PricingRetrieveResponse {
     /**
      * Costs of Primary IPs types per Location
      */
-    primary_ips: Array<Pricing.PrimaryIp>;
+    primary_ips: Array<Pricing.PrimaryIP>;
 
     /**
      * Will increase base Server costs by specific percentage
@@ -136,7 +136,7 @@ export namespace PricingRetrieveResponse {
     /**
      * The cost of one Floating IP per month
      */
-    export interface FloatingIp {
+    export interface FloatingIP {
       /**
        * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
        * this Location | Monthly costs for a Floating IP type in this Location | Hourly
@@ -213,11 +213,11 @@ export namespace PricingRetrieveResponse {
       }
     }
 
-    export interface PrimaryIp {
+    export interface PrimaryIP {
       /**
        * Primary IP type costs per Location
        */
-      prices: Array<PrimaryIp.Price>;
+      prices: Array<PrimaryIP.Price>;
 
       /**
        * The type of the IP
@@ -225,7 +225,7 @@ export namespace PricingRetrieveResponse {
       type: 'ipv4' | 'ipv6';
     }
 
-    export namespace PrimaryIp {
+    export namespace PrimaryIP {
       export interface Price {
         /**
          * Name of the Location the price is for
@@ -349,7 +349,7 @@ export namespace PricingRetrieveResponse {
 }
 
 export namespace Pricing {
-  export import FloatingIpPriceDetails = API.FloatingIpPriceDetails;
+  export import FloatingIPPriceDetails = API.FloatingIPPriceDetails;
   export import Price = API.Price;
   export import PricePerTimeMonthly = API.PricePerTimeMonthly;
   export import PricingRetrieveResponse = API.PricingRetrieveResponse;

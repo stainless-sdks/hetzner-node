@@ -54,11 +54,11 @@ export class Actions extends APIResource {
    * Changes the hostname that will appear when getting the hostname belonging to
    * this Floating IP.
    */
-  changeDnsPtr(
+  changeDNSPtr(
     id: number,
-    body: ActionChangeDnsPtrParams,
+    body: ActionChangeDNSPtrParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ActionChangeDnsPtrResponse> {
+  ): Core.APIPromise<ActionChangeDNSPtrResponse> {
     return this.post(`/floating_ips/${id}/actions/change_dns_ptr`, { body, ...options });
   }
 
@@ -131,7 +131,7 @@ export interface ActionAssignResponse {
  * Response to POST
  * https://api.hetzner.cloud/v1/floating_ips/{id}/actions/change_dns_ptr
  */
-export interface ActionChangeDnsPtrResponse {
+export interface ActionChangeDNSPtrResponse {
   /**
    * Actions show the results and progress of asynchronous requests to the API.
    */
@@ -190,7 +190,7 @@ export interface ActionAssignParams {
   server: number;
 }
 
-export interface ActionChangeDnsPtrParams {
+export interface ActionChangeDNSPtrParams {
   /**
    * Hostname to set as a reverse DNS PTR entry, will reset to original default value
    * if `null`
@@ -214,11 +214,11 @@ export namespace Actions {
   export import ActionRetrieveResponse = API.ActionRetrieveResponse;
   export import ActionListResponse = API.ActionListResponse;
   export import ActionAssignResponse = API.ActionAssignResponse;
-  export import ActionChangeDnsPtrResponse = API.ActionChangeDnsPtrResponse;
+  export import ActionChangeDNSPtrResponse = API.ActionChangeDNSPtrResponse;
   export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
   export import ActionUnassignResponse = API.ActionUnassignResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAssignParams = API.ActionAssignParams;
-  export import ActionChangeDnsPtrParams = API.ActionChangeDnsPtrParams;
+  export import ActionChangeDNSPtrParams = API.ActionChangeDNSPtrParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
 }

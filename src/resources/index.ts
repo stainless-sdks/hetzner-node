@@ -3,6 +3,14 @@
 export * from './shared';
 export { ActionRetrieveResponse, ActionListResponse, ActionListParams, Actions } from './actions';
 export {
+  CPUType,
+  ServerType,
+  ServerTypeRetrieveResponse,
+  ServerTypeListResponse,
+  ServerTypeListParams,
+  ServerTypes,
+} from './server-types';
+export {
   Certificate,
   CertificateCreateResponse,
   CertificateRetrieveResponse,
@@ -13,14 +21,6 @@ export {
   CertificateListParams,
   Certificates,
 } from './certificates/certificates';
-export {
-  CpuType,
-  ServerType,
-  ServerTypeRetrieveResponse,
-  ServerTypeListResponse,
-  ServerTypeListParams,
-  ServerTypes,
-} from './server-types';
 export {
   DatacenterRetrieveResponse,
   DatacenterListResponse,
@@ -40,23 +40,24 @@ export {
   Firewalls,
 } from './firewalls/firewalls';
 export {
-  FloatingIp,
-  FloatingIpCreateResponse,
-  FloatingIpRetrieveResponse,
-  FloatingIpUpdateResponse,
-  FloatingIpCreateParams,
-  FloatingIpUpdateParams,
-  FloatingIpListParams,
-  FloatingIpsFloatingIpsPage,
-  FloatingIps,
+  FloatingIP,
+  FloatingIPCreateResponse,
+  FloatingIPRetrieveResponse,
+  FloatingIPUpdateResponse,
+  FloatingIPCreateParams,
+  FloatingIPUpdateParams,
+  FloatingIPListParams,
+  FloatingIPsFloatingIPsPage,
+  FloatingIPs,
 } from './floating-ips/floating-ips';
 export {
-  FloatingIpPriceDetails,
+  FloatingIPPriceDetails,
   Price,
   PricePerTimeMonthly,
   PricingRetrieveResponse,
   Pricing,
 } from './pricing';
+export { ISORetrieveResponse, ISOListResponse, ISOListParams, ISOs } from './isos';
 export {
   ImageRetrieveResponse,
   ImageUpdateResponse,
@@ -65,11 +66,10 @@ export {
   ImageListParams,
   Images,
 } from './images/images';
-export { IsoRetrieveResponse, IsoListResponse, IsoListParams, Isos } from './isos';
 export {
   LoadBalancer,
   LoadBalancerServiceModel,
-  LoadBalancerTargetIp,
+  LoadBalancerTargetIP,
   LoadBalancerCreateResponse,
   LoadBalancerRetrieveResponse,
   LoadBalancerUpdateResponse,
@@ -108,15 +108,15 @@ export {
   PlacementGroups,
 } from './placement-groups';
 export {
-  PrimaryIp,
-  PrimaryIpCreateResponse,
-  PrimaryIpRetrieveResponse,
-  PrimaryIpUpdateResponse,
-  PrimaryIpListResponse,
-  PrimaryIpCreateParams,
-  PrimaryIpUpdateParams,
-  PrimaryIpListParams,
-  PrimaryIps,
+  PrimaryIP,
+  PrimaryIPCreateResponse,
+  PrimaryIPRetrieveResponse,
+  PrimaryIPUpdateResponse,
+  PrimaryIPListResponse,
+  PrimaryIPCreateParams,
+  PrimaryIPUpdateParams,
+  PrimaryIPListParams,
+  PrimaryIPs,
 } from './primary-ips/primary-ips';
 export {
   Server,

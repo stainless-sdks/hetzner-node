@@ -154,8 +154,8 @@ describe('resource actions', () => {
     const response = await hetzner.loadBalancers.actions.changeAlgorithm(0, { type: 'least_connections' });
   });
 
-  test('changeDnsPtr: only required params', async () => {
-    const responsePromise = hetzner.loadBalancers.actions.changeDnsPtr(0, {
+  test('changeDNSPtr: only required params', async () => {
+    const responsePromise = hetzner.loadBalancers.actions.changeDNSPtr(0, {
       dns_ptr: 'lb1.example.com',
       ip: '1.2.3.4',
     });
@@ -168,8 +168,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('changeDnsPtr: required and optional params', async () => {
-    const response = await hetzner.loadBalancers.actions.changeDnsPtr(0, {
+  test('changeDNSPtr: required and optional params', async () => {
+    const response = await hetzner.loadBalancers.actions.changeDNSPtr(0, {
       dns_ptr: 'lb1.example.com',
       ip: '1.2.3.4',
     });

@@ -115,11 +115,11 @@ export class Actions extends APIResource {
    *
    * Floating IPs assigned to the Server are not affected by this.
    */
-  changeDnsPtr(
+  changeDNSPtr(
     id: number,
-    body: ActionChangeDnsPtrParams,
+    body: ActionChangeDNSPtrParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ActionChangeDnsPtrResponse> {
+  ): Core.APIPromise<ActionChangeDNSPtrResponse> {
     return this.post(`/load_balancers/${id}/actions/change_dns_ptr`, { body, ...options });
   }
 
@@ -315,7 +315,7 @@ export interface ActionChangeAlgorithmResponse {
  * Response to POST
  * https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_dns_ptr
  */
-export interface ActionChangeDnsPtrResponse {
+export interface ActionChangeDNSPtrResponse {
   /**
    * Actions show the results and progress of asynchronous requests to the API.
    */
@@ -586,7 +586,7 @@ export interface ActionAssTargetParams {
    * services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as
    * well. Only present for target type "ip".
    */
-  ip?: LoadBalancers.LoadBalancerTargetIp;
+  ip?: LoadBalancers.LoadBalancerTargetIP;
 
   /**
    * Configuration for type LabelSelector, required if type is `label_selector`
@@ -647,7 +647,7 @@ export interface ActionChangeAlgorithmParams {
   type: 'least_connections' | 'round_robin';
 }
 
-export interface ActionChangeDnsPtrParams {
+export interface ActionChangeDNSPtrParams {
   /**
    * Hostname to set as a reverse DNS PTR entry
    */
@@ -700,7 +700,7 @@ export interface ActionRemoveTargetParams {
    * services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as
    * well. Only present for target type "ip".
    */
-  ip?: LoadBalancers.LoadBalancerTargetIp;
+  ip?: LoadBalancers.LoadBalancerTargetIP;
 
   /**
    * Configuration for type LabelSelector, required if type is `label_selector`
@@ -881,7 +881,7 @@ export namespace Actions {
   export import ActionAssTargetResponse = API.ActionAssTargetResponse;
   export import ActionAttachToNetworkResponse = API.ActionAttachToNetworkResponse;
   export import ActionChangeAlgorithmResponse = API.ActionChangeAlgorithmResponse;
-  export import ActionChangeDnsPtrResponse = API.ActionChangeDnsPtrResponse;
+  export import ActionChangeDNSPtrResponse = API.ActionChangeDNSPtrResponse;
   export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
   export import ActionChangeTypeResponse = API.ActionChangeTypeResponse;
   export import ActionDeleteServiceResponse = API.ActionDeleteServiceResponse;
@@ -895,7 +895,7 @@ export namespace Actions {
   export import ActionAssTargetParams = API.ActionAssTargetParams;
   export import ActionAttachToNetworkParams = API.ActionAttachToNetworkParams;
   export import ActionChangeAlgorithmParams = API.ActionChangeAlgorithmParams;
-  export import ActionChangeDnsPtrParams = API.ActionChangeDnsPtrParams;
+  export import ActionChangeDNSPtrParams = API.ActionChangeDNSPtrParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
   export import ActionChangeTypeParams = API.ActionChangeTypeParams;
   export import ActionDeleteServiceParams = API.ActionDeleteServiceParams;

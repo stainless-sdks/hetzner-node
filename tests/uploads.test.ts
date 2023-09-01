@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { toFile, type ResponseLike } from 'hetzner/uploads';
-import { File } from 'hetzner/_shims/formdata';
+import { File } from 'hetzner/_shims/form-data';
 
 class MyClass {
   name: string = 'foo';

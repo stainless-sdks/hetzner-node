@@ -125,7 +125,7 @@ export interface Server {
   /**
    * ISO Image that is attached to this Server. Null if no ISO is attached.
    */
-  iso: Server.Iso | null;
+  iso: Server.ISO | null;
 
   /**
    * User-defined labels (key-value pairs)
@@ -434,7 +434,7 @@ export namespace Server {
   /**
    * ISO Image that is attached to this Server. Null if no ISO is attached.
    */
-  export interface Iso {
+  export interface ISO {
     /**
      * ID of the Resource
      */
@@ -513,7 +513,7 @@ export namespace Server {
     /**
      * Type of cpu
      */
-    cpu_type: ServerTypes.CpuType;
+    cpu_type: ServerTypes.CPUType;
 
     /**
      * True if Server type is deprecated
@@ -680,7 +680,7 @@ export namespace ServerPublicNet {
     /**
      * Reverse DNS PTR entries for the IPv6 addresses of this Server, `null` by default
      */
-    dns_ptr: Array<Ipv6.DnsPtr> | null;
+    dns_ptr: Array<Ipv6.DNSPtr> | null;
 
     /**
      * IP address (v6) of this Server
@@ -694,7 +694,7 @@ export namespace ServerPublicNet {
   }
 
   export namespace Ipv6 {
-    export interface DnsPtr {
+    export interface DNSPtr {
       /**
        * DNS pointer for the specific IP address
        */
@@ -967,15 +967,15 @@ export namespace Servers {
   export import ActionRetrieveResponse = API.ActionRetrieveResponse;
   export import ActionListResponse = API.ActionListResponse;
   export import ActionAddToPlacementGroupResponse = API.ActionAddToPlacementGroupResponse;
-  export import ActionAttachIsoResponse = API.ActionAttachIsoResponse;
+  export import ActionAttachISOResponse = API.ActionAttachISOResponse;
   export import ActionAttachToNetworkResponse = API.ActionAttachToNetworkResponse;
-  export import ActionChangeAliasIpsResponse = API.ActionChangeAliasIpsResponse;
-  export import ActionChangeDnsPtrResponse = API.ActionChangeDnsPtrResponse;
+  export import ActionChangeAliasIPsResponse = API.ActionChangeAliasIPsResponse;
+  export import ActionChangeDNSPtrResponse = API.ActionChangeDNSPtrResponse;
   export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
   export import ActionChangeTypeResponse = API.ActionChangeTypeResponse;
   export import ActionCreateImageResponse = API.ActionCreateImageResponse;
   export import ActionDetachFromNetworkResponse = API.ActionDetachFromNetworkResponse;
-  export import ActionDetachIsoResponse = API.ActionDetachIsoResponse;
+  export import ActionDetachISOResponse = API.ActionDetachISOResponse;
   export import ActionDisableBackupResponse = API.ActionDisableBackupResponse;
   export import ActionDisableRescueResponse = API.ActionDisableRescueResponse;
   export import ActionEnableBackupResponse = API.ActionEnableBackupResponse;
@@ -991,10 +991,10 @@ export namespace Servers {
   export import ActionShutdownResponse = API.ActionShutdownResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAddToPlacementGroupParams = API.ActionAddToPlacementGroupParams;
-  export import ActionAttachIsoParams = API.ActionAttachIsoParams;
+  export import ActionAttachISOParams = API.ActionAttachISOParams;
   export import ActionAttachToNetworkParams = API.ActionAttachToNetworkParams;
-  export import ActionChangeAliasIpsParams = API.ActionChangeAliasIpsParams;
-  export import ActionChangeDnsPtrParams = API.ActionChangeDnsPtrParams;
+  export import ActionChangeAliasIPsParams = API.ActionChangeAliasIPsParams;
+  export import ActionChangeDNSPtrParams = API.ActionChangeDNSPtrParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
   export import ActionChangeTypeParams = API.ActionChangeTypeParams;
   export import ActionCreateImageParams = API.ActionCreateImageParams;

@@ -808,14 +808,14 @@ export namespace Networks {
   export import ActionListResponse = API.ActionListResponse;
   export import ActionAddRouteResponse = API.ActionAddRouteResponse;
   export import ActionAddSubnetResponse = API.ActionAddSubnetResponse;
-  export import ActionChangeIpRangeResponse = API.ActionChangeIpRangeResponse;
+  export import ActionChangeIPRangeResponse = API.ActionChangeIPRangeResponse;
   export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
   export import ActionDeleteRouteResponse = API.ActionDeleteRouteResponse;
   export import ActionDeleteSubnetResponse = API.ActionDeleteSubnetResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAddRouteParams = API.ActionAddRouteParams;
   export import ActionAddSubnetParams = API.ActionAddSubnetParams;
-  export import ActionChangeIpRangeParams = API.ActionChangeIpRangeParams;
+  export import ActionChangeIPRangeParams = API.ActionChangeIPRangeParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
   export import ActionDeleteRouteParams = API.ActionDeleteRouteParams;
   export import ActionDeleteSubnetParams = API.ActionDeleteSubnetParams;
