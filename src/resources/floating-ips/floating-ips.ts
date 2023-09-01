@@ -6,9 +6,9 @@ import { isRequestOptions } from 'hetzner/core';
 import * as Shared from 'hetzner/resources/shared';
 import { Actions } from './actions';
 import * as API from './index';
-import { FloatingIpsPage, FloatingIpsPageParams } from 'hetzner/pagination';
+import { FloatingIPsPage, FloatingIPsPageParams } from 'hetzner/pagination';
 
-export class FloatingIps extends APIResource {
+export class FloatingIPs extends APIResource {
   actions: Actions = new Actions(this.client);
 
   /**
@@ -20,16 +20,16 @@ export class FloatingIps extends APIResource {
    * in the same Location it was created in.
    */
   create(
-    body: FloatingIpCreateParams,
+    body: FloatingIPCreateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<FloatingIpCreateResponse> {
+  ): Core.APIPromise<FloatingIPCreateResponse> {
     return this.post('/floating_ips', { body, ...options });
   }
 
   /**
    * Returns a specific Floating IP object.
    */
-  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<FloatingIpRetrieveResponse> {
+  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<FloatingIPRetrieveResponse> {
     return this.get(`/floating_ips/${id}`, options);
   }
 
@@ -41,15 +41,15 @@ export class FloatingIps extends APIResource {
    */
   update(
     id: number,
-    body?: FloatingIpUpdateParams,
+    body?: FloatingIPUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<FloatingIpUpdateResponse>;
-  update(id: number, options?: Core.RequestOptions): Core.APIPromise<FloatingIpUpdateResponse>;
+  ): Core.APIPromise<FloatingIPUpdateResponse>;
+  update(id: number, options?: Core.RequestOptions): Core.APIPromise<FloatingIPUpdateResponse>;
   update(
     id: number,
-    body: FloatingIpUpdateParams | Core.RequestOptions = {},
+    body: FloatingIPUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<FloatingIpUpdateResponse> {
+  ): Core.APIPromise<FloatingIPUpdateResponse> {
     if (isRequestOptions(body)) {
       return this.update(id, {}, body);
     }
@@ -60,20 +60,18 @@ export class FloatingIps extends APIResource {
    * Returns all Floating IP objects.
    */
   list(
-    query?: FloatingIpListParams,
+    query?: FloatingIPListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FloatingIpListResponsesFloatingIpsPage, FloatingIpListResponse>;
+  ): Core.PagePromise<FloatingIPsFloatingIPsPage, FloatingIP>;
+  list(options?: Core.RequestOptions): Core.PagePromise<FloatingIPsFloatingIPsPage, FloatingIP>;
   list(
+    query: FloatingIPListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FloatingIpListResponsesFloatingIpsPage, FloatingIpListResponse>;
-  list(
-    query: FloatingIpListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<FloatingIpListResponsesFloatingIpsPage, FloatingIpListResponse> {
+  ): Core.PagePromise<FloatingIPsFloatingIPsPage, FloatingIP> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/floating_ips', FloatingIpListResponsesFloatingIpsPage, { query, ...options });
+    return this.getAPIList('/floating_ips', FloatingIPsFloatingIPsPage, { query, ...options });
   }
 
   /**
@@ -85,427 +83,11 @@ export class FloatingIps extends APIResource {
   }
 }
 
-export class FloatingIpListResponsesFloatingIpsPage extends FloatingIpsPage<FloatingIpListResponse> {}
+export class FloatingIPsFloatingIPsPage extends FloatingIPsPage<FloatingIP> {}
 // alias so we can export it in the namespace
-type _FloatingIpListResponsesFloatingIpsPage = FloatingIpListResponsesFloatingIpsPage;
+type _FloatingIPsFloatingIPsPage = FloatingIPsFloatingIPsPage;
 
-export interface FloatingIpCreateResponse {
-  floating_ip: FloatingIpCreateResponse.FloatingIp;
-
-  action?: Shared.Action;
-}
-
-export namespace FloatingIpCreateResponse {
-  export interface FloatingIp {
-    /**
-     * ID of the Resource
-     */
-    id: number;
-
-    /**
-     * Whether the IP is blocked
-     */
-    blocked: boolean;
-
-    /**
-     * Point in time when the Resource was created (in ISO-8601 format)
-     */
-    created: string;
-
-    /**
-     * Description of the Resource
-     */
-    description: string | null;
-
-    /**
-     * Array of reverse DNS entries
-     */
-    dns_ptr: Array<FloatingIp.DnsPtr>;
-
-    /**
-     * Location the Floating IP was created in. Routing is optimized for this Location.
-     */
-    home_location: FloatingIp.HomeLocation;
-
-    /**
-     * IP address
-     */
-    ip: string;
-
-    /**
-     * User-defined labels (key-value pairs)
-     */
-    labels: Record<string, string>;
-
-    /**
-     * Name of the Resource. Must be unique per Project.
-     */
-    name: string;
-
-    /**
-     * Protection configuration for the Resource
-     */
-    protection: FloatingIp.Protection;
-
-    /**
-     * ID of the Server the Floating IP is assigned to, null if it is not assigned at
-     * all
-     */
-    server: number | null;
-
-    /**
-     * Type of the Floating IP
-     */
-    type: 'ipv4' | 'ipv6';
-  }
-
-  export namespace FloatingIp {
-    export interface DnsPtr {
-      /**
-       * DNS pointer for the specific IP address
-       */
-      dns_ptr: string;
-
-      /**
-       * Single IPv4 or IPv6 address
-       */
-      ip: string;
-    }
-
-    /**
-     * Location the Floating IP was created in. Routing is optimized for this Location.
-     */
-    export interface HomeLocation {
-      /**
-       * ID of the Location
-       */
-      id: number;
-
-      /**
-       * City the Location is closest to
-       */
-      city: string;
-
-      /**
-       * ISO 3166-1 alpha-2 code of the country the Location resides in
-       */
-      country: string;
-
-      /**
-       * Description of the Location
-       */
-      description: string;
-
-      /**
-       * Latitude of the city closest to the Location
-       */
-      latitude: number;
-
-      /**
-       * Longitude of the city closest to the Location
-       */
-      longitude: number;
-
-      /**
-       * Unique identifier of the Location
-       */
-      name: string;
-
-      /**
-       * Name of network zone this Location resides in
-       */
-      network_zone: string;
-    }
-
-    /**
-     * Protection configuration for the Resource
-     */
-    export interface Protection {
-      /**
-       * If true, prevents the Resource from being deleted
-       */
-      delete: boolean;
-    }
-  }
-}
-
-export interface FloatingIpRetrieveResponse {
-  floating_ip: FloatingIpRetrieveResponse.FloatingIp;
-}
-
-export namespace FloatingIpRetrieveResponse {
-  export interface FloatingIp {
-    /**
-     * ID of the Resource
-     */
-    id: number;
-
-    /**
-     * Whether the IP is blocked
-     */
-    blocked: boolean;
-
-    /**
-     * Point in time when the Resource was created (in ISO-8601 format)
-     */
-    created: string;
-
-    /**
-     * Description of the Resource
-     */
-    description: string | null;
-
-    /**
-     * Array of reverse DNS entries
-     */
-    dns_ptr: Array<FloatingIp.DnsPtr>;
-
-    /**
-     * Location the Floating IP was created in. Routing is optimized for this Location.
-     */
-    home_location: FloatingIp.HomeLocation;
-
-    /**
-     * IP address
-     */
-    ip: string;
-
-    /**
-     * User-defined labels (key-value pairs)
-     */
-    labels: Record<string, string>;
-
-    /**
-     * Name of the Resource. Must be unique per Project.
-     */
-    name: string;
-
-    /**
-     * Protection configuration for the Resource
-     */
-    protection: FloatingIp.Protection;
-
-    /**
-     * ID of the Server the Floating IP is assigned to, null if it is not assigned at
-     * all
-     */
-    server: number | null;
-
-    /**
-     * Type of the Floating IP
-     */
-    type: 'ipv4' | 'ipv6';
-  }
-
-  export namespace FloatingIp {
-    export interface DnsPtr {
-      /**
-       * DNS pointer for the specific IP address
-       */
-      dns_ptr: string;
-
-      /**
-       * Single IPv4 or IPv6 address
-       */
-      ip: string;
-    }
-
-    /**
-     * Location the Floating IP was created in. Routing is optimized for this Location.
-     */
-    export interface HomeLocation {
-      /**
-       * ID of the Location
-       */
-      id: number;
-
-      /**
-       * City the Location is closest to
-       */
-      city: string;
-
-      /**
-       * ISO 3166-1 alpha-2 code of the country the Location resides in
-       */
-      country: string;
-
-      /**
-       * Description of the Location
-       */
-      description: string;
-
-      /**
-       * Latitude of the city closest to the Location
-       */
-      latitude: number;
-
-      /**
-       * Longitude of the city closest to the Location
-       */
-      longitude: number;
-
-      /**
-       * Unique identifier of the Location
-       */
-      name: string;
-
-      /**
-       * Name of network zone this Location resides in
-       */
-      network_zone: string;
-    }
-
-    /**
-     * Protection configuration for the Resource
-     */
-    export interface Protection {
-      /**
-       * If true, prevents the Resource from being deleted
-       */
-      delete: boolean;
-    }
-  }
-}
-
-export interface FloatingIpUpdateResponse {
-  floating_ip: FloatingIpUpdateResponse.FloatingIp;
-}
-
-export namespace FloatingIpUpdateResponse {
-  export interface FloatingIp {
-    /**
-     * ID of the Resource
-     */
-    id: number;
-
-    /**
-     * Whether the IP is blocked
-     */
-    blocked: boolean;
-
-    /**
-     * Point in time when the Resource was created (in ISO-8601 format)
-     */
-    created: string;
-
-    /**
-     * Description of the Resource
-     */
-    description: string | null;
-
-    /**
-     * Array of reverse DNS entries
-     */
-    dns_ptr: Array<FloatingIp.DnsPtr>;
-
-    /**
-     * Location the Floating IP was created in. Routing is optimized for this Location.
-     */
-    home_location: FloatingIp.HomeLocation;
-
-    /**
-     * IP address
-     */
-    ip: string;
-
-    /**
-     * User-defined labels (key-value pairs)
-     */
-    labels: Record<string, string>;
-
-    /**
-     * Name of the Resource. Must be unique per Project.
-     */
-    name: string;
-
-    /**
-     * Protection configuration for the Resource
-     */
-    protection: FloatingIp.Protection;
-
-    /**
-     * ID of the Server the Floating IP is assigned to, null if it is not assigned at
-     * all
-     */
-    server: number | null;
-
-    /**
-     * Type of the Floating IP
-     */
-    type: 'ipv4' | 'ipv6';
-  }
-
-  export namespace FloatingIp {
-    export interface DnsPtr {
-      /**
-       * DNS pointer for the specific IP address
-       */
-      dns_ptr: string;
-
-      /**
-       * Single IPv4 or IPv6 address
-       */
-      ip: string;
-    }
-
-    /**
-     * Location the Floating IP was created in. Routing is optimized for this Location.
-     */
-    export interface HomeLocation {
-      /**
-       * ID of the Location
-       */
-      id: number;
-
-      /**
-       * City the Location is closest to
-       */
-      city: string;
-
-      /**
-       * ISO 3166-1 alpha-2 code of the country the Location resides in
-       */
-      country: string;
-
-      /**
-       * Description of the Location
-       */
-      description: string;
-
-      /**
-       * Latitude of the city closest to the Location
-       */
-      latitude: number;
-
-      /**
-       * Longitude of the city closest to the Location
-       */
-      longitude: number;
-
-      /**
-       * Unique identifier of the Location
-       */
-      name: string;
-
-      /**
-       * Name of network zone this Location resides in
-       */
-      network_zone: string;
-    }
-
-    /**
-     * Protection configuration for the Resource
-     */
-    export interface Protection {
-      /**
-       * If true, prevents the Resource from being deleted
-       */
-      delete: boolean;
-    }
-  }
-}
-
-export interface FloatingIpListResponse {
+export interface FloatingIP {
   /**
    * ID of the Resource
    */
@@ -529,12 +111,14 @@ export interface FloatingIpListResponse {
   /**
    * Array of reverse DNS entries
    */
-  dns_ptr: Array<FloatingIpListResponse.DnsPtr>;
+  dns_ptr: Array<FloatingIP.DNSPtr>;
 
   /**
    * Location the Floating IP was created in. Routing is optimized for this Location.
+   * | Location of the Volume. Volume can only be attached to Servers in the same
+   * Location.
    */
-  home_location: FloatingIpListResponse.HomeLocation;
+  home_location: FloatingIP.HomeLocation;
 
   /**
    * IP address
@@ -554,7 +138,7 @@ export interface FloatingIpListResponse {
   /**
    * Protection configuration for the Resource
    */
-  protection: FloatingIpListResponse.Protection;
+  protection: FloatingIP.Protection;
 
   /**
    * ID of the Server the Floating IP is assigned to, null if it is not assigned at
@@ -563,26 +147,29 @@ export interface FloatingIpListResponse {
   server: number | null;
 
   /**
-   * Type of the Floating IP
+   * The type of the IP
    */
   type: 'ipv4' | 'ipv6';
 }
 
-export namespace FloatingIpListResponse {
-  export interface DnsPtr {
+export namespace FloatingIP {
+  export interface DNSPtr {
     /**
      * DNS pointer for the specific IP address
      */
     dns_ptr: string;
 
     /**
-     * Single IPv4 or IPv6 address
+     * Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
+     * reverse DNS entry has been set up
      */
     ip: string;
   }
 
   /**
    * Location the Floating IP was created in. Routing is optimized for this Location.
+   * | Location of the Volume. Volume can only be attached to Servers in the same
+   * Location.
    */
   export interface HomeLocation {
     /**
@@ -631,15 +218,42 @@ export namespace FloatingIpListResponse {
    */
   export interface Protection {
     /**
-     * If true, prevents the Resource from being deleted
+     * If true, prevents the Resource from being deleted | If true, prevents the
+     * Network from being deleted
      */
     delete: boolean;
   }
 }
 
-export interface FloatingIpCreateParams {
+/**
+ * Response to POST https://api.hetzner.cloud/v1/floating_ips
+ */
+export interface FloatingIPCreateResponse {
+  floating_ip: FloatingIP;
+
   /**
-   * Floating IP type
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action?: Shared.Action;
+}
+
+/**
+ * Response to GET https://api.hetzner.cloud/v1/floating_ips/{id}
+ */
+export interface FloatingIPRetrieveResponse {
+  floating_ip: FloatingIP;
+}
+
+/**
+ * Response to PUT https://api.hetzner.cloud/v1/floating_ips/{id}
+ */
+export interface FloatingIPUpdateResponse {
+  floating_ip: FloatingIP;
+}
+
+export interface FloatingIPCreateParams {
+  /**
+   * The type of the IP
    */
   type: 'ipv4' | 'ipv6';
 
@@ -654,7 +268,7 @@ export interface FloatingIpCreateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   name?: string;
 
@@ -664,7 +278,7 @@ export interface FloatingIpCreateParams {
   server?: number;
 }
 
-export interface FloatingIpUpdateParams {
+export interface FloatingIPUpdateParams {
   /**
    * New Description to set
    */
@@ -673,7 +287,7 @@ export interface FloatingIpUpdateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   /**
    * New unique name to set
@@ -681,7 +295,7 @@ export interface FloatingIpUpdateParams {
   name?: string;
 }
 
-export interface FloatingIpListParams extends FloatingIpsPageParams {
+export interface FloatingIPListParams extends FloatingIPsPageParams {
   /**
    * Can be used to filter Floating IPs by labels. The response will only contain
    * Floating IPs matching the label selector.
@@ -701,20 +315,25 @@ export interface FloatingIpListParams extends FloatingIpsPageParams {
   sort?: 'id' | 'id:asc' | 'id:desc' | 'created' | 'created:asc' | 'created:desc';
 }
 
-export namespace FloatingIps {
-  export import FloatingIpCreateResponse = API.FloatingIpCreateResponse;
-  export import FloatingIpRetrieveResponse = API.FloatingIpRetrieveResponse;
-  export import FloatingIpUpdateResponse = API.FloatingIpUpdateResponse;
-  export import FloatingIpListResponse = API.FloatingIpListResponse;
-  export type FloatingIpListResponsesFloatingIpsPage = _FloatingIpListResponsesFloatingIpsPage;
-  export import FloatingIpCreateParams = API.FloatingIpCreateParams;
-  export import FloatingIpUpdateParams = API.FloatingIpUpdateParams;
-  export import FloatingIpListParams = API.FloatingIpListParams;
+export namespace FloatingIPs {
+  export import FloatingIP = API.FloatingIP;
+  export import FloatingIPCreateResponse = API.FloatingIPCreateResponse;
+  export import FloatingIPRetrieveResponse = API.FloatingIPRetrieveResponse;
+  export import FloatingIPUpdateResponse = API.FloatingIPUpdateResponse;
+  export type FloatingIPsFloatingIPsPage = _FloatingIPsFloatingIPsPage;
+  export import FloatingIPCreateParams = API.FloatingIPCreateParams;
+  export import FloatingIPUpdateParams = API.FloatingIPUpdateParams;
+  export import FloatingIPListParams = API.FloatingIPListParams;
 
   export import Actions = API.Actions;
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
   export import ActionListResponse = API.ActionListResponse;
+  export import ActionAssignResponse = API.ActionAssignResponse;
+  export import ActionChangeDNSPtrResponse = API.ActionChangeDNSPtrResponse;
+  export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
+  export import ActionUnassignResponse = API.ActionUnassignResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAssignParams = API.ActionAssignParams;
-  export import ActionChangeDnsPtrParams = API.ActionChangeDnsPtrParams;
+  export import ActionChangeDNSPtrParams = API.ActionChangeDNSPtrParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
 }

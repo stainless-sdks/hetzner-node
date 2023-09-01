@@ -6,23 +6,23 @@ import { isRequestOptions } from 'hetzner/core';
 import * as Shared from 'hetzner/resources/shared';
 import * as API from './index';
 
-export class Isos extends APIResource {
+export class ISOs extends APIResource {
   /**
    * Returns a specific ISO object.
    */
-  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<IsoRetrieveResponse> {
+  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<ISORetrieveResponse> {
     return this.get(`/isos/${id}`, options);
   }
 
   /**
    * Returns all available ISO objects.
    */
-  list(query?: IsoListParams, options?: Core.RequestOptions): Core.APIPromise<IsoListResponse>;
-  list(options?: Core.RequestOptions): Core.APIPromise<IsoListResponse>;
+  list(query?: ISOListParams, options?: Core.RequestOptions): Core.APIPromise<ISOListResponse>;
+  list(options?: Core.RequestOptions): Core.APIPromise<ISOListResponse>;
   list(
-    query: IsoListParams | Core.RequestOptions = {},
+    query: ISOListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<IsoListResponse> {
+  ): Core.APIPromise<ISOListResponse> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -30,12 +30,15 @@ export class Isos extends APIResource {
   }
 }
 
-export interface IsoRetrieveResponse {
-  iso: IsoRetrieveResponse.Iso;
+/**
+ * Response to GET https://api.hetzner.cloud/v1/isos/{id}
+ */
+export interface ISORetrieveResponse {
+  iso: ISORetrieveResponse.ISO;
 }
 
-export namespace IsoRetrieveResponse {
-  export interface Iso {
+export namespace ISORetrieveResponse {
+  export interface ISO {
     /**
      * ID of the Resource
      */
@@ -45,7 +48,7 @@ export namespace IsoRetrieveResponse {
      * Type of cpu architecture this iso is compatible with. Null indicates no
      * restriction on the architecture (wildcard).
      */
-    architecture: 'x86' | 'arm' | null;
+    architecture: 'arm' | 'x86' | null;
 
     /**
      * ISO 8601 timestamp of deprecation, null if ISO is still available. After the
@@ -66,18 +69,24 @@ export namespace IsoRetrieveResponse {
     /**
      * Type of the ISO
      */
-    type: 'public' | 'private';
+    type: 'private' | 'public';
   }
 }
 
-export interface IsoListResponse {
-  isos: Array<IsoListResponse.Iso>;
+/**
+ * Response to GET https://api.hetzner.cloud/v1/isos
+ */
+export interface ISOListResponse {
+  isos: Array<ISOListResponse.ISO>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta?: Shared.ResponseMeta;
 }
 
-export namespace IsoListResponse {
-  export interface Iso {
+export namespace ISOListResponse {
+  export interface ISO {
     /**
      * ID of the Resource
      */
@@ -87,7 +96,7 @@ export namespace IsoListResponse {
      * Type of cpu architecture this iso is compatible with. Null indicates no
      * restriction on the architecture (wildcard).
      */
-    architecture: 'x86' | 'arm' | null;
+    architecture: 'arm' | 'x86' | null;
 
     /**
      * ISO 8601 timestamp of deprecation, null if ISO is still available. After the
@@ -108,11 +117,11 @@ export namespace IsoListResponse {
     /**
      * Type of the ISO
      */
-    type: 'public' | 'private';
+    type: 'private' | 'public';
   }
 }
 
-export interface IsoListParams {
+export interface ISOListParams {
   /**
    * Return only ISOs with the given architecture.
    */
@@ -130,13 +139,20 @@ export interface IsoListParams {
    */
   name?: string;
 
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 }
 
-export namespace Isos {
-  export import IsoRetrieveResponse = API.IsoRetrieveResponse;
-  export import IsoListResponse = API.IsoListResponse;
-  export import IsoListParams = API.IsoListParams;
+export namespace ISOs {
+  export import ISORetrieveResponse = API.ISORetrieveResponse;
+  export import ISOListResponse = API.ISOListResponse;
+  export import ISOListParams = API.ISOListParams;
 }

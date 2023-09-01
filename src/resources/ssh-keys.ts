@@ -70,11 +70,24 @@ export class SshKeys extends APIResource {
   }
 }
 
+/**
+ * Response to POST https://api.hetzner.cloud/v1/ssh_keys
+ */
 export interface SshKeyCreateResponse {
+  /**
+   * SSH keys are public keys you provide to the cloud system. They can be injected
+   * into Servers at creation time. We highly recommend that you use keys instead of
+   * passwords to manage your Servers.
+   */
   ssh_key: SshKeyCreateResponse.SshKey;
 }
 
 export namespace SshKeyCreateResponse {
+  /**
+   * SSH keys are public keys you provide to the cloud system. They can be injected
+   * into Servers at creation time. We highly recommend that you use keys instead of
+   * passwords to manage your Servers.
+   */
   export interface SshKey {
     /**
      * ID of the Resource
@@ -108,11 +121,24 @@ export namespace SshKeyCreateResponse {
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/ssh_keys/{id}
+ */
 export interface SshKeyRetrieveResponse {
+  /**
+   * SSH keys are public keys you provide to the cloud system. They can be injected
+   * into Servers at creation time. We highly recommend that you use keys instead of
+   * passwords to manage your Servers.
+   */
   ssh_key: SshKeyRetrieveResponse.SshKey;
 }
 
 export namespace SshKeyRetrieveResponse {
+  /**
+   * SSH keys are public keys you provide to the cloud system. They can be injected
+   * into Servers at creation time. We highly recommend that you use keys instead of
+   * passwords to manage your Servers.
+   */
   export interface SshKey {
     /**
      * ID of the Resource
@@ -146,11 +172,24 @@ export namespace SshKeyRetrieveResponse {
   }
 }
 
+/**
+ * Response to PUT https://api.hetzner.cloud/v1/ssh_keys/{id}
+ */
 export interface SshKeyUpdateResponse {
+  /**
+   * SSH keys are public keys you provide to the cloud system. They can be injected
+   * into Servers at creation time. We highly recommend that you use keys instead of
+   * passwords to manage your Servers.
+   */
   ssh_key: SshKeyUpdateResponse.SshKey;
 }
 
 export namespace SshKeyUpdateResponse {
+  /**
+   * SSH keys are public keys you provide to the cloud system. They can be injected
+   * into Servers at creation time. We highly recommend that you use keys instead of
+   * passwords to manage your Servers.
+   */
   export interface SshKey {
     /**
      * ID of the Resource
@@ -184,13 +223,24 @@ export namespace SshKeyUpdateResponse {
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/ssh_keys
+ */
 export interface SshKeyListResponse {
   ssh_keys: Array<SshKeyListResponse.SshKey>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta?: Shared.ResponseMeta;
 }
 
 export namespace SshKeyListResponse {
+  /**
+   * SSH keys are public keys you provide to the cloud system. They can be injected
+   * into Servers at creation time. We highly recommend that you use keys instead of
+   * passwords to manage your Servers.
+   */
   export interface SshKey {
     /**
      * ID of the Resource
@@ -238,14 +288,14 @@ export interface SshKeyCreateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 }
 
 export interface SshKeyUpdateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   /**
    * New name Name to set
@@ -272,8 +322,15 @@ export interface SshKeyListParams {
    */
   name?: string;
 
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**

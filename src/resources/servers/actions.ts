@@ -14,7 +14,7 @@ export class Actions extends APIResource {
     id: number,
     actionId: number,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionRetrieveResponse> {
     return this.get(`/servers/${id}/actions/${actionId}`, options);
   }
 
@@ -26,13 +26,13 @@ export class Actions extends APIResource {
     id: number,
     query?: ActionListParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse>;
-  list(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionsResponse>;
+  ): Core.APIPromise<ActionListResponse>;
+  list(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionListResponse>;
   list(
     id: number,
     query: ActionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse> {
+  ): Core.APIPromise<ActionListResponse> {
     if (isRequestOptions(query)) {
       return this.list(id, {}, query);
     }
@@ -54,7 +54,7 @@ export class Actions extends APIResource {
     id: number,
     body: ActionAddToPlacementGroupParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionAddToPlacementGroupResponse> {
     return this.post(`/servers/${id}/actions/add_to_placement_group`, { body, ...options });
   }
 
@@ -66,11 +66,11 @@ export class Actions extends APIResource {
    * Servers with attached ISOs have a modified boot order: They will try to boot
    * from the ISO first before falling back to hard disk.
    */
-  attachIso(
+  attachISO(
     id: number,
-    body: ActionAttachIsoParams,
+    body: ActionAttachISOParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionAttachISOResponse> {
     return this.post(`/servers/${id}/actions/attach_iso`, { body, ...options });
   }
 
@@ -99,7 +99,7 @@ export class Actions extends APIResource {
     id: number,
     body: ActionAttachToNetworkParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionAttachToNetworkResponse> {
     return this.post(`/servers/${id}/actions/attach_to_network`, { body, ...options });
   }
 
@@ -109,11 +109,11 @@ export class Actions extends APIResource {
    * request body. So if you want to add an alias IP, you have to provide the
    * existing ones from the Network plus the new alias IP in the request body.
    */
-  changeAliasIps(
+  changeAliasIPs(
     id: number,
-    body: ActionChangeAliasIpsParams,
+    body: ActionChangeAliasIPsParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionChangeAliasIPsResponse> {
     return this.post(`/servers/${id}/actions/change_alias_ips`, { body, ...options });
   }
 
@@ -123,11 +123,11 @@ export class Actions extends APIResource {
    *
    * Floating IPs assigned to the Server are not affected by this.
    */
-  changeDnsPtr(
+  changeDNSPtr(
     id: number,
-    body: ActionChangeDnsPtrParams,
+    body: ActionChangeDNSPtrParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionChangeDNSPtrResponse> {
     return this.post(`/servers/${id}/actions/change_dns_ptr`, { body, ...options });
   }
 
@@ -138,13 +138,16 @@ export class Actions extends APIResource {
     id: number,
     body?: ActionChangeProtectionParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse>;
-  changeProtection(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse>;
+  ): Core.APIPromise<ActionChangeProtectionResponse>;
+  changeProtection(
+    id: number,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ActionChangeProtectionResponse>;
   changeProtection(
     id: number,
     body: ActionChangeProtectionParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionChangeProtectionResponse> {
     if (isRequestOptions(body)) {
       return this.changeProtection(id, {}, body);
     }
@@ -175,7 +178,7 @@ export class Actions extends APIResource {
     id: number,
     body: ActionChangeTypeParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionChangeTypeResponse> {
     return this.post(`/servers/${id}/actions/change_type`, { body, ...options });
   }
 
@@ -218,7 +221,7 @@ export class Actions extends APIResource {
     id: number,
     body: ActionDetachFromNetworkParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionDetachFromNetworkResponse> {
     return this.post(`/servers/${id}/actions/detach_from_network`, { body, ...options });
   }
 
@@ -226,7 +229,7 @@ export class Actions extends APIResource {
    * Detaches an ISO from a Server. In case no ISO Image is attached to the Server,
    * the status of the returned Action is immediately set to `success`
    */
-  detachIso(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse> {
+  detachISO(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionDetachISOResponse> {
     return this.post(`/servers/${id}/actions/detach_iso`, options);
   }
 
@@ -236,7 +239,7 @@ export class Actions extends APIResource {
    *
    * Caution: This immediately removes all existing backups for the Server!
    */
-  disableBackup(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse> {
+  disableBackup(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionDisableBackupResponse> {
     return this.post(`/servers/${id}/actions/disable_backup`, options);
   }
 
@@ -250,7 +253,7 @@ export class Actions extends APIResource {
    * Disabling rescue mode will not reboot your Server — you will have to do this
    * yourself.
    */
-  disableRescue(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse> {
+  disableRescue(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionDisableRescueResponse> {
     return this.post(`/servers/${id}/actions/disable_rescue`, options);
   }
 
@@ -261,7 +264,7 @@ export class Actions extends APIResource {
    *
    * Backups are automatically created daily.
    */
-  enableBackup(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse> {
+  enableBackup(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionEnableBackupResponse> {
     return this.post(`/servers/${id}/actions/enable_backup`, options);
   }
 
@@ -303,14 +306,14 @@ export class Actions extends APIResource {
    * pulling the power cord. Power off should only be used when shutdown does not
    * work.
    */
-  poweroff(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse> {
+  poweroff(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionPoweroffResponse> {
     return this.post(`/servers/${id}/actions/poweroff`, options);
   }
 
   /**
    * Starts a Server by turning its power on.
    */
-  poweron(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse> {
+  poweron(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionPoweronResponse> {
     return this.post(`/servers/${id}/actions/poweron`, options);
   }
 
@@ -319,7 +322,7 @@ export class Actions extends APIResource {
    * system must support ACPI and react to the request, otherwise the Server will not
    * reboot.
    */
-  reboot(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse> {
+  reboot(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionRebootResponse> {
     return this.post(`/servers/${id}/actions/reboot`, options);
   }
 
@@ -348,7 +351,7 @@ export class Actions extends APIResource {
   removeFromPlacementGroup(
     id: number,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionRemoveFromPlacementGroupResponse> {
     return this.post(`/servers/${id}/actions/remove_from_placement_group`, options);
   }
 
@@ -368,7 +371,7 @@ export class Actions extends APIResource {
    * data loss, it’s equivalent to pulling the power cord and plugging it in again.
    * Reset should only be used when reboot does not work.
    */
-  reset(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse> {
+  reset(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionResetResponse> {
     return this.post(`/servers/${id}/actions/reset`, options);
   }
 
@@ -394,12 +397,115 @@ export class Actions extends APIResource {
    * the server actually shut down successfully. If you need to ensure that the
    * server is off, use the `poweroff` action
    */
-  shutdown(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse> {
+  shutdown(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionShutdownResponse> {
     return this.post(`/servers/${id}/actions/shutdown`, options);
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/servers/{id}/actions/{action_id}
+ */
+export interface ActionRetrieveResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to GET https://api.hetzner.cloud/v1/servers/{id}/actions
+ */
+export interface ActionListResponse {
+  actions: Array<Shared.Action>;
+
+  /**
+   * Metadata contained in the response
+   */
+  meta?: Shared.ResponseMeta;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/servers/{id}/actions/add_to_placement_group
+ */
+export interface ActionAddToPlacementGroupResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_iso
+ */
+export interface ActionAttachISOResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/servers/{id}/actions/attach_to_network
+ */
+export interface ActionAttachToNetworkResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/servers/{id}/actions/change_alias_ips
+ */
+export interface ActionChangeAliasIPsResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/servers/{id}/actions/change_dns_ptr
+ */
+export interface ActionChangeDNSPtrResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/servers/{id}/actions/change_protection
+ */
+export interface ActionChangeProtectionResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/change_type
+ */
+export interface ActionChangeTypeResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/create_image
+ */
 export interface ActionCreateImageResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
   action?: Shared.Action;
 
   image?: ActionCreateImageResponse.Image;
@@ -413,9 +519,10 @@ export namespace ActionCreateImageResponse {
     id: number;
 
     /**
-     * Type of cpu architecture this image is compatible with.
+     * Type of cpu architecture this image is compatible with. | Type of cpu
+     * architecture
      */
-    architecture: 'x86' | 'arm';
+    architecture: 'arm' | 'x86';
 
     /**
      * ID of Server the Image is bound to. Only set for Images of type `backup`.
@@ -471,7 +578,7 @@ export namespace ActionCreateImageResponse {
     /**
      * Flavor of operating system contained in the Image
      */
-    os_flavor: 'ubuntu' | 'centos' | 'debian' | 'fedora' | 'rocky' | 'alma' | 'unknown';
+    os_flavor: 'alma' | 'centos' | 'debian' | 'fedora' | 'rocky' | 'ubuntu' | 'unknown';
 
     /**
      * Operating system version
@@ -491,7 +598,7 @@ export namespace ActionCreateImageResponse {
     /**
      * Type of the Image
      */
-    type: 'system' | 'app' | 'snapshot' | 'backup' | 'temporary';
+    type: 'app' | 'backup' | 'snapshot' | 'system' | 'temporary';
 
     /**
      * Indicates that rapid deploy of the Image is available
@@ -520,14 +627,74 @@ export namespace ActionCreateImageResponse {
      */
     export interface Protection {
       /**
-       * If true, prevents the Resource from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
   }
 }
 
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/servers/{id}/actions/detach_from_network
+ */
+export interface ActionDetachFromNetworkResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_iso
+ */
+export interface ActionDetachISOResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/servers/{id}/actions/disable_backup
+ */
+export interface ActionDisableBackupResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/servers/{id}/actions/disable_rescue
+ */
+export interface ActionDisableRescueResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/enable_backup
+ */
+export interface ActionEnableBackupResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/enable_rescue
+ */
 export interface ActionEnableRescueResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
   action?: Shared.Action;
 
   /**
@@ -536,7 +703,43 @@ export interface ActionEnableRescueResponse {
   root_password?: string;
 }
 
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweroff
+ */
+export interface ActionPoweroffResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/poweron
+ */
+export interface ActionPoweronResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reboot
+ */
+export interface ActionRebootResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/rebuild
+ */
 export interface ActionRebuildResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
   action?: Shared.Action;
 
   /**
@@ -545,7 +748,25 @@ export interface ActionRebuildResponse {
   root_password?: string | null;
 }
 
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/servers/{id}/actions/remove_from_placement_group
+ */
+export interface ActionRemoveFromPlacementGroupResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/servers/{id}/actions/request_console
+ */
 export interface ActionRequestConsoleResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
   action: Shared.Action;
 
   /**
@@ -561,7 +782,24 @@ export interface ActionRequestConsoleResponse {
   wss_url: string;
 }
 
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/reset
+ */
+export interface ActionResetResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/servers/{id}/actions/reset_password
+ */
 export interface ActionResetPasswordResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
   action?: Shared.Action;
 
   /**
@@ -570,9 +808,26 @@ export interface ActionResetPasswordResponse {
   root_password?: string;
 }
 
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/shutdown
+ */
+export interface ActionShutdownResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
 export interface ActionListParams {
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**
@@ -594,7 +849,7 @@ export interface ActionAddToPlacementGroupParams {
   placement_group: number;
 }
 
-export interface ActionAttachIsoParams {
+export interface ActionAttachISOParams {
   /**
    * ID or name of ISO to attach to the Server as listed in GET `/isos`
    */
@@ -619,7 +874,7 @@ export interface ActionAttachToNetworkParams {
   ip?: string;
 }
 
-export interface ActionChangeAliasIpsParams {
+export interface ActionChangeAliasIPsParams {
   /**
    * New alias IPs to set for this Server
    */
@@ -631,7 +886,7 @@ export interface ActionChangeAliasIpsParams {
   network: number;
 }
 
-export interface ActionChangeDnsPtrParams {
+export interface ActionChangeDNSPtrParams {
   /**
    * Hostname to set as a reverse DNS PTR entry, reset to original value if `null`
    */
@@ -679,24 +934,12 @@ export interface ActionCreateImageParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: ActionCreateImageParams.Labels;
+  labels?: Record<string, string>;
 
   /**
    * Type of Image to create (default: `snapshot`)
    */
-  type?: 'snapshot' | 'backup';
-}
-
-export namespace ActionCreateImageParams {
-  /**
-   * User-defined labels (key-value pairs)
-   */
-  export interface Labels {
-    /**
-     * New label
-     */
-    labelkey?: string;
-  }
+  type?: 'backup' | 'snapshot';
 }
 
 export interface ActionDetachFromNetworkParams {
@@ -715,7 +958,7 @@ export interface ActionEnableRescueParams {
   /**
    * Type of rescue system to boot (default: `linux64`)
    */
-  type?: 'linux64' | 'linux32';
+  type?: 'linux32' | 'linux64';
 }
 
 export interface ActionRebuildParams {
@@ -726,17 +969,37 @@ export interface ActionRebuildParams {
 }
 
 export namespace Actions {
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionAddToPlacementGroupResponse = API.ActionAddToPlacementGroupResponse;
+  export import ActionAttachISOResponse = API.ActionAttachISOResponse;
+  export import ActionAttachToNetworkResponse = API.ActionAttachToNetworkResponse;
+  export import ActionChangeAliasIPsResponse = API.ActionChangeAliasIPsResponse;
+  export import ActionChangeDNSPtrResponse = API.ActionChangeDNSPtrResponse;
+  export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
+  export import ActionChangeTypeResponse = API.ActionChangeTypeResponse;
   export import ActionCreateImageResponse = API.ActionCreateImageResponse;
+  export import ActionDetachFromNetworkResponse = API.ActionDetachFromNetworkResponse;
+  export import ActionDetachISOResponse = API.ActionDetachISOResponse;
+  export import ActionDisableBackupResponse = API.ActionDisableBackupResponse;
+  export import ActionDisableRescueResponse = API.ActionDisableRescueResponse;
+  export import ActionEnableBackupResponse = API.ActionEnableBackupResponse;
   export import ActionEnableRescueResponse = API.ActionEnableRescueResponse;
+  export import ActionPoweroffResponse = API.ActionPoweroffResponse;
+  export import ActionPoweronResponse = API.ActionPoweronResponse;
+  export import ActionRebootResponse = API.ActionRebootResponse;
   export import ActionRebuildResponse = API.ActionRebuildResponse;
+  export import ActionRemoveFromPlacementGroupResponse = API.ActionRemoveFromPlacementGroupResponse;
   export import ActionRequestConsoleResponse = API.ActionRequestConsoleResponse;
+  export import ActionResetResponse = API.ActionResetResponse;
   export import ActionResetPasswordResponse = API.ActionResetPasswordResponse;
+  export import ActionShutdownResponse = API.ActionShutdownResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAddToPlacementGroupParams = API.ActionAddToPlacementGroupParams;
-  export import ActionAttachIsoParams = API.ActionAttachIsoParams;
+  export import ActionAttachISOParams = API.ActionAttachISOParams;
   export import ActionAttachToNetworkParams = API.ActionAttachToNetworkParams;
-  export import ActionChangeAliasIpsParams = API.ActionChangeAliasIpsParams;
-  export import ActionChangeDnsPtrParams = API.ActionChangeDnsPtrParams;
+  export import ActionChangeAliasIPsParams = API.ActionChangeAliasIPsParams;
+  export import ActionChangeDNSPtrParams = API.ActionChangeDNSPtrParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
   export import ActionChangeTypeParams = API.ActionChangeTypeParams;
   export import ActionCreateImageParams = API.ActionCreateImageParams;

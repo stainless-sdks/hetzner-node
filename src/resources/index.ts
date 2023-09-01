@@ -1,11 +1,20 @@
 // File generated from our OpenAPI spec by Stainless.
 
 export * from './shared';
-export { ActionListParams, Actions } from './actions';
+export { ActionRetrieveResponse, ActionListResponse, ActionListParams, Actions } from './actions';
+export {
+  CPUType,
+  ServerType,
+  ServerTypeRetrieveResponse,
+  ServerTypeListResponse,
+  ServerTypeListParams,
+  ServerTypes,
+} from './server-types';
 export {
   Certificate,
-  CertificateResponse,
   CertificateCreateResponse,
+  CertificateRetrieveResponse,
+  CertificateUpdateResponse,
   CertificateListResponse,
   CertificateCreateParams,
   CertificateUpdateParams,
@@ -19,17 +28,11 @@ export {
   Datacenters,
 } from './datacenters';
 export {
-  DeprecationInfo,
-  ServerTypeRetrieveResponse,
-  ServerTypeListResponse,
-  ServerTypeListParams,
-  ServerTypes,
-} from './server-types';
-export {
   Firewall,
-  FirewallResponse,
   Rule,
   FirewallCreateResponse,
+  FirewallRetrieveResponse,
+  FirewallUpdateResponse,
   FirewallListResponse,
   FirewallCreateParams,
   FirewallUpdateParams,
@@ -37,16 +40,24 @@ export {
   Firewalls,
 } from './firewalls/firewalls';
 export {
-  FloatingIpCreateResponse,
-  FloatingIpRetrieveResponse,
-  FloatingIpUpdateResponse,
-  FloatingIpListResponse,
-  FloatingIpCreateParams,
-  FloatingIpUpdateParams,
-  FloatingIpListParams,
-  FloatingIpListResponsesFloatingIpsPage,
-  FloatingIps,
+  FloatingIP,
+  FloatingIPCreateResponse,
+  FloatingIPRetrieveResponse,
+  FloatingIPUpdateResponse,
+  FloatingIPCreateParams,
+  FloatingIPUpdateParams,
+  FloatingIPListParams,
+  FloatingIPsFloatingIPsPage,
+  FloatingIPs,
 } from './floating-ips/floating-ips';
+export {
+  FloatingIPPriceDetails,
+  Price,
+  PricePerTimeMonthly,
+  PricingRetrieveResponse,
+  Pricing,
+} from './pricing';
+export { ISORetrieveResponse, ISOListResponse, ISOListParams, ISOs } from './isos';
 export {
   ImageRetrieveResponse,
   ImageUpdateResponse,
@@ -55,17 +66,10 @@ export {
   ImageListParams,
   Images,
 } from './images/images';
-export { IsoRetrieveResponse, IsoListResponse, IsoListParams, Isos } from './isos';
 export {
-  LoadBalancerService,
-  LoadBalancerServiceHealthCheck,
-  LoadBalancerServiceHTTP,
-  LoadBalancerTarget,
-  LoadBalancerTargetHealthStatus,
-  LoadBalancerTargetIp,
-  LoadBalancerTargetLabelSelector,
-  LoadBalancerTargetServer,
-  LoadBalancerTargetTarget,
+  LoadBalancer,
+  LoadBalancerServiceModel,
+  LoadBalancerTargetIP,
   LoadBalancerCreateResponse,
   LoadBalancerRetrieveResponse,
   LoadBalancerUpdateResponse,
@@ -94,29 +98,29 @@ export {
 } from './networks/networks';
 export {
   PlacementGroup,
-  PlacementGroupNullable,
-  PlacementGroupResponse,
   PlacementGroupCreateResponse,
+  PlacementGroupRetrieveResponse,
+  PlacementGroupUpdateResponse,
   PlacementGroupListResponse,
   PlacementGroupCreateParams,
   PlacementGroupUpdateParams,
   PlacementGroupListParams,
   PlacementGroups,
 } from './placement-groups';
-export { PricingRetrieveResponse, Pricing } from './pricing';
 export {
-  PrimaryIp,
-  PrimaryIpResponse,
-  PrimaryIpCreateResponse,
-  PrimaryIpListResponse,
-  PrimaryIpCreateParams,
-  PrimaryIpUpdateParams,
-  PrimaryIpListParams,
-  PrimaryIps,
+  PrimaryIP,
+  PrimaryIPCreateResponse,
+  PrimaryIPRetrieveResponse,
+  PrimaryIPUpdateResponse,
+  PrimaryIPListResponse,
+  PrimaryIPCreateParams,
+  PrimaryIPUpdateParams,
+  PrimaryIPListParams,
+  PrimaryIPs,
 } from './primary-ips/primary-ips';
 export {
   Server,
-  ServerPublicNetFirewall,
+  ServerPublicNet,
   ServerCreateResponse,
   ServerRetrieveResponse,
   ServerUpdateResponse,

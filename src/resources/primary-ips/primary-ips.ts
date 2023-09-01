@@ -7,7 +7,7 @@ import * as Shared from 'hetzner/resources/shared';
 import { Actions } from './actions';
 import * as API from './index';
 
-export class PrimaryIps extends APIResource {
+export class PrimaryIPs extends APIResource {
   actions: Actions = new Actions(this.client);
 
   /**
@@ -29,16 +29,16 @@ export class PrimaryIps extends APIResource {
    * | `server_has_ipv6`    | The server already has an ipv6 address                       |
    */
   create(
-    body: PrimaryIpCreateParams,
+    body: PrimaryIPCreateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PrimaryIpCreateResponse> {
+  ): Core.APIPromise<PrimaryIPCreateResponse> {
     return this.post('/primary_ips', { body, ...options });
   }
 
   /**
    * Returns a specific Primary IP object.
    */
-  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<PrimaryIpResponse> {
+  retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<PrimaryIPRetrieveResponse> {
     return this.get(`/primary_ips/${id}`, options);
   }
 
@@ -55,15 +55,15 @@ export class PrimaryIps extends APIResource {
    */
   update(
     id: number,
-    body?: PrimaryIpUpdateParams,
+    body?: PrimaryIPUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PrimaryIpResponse>;
-  update(id: number, options?: Core.RequestOptions): Core.APIPromise<PrimaryIpResponse>;
+  ): Core.APIPromise<PrimaryIPUpdateResponse>;
+  update(id: number, options?: Core.RequestOptions): Core.APIPromise<PrimaryIPUpdateResponse>;
   update(
     id: number,
-    body: PrimaryIpUpdateParams | Core.RequestOptions = {},
+    body: PrimaryIPUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PrimaryIpResponse> {
+  ): Core.APIPromise<PrimaryIPUpdateResponse> {
     if (isRequestOptions(body)) {
       return this.update(id, {}, body);
     }
@@ -73,12 +73,12 @@ export class PrimaryIps extends APIResource {
   /**
    * Returns all Primary IP objects.
    */
-  list(query?: PrimaryIpListParams, options?: Core.RequestOptions): Core.APIPromise<PrimaryIpListResponse>;
-  list(options?: Core.RequestOptions): Core.APIPromise<PrimaryIpListResponse>;
+  list(query?: PrimaryIPListParams, options?: Core.RequestOptions): Core.APIPromise<PrimaryIPListResponse>;
+  list(options?: Core.RequestOptions): Core.APIPromise<PrimaryIPListResponse>;
   list(
-    query: PrimaryIpListParams | Core.RequestOptions = {},
+    query: PrimaryIPListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PrimaryIpListResponse> {
+  ): Core.APIPromise<PrimaryIPListResponse> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -97,7 +97,7 @@ export class PrimaryIps extends APIResource {
   }
 }
 
-export interface PrimaryIp {
+export interface PrimaryIP {
   /**
    * ID of the Resource
    */
@@ -130,14 +130,15 @@ export interface PrimaryIp {
   created: string;
 
   /**
-   * Datacenter this Primary IP is located at
+   * Datacenter this Primary IP is located at | Datacenter this Resource is located
+   * at
    */
-  datacenter: PrimaryIp.Datacenter;
+  datacenter: PrimaryIP.Datacenter;
 
   /**
    * Array of reverse DNS entries
    */
-  dns_ptr: Array<PrimaryIp.DnsPtr>;
+  dns_ptr: Array<PrimaryIP.DNSPtr>;
 
   /**
    * IP address
@@ -157,17 +158,18 @@ export interface PrimaryIp {
   /**
    * Protection configuration for the Resource
    */
-  protection: PrimaryIp.Protection;
+  protection: PrimaryIP.Protection;
 
   /**
-   * Type of the Primary IP
+   * The type of the IP
    */
   type: 'ipv4' | 'ipv6';
 }
 
-export namespace PrimaryIp {
+export namespace PrimaryIP {
   /**
-   * Datacenter this Primary IP is located at
+   * Datacenter this Primary IP is located at | Datacenter this Resource is located
+   * at
    */
   export interface Datacenter {
     /**
@@ -180,6 +182,11 @@ export namespace PrimaryIp {
      */
     description: string;
 
+    /**
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
+     */
     location: Datacenter.Location;
 
     /**
@@ -194,6 +201,11 @@ export namespace PrimaryIp {
   }
 
   export namespace Datacenter {
+    /**
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
+     */
     export interface Location {
       /**
        * ID of the Location
@@ -259,14 +271,15 @@ export namespace PrimaryIp {
     }
   }
 
-  export interface DnsPtr {
+  export interface DNSPtr {
     /**
      * DNS pointer for the specific IP address
      */
     dns_ptr: string;
 
     /**
-     * Single IPv4 or IPv6 address
+     * Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
+     * reverse DNS entry has been set up
      */
     ip: string;
   }
@@ -276,29 +289,52 @@ export namespace PrimaryIp {
    */
   export interface Protection {
     /**
-     * If true, prevents the Resource from being deleted
+     * If true, prevents the Resource from being deleted | If true, prevents the
+     * Network from being deleted
      */
     delete: boolean;
   }
 }
 
-export interface PrimaryIpResponse {
-  primary_ip: PrimaryIp;
-}
+/**
+ * Response to POST https://api.hetzner.cloud/v1/primary_ips
+ */
+export interface PrimaryIPCreateResponse {
+  primary_ip: PrimaryIP;
 
-export interface PrimaryIpCreateResponse {
-  primary_ip: PrimaryIp;
-
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
   action?: Shared.Action;
 }
 
-export interface PrimaryIpListResponse {
-  primary_ips: Array<PrimaryIp>;
+/**
+ * Response to GET https://api.hetzner.cloud/v1/primary_ips/{id}
+ */
+export interface PrimaryIPRetrieveResponse {
+  primary_ip: PrimaryIP;
+}
 
+/**
+ * Response to PUT https://api.hetzner.cloud/v1/primary_ips/{id}
+ */
+export interface PrimaryIPUpdateResponse {
+  primary_ip: PrimaryIP;
+}
+
+/**
+ * Response to GET https://api.hetzner.cloud/v1/primary_ips
+ */
+export interface PrimaryIPListResponse {
+  primary_ips: Array<PrimaryIP>;
+
+  /**
+   * Metadata contained in the response
+   */
   meta?: Shared.ResponseMeta;
 }
 
-export interface PrimaryIpCreateParams {
+export interface PrimaryIPCreateParams {
   /**
    * Resource type the Primary IP can be assigned to
    */
@@ -307,7 +343,7 @@ export interface PrimaryIpCreateParams {
   name: string;
 
   /**
-   * Primary IP type
+   * The type of the IP
    */
   type: 'ipv4' | 'ipv6';
 
@@ -332,10 +368,10 @@ export interface PrimaryIpCreateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 }
 
-export interface PrimaryIpUpdateParams {
+export interface PrimaryIPUpdateParams {
   /**
    * Delete this Primary IP when the resource it is assigned to is deleted
    */
@@ -344,7 +380,7 @@ export interface PrimaryIpUpdateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   /**
    * New unique name to set
@@ -352,7 +388,7 @@ export interface PrimaryIpUpdateParams {
   name?: string;
 }
 
-export interface PrimaryIpListParams {
+export interface PrimaryIPListParams {
   /**
    * Can be used to filter resources by their ip. The response will only contain the
    * resources matching the specified ip.
@@ -371,8 +407,15 @@ export interface PrimaryIpListParams {
    */
   name?: string;
 
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**
@@ -382,18 +425,25 @@ export interface PrimaryIpListParams {
   sort?: 'id' | 'id:asc' | 'id:desc' | 'created' | 'created:asc' | 'created:desc';
 }
 
-export namespace PrimaryIps {
-  export import PrimaryIp = API.PrimaryIp;
-  export import PrimaryIpResponse = API.PrimaryIpResponse;
-  export import PrimaryIpCreateResponse = API.PrimaryIpCreateResponse;
-  export import PrimaryIpListResponse = API.PrimaryIpListResponse;
-  export import PrimaryIpCreateParams = API.PrimaryIpCreateParams;
-  export import PrimaryIpUpdateParams = API.PrimaryIpUpdateParams;
-  export import PrimaryIpListParams = API.PrimaryIpListParams;
+export namespace PrimaryIPs {
+  export import PrimaryIP = API.PrimaryIP;
+  export import PrimaryIPCreateResponse = API.PrimaryIPCreateResponse;
+  export import PrimaryIPRetrieveResponse = API.PrimaryIPRetrieveResponse;
+  export import PrimaryIPUpdateResponse = API.PrimaryIPUpdateResponse;
+  export import PrimaryIPListResponse = API.PrimaryIPListResponse;
+  export import PrimaryIPCreateParams = API.PrimaryIPCreateParams;
+  export import PrimaryIPUpdateParams = API.PrimaryIPUpdateParams;
+  export import PrimaryIPListParams = API.PrimaryIPListParams;
 
   export import Actions = API.Actions;
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionAssignResponse = API.ActionAssignResponse;
+  export import ActionChangeDNSPtrResponse = API.ActionChangeDNSPtrResponse;
+  export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
+  export import ActionUnassignResponse = API.ActionUnassignResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAssignParams = API.ActionAssignParams;
-  export import ActionChangeDnsPtrParams = API.ActionChangeDnsPtrParams;
+  export import ActionChangeDNSPtrParams = API.ActionChangeDNSPtrParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
 }

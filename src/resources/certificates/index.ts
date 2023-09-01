@@ -1,10 +1,17 @@
 // File generated from our OpenAPI spec by Stainless.
 
-export { ActionListParams, Actions } from './actions';
+export {
+  ActionRetrieveResponse,
+  ActionListResponse,
+  ActionRetryResponse,
+  ActionListParams,
+  Actions,
+} from './actions';
 export {
   Certificate,
-  CertificateResponse,
   CertificateCreateResponse,
+  CertificateRetrieveResponse,
+  CertificateUpdateResponse,
   CertificateListResponse,
   CertificateCreateParams,
   CertificateUpdateParams,

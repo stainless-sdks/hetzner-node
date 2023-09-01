@@ -47,7 +47,7 @@ describe('resource actions', () => {
     await expect(
       hetzner.loadBalancers.actions.list(
         0,
-        { page: 0, per_page: 0, sort: 'id', status: 'running' },
+        { page: 1, per_page: 1, sort: 'id', status: 'running' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -101,7 +101,7 @@ describe('resource actions', () => {
   });
 
   test('assTarget: only required params', async () => {
-    const responsePromise = hetzner.loadBalancers.actions.assTarget(0, { type: 'server' });
+    const responsePromise = hetzner.loadBalancers.actions.assTarget(0, { type: 'ip' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -113,7 +113,7 @@ describe('resource actions', () => {
 
   test('assTarget: required and optional params', async () => {
     const response = await hetzner.loadBalancers.actions.assTarget(0, {
-      type: 'server',
+      type: 'ip',
       ip: { ip: '203.0.113.1' },
       label_selector: { selector: 'env=prod' },
       server: { id: 80 },
@@ -140,7 +140,7 @@ describe('resource actions', () => {
   });
 
   test('changeAlgorithm: only required params', async () => {
-    const responsePromise = hetzner.loadBalancers.actions.changeAlgorithm(0, { type: 'round_robin' });
+    const responsePromise = hetzner.loadBalancers.actions.changeAlgorithm(0, { type: 'least_connections' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -151,11 +151,11 @@ describe('resource actions', () => {
   });
 
   test('changeAlgorithm: required and optional params', async () => {
-    const response = await hetzner.loadBalancers.actions.changeAlgorithm(0, { type: 'round_robin' });
+    const response = await hetzner.loadBalancers.actions.changeAlgorithm(0, { type: 'least_connections' });
   });
 
-  test('changeDnsPtr: only required params', async () => {
-    const responsePromise = hetzner.loadBalancers.actions.changeDnsPtr(0, {
+  test('changeDNSPtr: only required params', async () => {
+    const responsePromise = hetzner.loadBalancers.actions.changeDNSPtr(0, {
       dns_ptr: 'lb1.example.com',
       ip: '1.2.3.4',
     });
@@ -168,8 +168,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('changeDnsPtr: required and optional params', async () => {
-    const response = await hetzner.loadBalancers.actions.changeDnsPtr(0, {
+  test('changeDNSPtr: required and optional params', async () => {
+    const response = await hetzner.loadBalancers.actions.changeDNSPtr(0, {
       dns_ptr: 'lb1.example.com',
       ip: '1.2.3.4',
     });
@@ -286,7 +286,7 @@ describe('resource actions', () => {
   });
 
   test('removeTarget: only required params', async () => {
-    const responsePromise = hetzner.loadBalancers.actions.removeTarget(0, { type: 'server' });
+    const responsePromise = hetzner.loadBalancers.actions.removeTarget(0, { type: 'ip' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -298,7 +298,7 @@ describe('resource actions', () => {
 
   test('removeTarget: required and optional params', async () => {
     const response = await hetzner.loadBalancers.actions.removeTarget(0, {
-      type: 'server',
+      type: 'ip',
       ip: { ip: '203.0.113.1' },
       label_selector: { selector: 'env=prod' },
       server: { id: 80 },

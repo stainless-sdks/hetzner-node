@@ -3,33 +3,49 @@
 import { AbstractPage, Response, APIClient, FinalRequestOptions, PageInfo } from './core';
 import * as Shared from './resources/shared';
 
-export interface FloatingIpsPageResponse<Item> {
+/**
+ * Response to GET https://api.hetzner.cloud/v1/floating_ips
+ */
+export interface FloatingIPsPageResponse<Item> {
   floating_ips: Array<Item>;
 
-  meta?: Shared.ResponseMeta;
+  /**
+   * Metadata contained in the response
+   */
+  meta: Shared.ResponseMeta;
 }
 
-export interface FloatingIpsPageParams {
+export interface FloatingIPsPageParams {
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 }
 
-export class FloatingIpsPage<Item> extends AbstractPage<Item> implements FloatingIpsPageResponse<Item> {
+export class FloatingIPsPage<Item> extends AbstractPage<Item> implements FloatingIPsPageResponse<Item> {
   floating_ips: Array<Item>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta: Shared.ResponseMeta;
 
   constructor(
     client: APIClient,
     response: Response,
-    body: FloatingIpsPageResponse<Item>,
+    body: FloatingIPsPageResponse<Item>,
     options: FinalRequestOptions,
   ) {
     super(client, response, body, options);
 
     this.floating_ips = body.floating_ips;
-    this.meta = body.meta!;
+    this.meta = body.meta;
   }
 
   getPaginatedItems(): Item[] {
@@ -37,7 +53,7 @@ export class FloatingIpsPage<Item> extends AbstractPage<Item> implements Floatin
   }
 
   // @deprecated Please use `nextPageInfo()` instead
-  nextPageParams(): Partial<FloatingIpsPageParams> | null {
+  nextPageParams(): Partial<FloatingIPsPageParams> | null {
     const info = this.nextPageInfo();
     if (!info) return null;
     if ('params' in info) return info.params;
@@ -47,28 +63,44 @@ export class FloatingIpsPage<Item> extends AbstractPage<Item> implements Floatin
   }
 
   nextPageInfo(): PageInfo | null {
-    if (this.meta.pagination.page === this.meta.pagination.last_page) {
+    const currentPage = this.meta.pagination.page;
+    if (currentPage === this.meta.pagination.last_page) {
       return null;
     }
-
     const nextPage = this.meta.pagination.next_page;
     return { params: { page: nextPage } };
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/servers
+ */
 export interface ServersPageResponse<Item> {
-  servers: Array<Item>;
+  /**
+   * Metadata contained in the response
+   */
+  meta: Shared.ResponseMeta;
 
-  meta?: Shared.ResponseMeta;
+  servers: Array<Item>;
 }
 
 export interface ServersPageParams {
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 }
 
 export class ServersPage<Item> extends AbstractPage<Item> implements ServersPageResponse<Item> {
+  /**
+   * Metadata contained in the response
+   */
   meta: Shared.ResponseMeta;
 
   servers: Array<Item>;
@@ -81,7 +113,7 @@ export class ServersPage<Item> extends AbstractPage<Item> implements ServersPage
   ) {
     super(client, response, body, options);
 
-    this.meta = body.meta!;
+    this.meta = body.meta;
     this.servers = body.servers;
   }
 
@@ -100,10 +132,10 @@ export class ServersPage<Item> extends AbstractPage<Item> implements ServersPage
   }
 
   nextPageInfo(): PageInfo | null {
-    if (this.meta.pagination.page === this.meta.pagination.last_page) {
+    const currentPage = this.meta.pagination.page;
+    if (currentPage === this.meta.pagination.last_page) {
       return null;
     }
-
     const nextPage = this.meta.pagination.next_page;
     return { params: { page: nextPage } };
   }

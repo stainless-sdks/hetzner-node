@@ -115,16 +115,16 @@ export class Hetzner extends Core.APIClient {
   certificates: API.Certificates = new API.Certificates(this);
   datacenters: API.Datacenters = new API.Datacenters(this);
   firewalls: API.Firewalls = new API.Firewalls(this);
-  floatingIps: API.FloatingIps = new API.FloatingIps(this);
+  floatingIPs: API.FloatingIPs = new API.FloatingIPs(this);
   images: API.Images = new API.Images(this);
-  isos: API.Isos = new API.Isos(this);
+  isos: API.ISOs = new API.ISOs(this);
   loadBalancerTypes: API.LoadBalancerTypes = new API.LoadBalancerTypes(this);
   loadBalancers: API.LoadBalancers = new API.LoadBalancers(this);
   locations: API.Locations = new API.Locations(this);
   networks: API.Networks = new API.Networks(this);
   placementGroups: API.PlacementGroups = new API.PlacementGroups(this);
   pricing: API.Pricing = new API.Pricing(this);
-  primaryIps: API.PrimaryIps = new API.PrimaryIps(this);
+  primaryIPs: API.PrimaryIPs = new API.PrimaryIPs(this);
   serverTypes: API.ServerTypes = new API.ServerTypes(this);
   servers: API.Servers = new API.Servers(this);
   sshKeys: API.SshKeys = new API.SshKeys(this);
@@ -134,14 +134,14 @@ export class Hetzner extends Core.APIClient {
     return this._options.defaultQuery;
   }
 
-  protected override defaultHeaders(): Core.Headers {
+  protected override defaultHeaders(opts: Core.FinalRequestOptions): Core.Headers {
     return {
-      ...super.defaultHeaders(),
+      ...super.defaultHeaders(opts),
       ...this._options.defaultHeaders,
     };
   }
 
-  protected override authHeaders(): Core.Headers {
+  protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
     return { Authorization: `Bearer ${this.apiToken}` };
   }
 
@@ -186,21 +186,24 @@ export namespace Hetzner {
 
   export import RequestOptions = Core.RequestOptions;
 
-  export import FloatingIpsPage = Pagination.FloatingIpsPage;
-  export import FloatingIpsPageParams = Pagination.FloatingIpsPageParams;
-  export import FloatingIpsPageResponse = Pagination.FloatingIpsPageResponse;
+  export import FloatingIPsPage = Pagination.FloatingIPsPage;
+  export import FloatingIPsPageParams = Pagination.FloatingIPsPageParams;
+  export import FloatingIPsPageResponse = Pagination.FloatingIPsPageResponse;
 
   export import ServersPage = Pagination.ServersPage;
   export import ServersPageParams = Pagination.ServersPageParams;
   export import ServersPageResponse = Pagination.ServersPageResponse;
 
   export import Actions = API.Actions;
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
   export import ActionListParams = API.ActionListParams;
 
   export import Certificates = API.Certificates;
   export import Certificate = API.Certificate;
-  export import CertificateResponse = API.CertificateResponse;
   export import CertificateCreateResponse = API.CertificateCreateResponse;
+  export import CertificateRetrieveResponse = API.CertificateRetrieveResponse;
+  export import CertificateUpdateResponse = API.CertificateUpdateResponse;
   export import CertificateListResponse = API.CertificateListResponse;
   export import CertificateCreateParams = API.CertificateCreateParams;
   export import CertificateUpdateParams = API.CertificateUpdateParams;
@@ -213,23 +216,24 @@ export namespace Hetzner {
 
   export import Firewalls = API.Firewalls;
   export import Firewall = API.Firewall;
-  export import FirewallResponse = API.FirewallResponse;
   export import Rule = API.Rule;
   export import FirewallCreateResponse = API.FirewallCreateResponse;
+  export import FirewallRetrieveResponse = API.FirewallRetrieveResponse;
+  export import FirewallUpdateResponse = API.FirewallUpdateResponse;
   export import FirewallListResponse = API.FirewallListResponse;
   export import FirewallCreateParams = API.FirewallCreateParams;
   export import FirewallUpdateParams = API.FirewallUpdateParams;
   export import FirewallListParams = API.FirewallListParams;
 
-  export import FloatingIps = API.FloatingIps;
-  export import FloatingIpCreateResponse = API.FloatingIpCreateResponse;
-  export import FloatingIpRetrieveResponse = API.FloatingIpRetrieveResponse;
-  export import FloatingIpUpdateResponse = API.FloatingIpUpdateResponse;
-  export import FloatingIpListResponse = API.FloatingIpListResponse;
-  export import FloatingIpListResponsesFloatingIpsPage = API.FloatingIpListResponsesFloatingIpsPage;
-  export import FloatingIpCreateParams = API.FloatingIpCreateParams;
-  export import FloatingIpUpdateParams = API.FloatingIpUpdateParams;
-  export import FloatingIpListParams = API.FloatingIpListParams;
+  export import FloatingIPs = API.FloatingIPs;
+  export import FloatingIP = API.FloatingIP;
+  export import FloatingIPCreateResponse = API.FloatingIPCreateResponse;
+  export import FloatingIPRetrieveResponse = API.FloatingIPRetrieveResponse;
+  export import FloatingIPUpdateResponse = API.FloatingIPUpdateResponse;
+  export import FloatingIPsFloatingIPsPage = API.FloatingIPsFloatingIPsPage;
+  export import FloatingIPCreateParams = API.FloatingIPCreateParams;
+  export import FloatingIPUpdateParams = API.FloatingIPUpdateParams;
+  export import FloatingIPListParams = API.FloatingIPListParams;
 
   export import Images = API.Images;
   export import ImageRetrieveResponse = API.ImageRetrieveResponse;
@@ -238,10 +242,10 @@ export namespace Hetzner {
   export import ImageUpdateParams = API.ImageUpdateParams;
   export import ImageListParams = API.ImageListParams;
 
-  export import Isos = API.Isos;
-  export import IsoRetrieveResponse = API.IsoRetrieveResponse;
-  export import IsoListResponse = API.IsoListResponse;
-  export import IsoListParams = API.IsoListParams;
+  export import ISOs = API.ISOs;
+  export import ISORetrieveResponse = API.ISORetrieveResponse;
+  export import ISOListResponse = API.ISOListResponse;
+  export import ISOListParams = API.ISOListParams;
 
   export import LoadBalancerTypes = API.LoadBalancerTypes;
   export import LoadBalancerTypeRetrieveResponse = API.LoadBalancerTypeRetrieveResponse;
@@ -249,15 +253,9 @@ export namespace Hetzner {
   export import LoadBalancerTypeListParams = API.LoadBalancerTypeListParams;
 
   export import LoadBalancers = API.LoadBalancers;
-  export import LoadBalancerService = API.LoadBalancerService;
-  export import LoadBalancerServiceHealthCheck = API.LoadBalancerServiceHealthCheck;
-  export import LoadBalancerServiceHTTP = API.LoadBalancerServiceHTTP;
-  export import LoadBalancerTarget = API.LoadBalancerTarget;
-  export import LoadBalancerTargetHealthStatus = API.LoadBalancerTargetHealthStatus;
-  export import LoadBalancerTargetIp = API.LoadBalancerTargetIp;
-  export import LoadBalancerTargetLabelSelector = API.LoadBalancerTargetLabelSelector;
-  export import LoadBalancerTargetServer = API.LoadBalancerTargetServer;
-  export import LoadBalancerTargetTarget = API.LoadBalancerTargetTarget;
+  export import LoadBalancer = API.LoadBalancer;
+  export import LoadBalancerServiceModel = API.LoadBalancerServiceModel;
+  export import LoadBalancerTargetIP = API.LoadBalancerTargetIP;
   export import LoadBalancerCreateResponse = API.LoadBalancerCreateResponse;
   export import LoadBalancerRetrieveResponse = API.LoadBalancerRetrieveResponse;
   export import LoadBalancerUpdateResponse = API.LoadBalancerUpdateResponse;
@@ -282,35 +280,40 @@ export namespace Hetzner {
 
   export import PlacementGroups = API.PlacementGroups;
   export import PlacementGroup = API.PlacementGroup;
-  export import PlacementGroupNullable = API.PlacementGroupNullable;
-  export import PlacementGroupResponse = API.PlacementGroupResponse;
   export import PlacementGroupCreateResponse = API.PlacementGroupCreateResponse;
+  export import PlacementGroupRetrieveResponse = API.PlacementGroupRetrieveResponse;
+  export import PlacementGroupUpdateResponse = API.PlacementGroupUpdateResponse;
   export import PlacementGroupListResponse = API.PlacementGroupListResponse;
   export import PlacementGroupCreateParams = API.PlacementGroupCreateParams;
   export import PlacementGroupUpdateParams = API.PlacementGroupUpdateParams;
   export import PlacementGroupListParams = API.PlacementGroupListParams;
 
   export import Pricing = API.Pricing;
+  export import FloatingIPPriceDetails = API.FloatingIPPriceDetails;
+  export import Price = API.Price;
+  export import PricePerTimeMonthly = API.PricePerTimeMonthly;
   export import PricingRetrieveResponse = API.PricingRetrieveResponse;
 
-  export import PrimaryIps = API.PrimaryIps;
-  export import PrimaryIp = API.PrimaryIp;
-  export import PrimaryIpResponse = API.PrimaryIpResponse;
-  export import PrimaryIpCreateResponse = API.PrimaryIpCreateResponse;
-  export import PrimaryIpListResponse = API.PrimaryIpListResponse;
-  export import PrimaryIpCreateParams = API.PrimaryIpCreateParams;
-  export import PrimaryIpUpdateParams = API.PrimaryIpUpdateParams;
-  export import PrimaryIpListParams = API.PrimaryIpListParams;
+  export import PrimaryIPs = API.PrimaryIPs;
+  export import PrimaryIP = API.PrimaryIP;
+  export import PrimaryIPCreateResponse = API.PrimaryIPCreateResponse;
+  export import PrimaryIPRetrieveResponse = API.PrimaryIPRetrieveResponse;
+  export import PrimaryIPUpdateResponse = API.PrimaryIPUpdateResponse;
+  export import PrimaryIPListResponse = API.PrimaryIPListResponse;
+  export import PrimaryIPCreateParams = API.PrimaryIPCreateParams;
+  export import PrimaryIPUpdateParams = API.PrimaryIPUpdateParams;
+  export import PrimaryIPListParams = API.PrimaryIPListParams;
 
   export import ServerTypes = API.ServerTypes;
-  export import DeprecationInfo = API.DeprecationInfo;
+  export import CPUType = API.CPUType;
+  export import ServerType = API.ServerType;
   export import ServerTypeRetrieveResponse = API.ServerTypeRetrieveResponse;
   export import ServerTypeListResponse = API.ServerTypeListResponse;
   export import ServerTypeListParams = API.ServerTypeListParams;
 
   export import Servers = API.Servers;
   export import Server = API.Server;
-  export import ServerPublicNetFirewall = API.ServerPublicNetFirewall;
+  export import ServerPublicNet = API.ServerPublicNet;
   export import ServerCreateResponse = API.ServerCreateResponse;
   export import ServerRetrieveResponse = API.ServerRetrieveResponse;
   export import ServerUpdateResponse = API.ServerUpdateResponse;
@@ -339,9 +342,7 @@ export namespace Hetzner {
   export import VolumeListParams = API.VolumeListParams;
 
   export import Action = API.Action;
-  export import ActionResponse = API.ActionResponse;
-  export import ActionsResponse = API.ActionsResponse;
-  export import NullableAction = API.NullableAction;
+  export import HealthStatus = API.HealthStatus;
   export import ResponseMeta = API.ResponseMeta;
   export import SortParam = API.SortParam;
   export import StatusParam = API.StatusParam;

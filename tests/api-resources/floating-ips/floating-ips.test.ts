@@ -5,9 +5,9 @@ import { Response } from 'node-fetch';
 
 const hetzner = new Hetzner({ apiToken: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
-describe('resource floatingIps', () => {
+describe('resource floatingIPs', () => {
   test('create: only required params', async () => {
-    const responsePromise = hetzner.floatingIps.create({ type: 'ipv4' });
+    const responsePromise = hetzner.floatingIPs.create({ type: 'ipv4' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -18,18 +18,18 @@ describe('resource floatingIps', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await hetzner.floatingIps.create({
+    const response = await hetzner.floatingIPs.create({
       type: 'ipv4',
       description: 'Web Frontend',
       home_location: 'fsn1',
-      labels: { labelkey: 'value' },
+      labels: { foo: 'string' },
       name: 'Web Frontend',
       server: 42,
     });
   });
 
   test('retrieve', async () => {
-    const responsePromise = hetzner.floatingIps.retrieve(0);
+    const responsePromise = hetzner.floatingIPs.retrieve(0);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -41,13 +41,13 @@ describe('resource floatingIps', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(hetzner.floatingIps.retrieve(0, { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(hetzner.floatingIPs.retrieve(0, { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Hetzner.NotFoundError,
     );
   });
 
   test('update', async () => {
-    const responsePromise = hetzner.floatingIps.update(0);
+    const responsePromise = hetzner.floatingIPs.update(0);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -59,7 +59,7 @@ describe('resource floatingIps', () => {
 
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(hetzner.floatingIps.update(0, { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(hetzner.floatingIPs.update(0, { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Hetzner.NotFoundError,
     );
   });
@@ -67,16 +67,16 @@ describe('resource floatingIps', () => {
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      hetzner.floatingIps.update(
+      hetzner.floatingIPs.update(
         0,
-        { description: 'Web Frontend', labels: { labelkey: 'value' }, name: 'Web Frontend' },
+        { description: 'Web Frontend', labels: { foo: 'string' }, name: 'Web Frontend' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
   });
 
   test('list', async () => {
-    const responsePromise = hetzner.floatingIps.list();
+    const responsePromise = hetzner.floatingIPs.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -88,7 +88,7 @@ describe('resource floatingIps', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(hetzner.floatingIps.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(hetzner.floatingIPs.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Hetzner.NotFoundError,
     );
   });
@@ -96,15 +96,15 @@ describe('resource floatingIps', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      hetzner.floatingIps.list(
-        { label_selector: 'string', name: 'string', page: 0, per_page: 0, sort: 'id' },
+      hetzner.floatingIPs.list(
+        { label_selector: 'string', name: 'string', page: 1, per_page: 1, sort: 'id' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
   });
 
   test('del', async () => {
-    const responsePromise = hetzner.floatingIps.del(0);
+    const responsePromise = hetzner.floatingIPs.del(0);
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -116,7 +116,7 @@ describe('resource floatingIps', () => {
 
   test('del: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(hetzner.floatingIps.del(0, { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(hetzner.floatingIPs.del(0, { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Hetzner.NotFoundError,
     );
   });

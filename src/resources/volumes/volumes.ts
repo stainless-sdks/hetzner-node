@@ -85,15 +85,35 @@ export class Volumes extends APIResource {
   }
 }
 
+/**
+ * Response to POST https://api.hetzner.cloud/v1/volumes
+ */
 export interface VolumeCreateResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
   action: Shared.Action;
 
   next_actions: Array<Shared.Action>;
 
+  /**
+   * A Volume is a highly-available, scalable, and SSD-based block storage for
+   * Servers. Pricing for Volumes depends on the Volume size and Location, not the
+   * actual used storage. Please see
+   * [Hetzner Wiki](https://wiki.hetzner.de/index.php/CloudServer/en#Volumes) for
+   * more details about Volumes.
+   */
   volume: VolumeCreateResponse.Volume;
 }
 
 export namespace VolumeCreateResponse {
+  /**
+   * A Volume is a highly-available, scalable, and SSD-based block storage for
+   * Servers. Pricing for Volumes depends on the Volume size and Location, not the
+   * actual used storage. Please see
+   * [Hetzner Wiki](https://wiki.hetzner.de/index.php/CloudServer/en#Volumes) for
+   * more details about Volumes.
+   */
   export interface Volume {
     /**
      * ID of the Resource
@@ -122,7 +142,8 @@ export namespace VolumeCreateResponse {
     linux_device: string;
 
     /**
-     * Location of the Volume. Volume can only be attached to Servers in the same
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
      * Location.
      */
     location: Volume.Location;
@@ -150,12 +171,13 @@ export namespace VolumeCreateResponse {
     /**
      * Current status of the Volume
      */
-    status: 'creating' | 'available';
+    status: 'available' | 'creating';
   }
 
   export namespace Volume {
     /**
-     * Location of the Volume. Volume can only be attached to Servers in the same
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
      * Location.
      */
     export interface Location {
@@ -205,18 +227,36 @@ export namespace VolumeCreateResponse {
      */
     export interface Protection {
       /**
-       * If true, prevents the Resource from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/volumes/{id}
+ */
 export interface VolumeRetrieveResponse {
+  /**
+   * A Volume is a highly-available, scalable, and SSD-based block storage for
+   * Servers. Pricing for Volumes depends on the Volume size and Location, not the
+   * actual used storage. Please see
+   * [Hetzner Wiki](https://wiki.hetzner.de/index.php/CloudServer/en#Volumes) for
+   * more details about Volumes.
+   */
   volume: VolumeRetrieveResponse.Volume;
 }
 
 export namespace VolumeRetrieveResponse {
+  /**
+   * A Volume is a highly-available, scalable, and SSD-based block storage for
+   * Servers. Pricing for Volumes depends on the Volume size and Location, not the
+   * actual used storage. Please see
+   * [Hetzner Wiki](https://wiki.hetzner.de/index.php/CloudServer/en#Volumes) for
+   * more details about Volumes.
+   */
   export interface Volume {
     /**
      * ID of the Resource
@@ -245,7 +285,8 @@ export namespace VolumeRetrieveResponse {
     linux_device: string;
 
     /**
-     * Location of the Volume. Volume can only be attached to Servers in the same
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
      * Location.
      */
     location: Volume.Location;
@@ -273,12 +314,13 @@ export namespace VolumeRetrieveResponse {
     /**
      * Current status of the Volume
      */
-    status: 'creating' | 'available';
+    status: 'available' | 'creating';
   }
 
   export namespace Volume {
     /**
-     * Location of the Volume. Volume can only be attached to Servers in the same
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
      * Location.
      */
     export interface Location {
@@ -328,18 +370,36 @@ export namespace VolumeRetrieveResponse {
      */
     export interface Protection {
       /**
-       * If true, prevents the Resource from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
   }
 }
 
+/**
+ * Response to PUT https://api.hetzner.cloud/v1/volumes/{id}
+ */
 export interface VolumeUpdateResponse {
+  /**
+   * A Volume is a highly-available, scalable, and SSD-based block storage for
+   * Servers. Pricing for Volumes depends on the Volume size and Location, not the
+   * actual used storage. Please see
+   * [Hetzner Wiki](https://wiki.hetzner.de/index.php/CloudServer/en#Volumes) for
+   * more details about Volumes.
+   */
   volume: VolumeUpdateResponse.Volume;
 }
 
 export namespace VolumeUpdateResponse {
+  /**
+   * A Volume is a highly-available, scalable, and SSD-based block storage for
+   * Servers. Pricing for Volumes depends on the Volume size and Location, not the
+   * actual used storage. Please see
+   * [Hetzner Wiki](https://wiki.hetzner.de/index.php/CloudServer/en#Volumes) for
+   * more details about Volumes.
+   */
   export interface Volume {
     /**
      * ID of the Resource
@@ -368,7 +428,8 @@ export namespace VolumeUpdateResponse {
     linux_device: string;
 
     /**
-     * Location of the Volume. Volume can only be attached to Servers in the same
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
      * Location.
      */
     location: Volume.Location;
@@ -396,12 +457,13 @@ export namespace VolumeUpdateResponse {
     /**
      * Current status of the Volume
      */
-    status: 'creating' | 'available';
+    status: 'available' | 'creating';
   }
 
   export namespace Volume {
     /**
-     * Location of the Volume. Volume can only be attached to Servers in the same
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
      * Location.
      */
     export interface Location {
@@ -451,20 +513,34 @@ export namespace VolumeUpdateResponse {
      */
     export interface Protection {
       /**
-       * If true, prevents the Resource from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/volumes
+ */
 export interface VolumeListResponse {
   volumes: Array<VolumeListResponse.Volume>;
 
+  /**
+   * Metadata contained in the response
+   */
   meta?: Shared.ResponseMeta;
 }
 
 export namespace VolumeListResponse {
+  /**
+   * A Volume is a highly-available, scalable, and SSD-based block storage for
+   * Servers. Pricing for Volumes depends on the Volume size and Location, not the
+   * actual used storage. Please see
+   * [Hetzner Wiki](https://wiki.hetzner.de/index.php/CloudServer/en#Volumes) for
+   * more details about Volumes.
+   */
   export interface Volume {
     /**
      * ID of the Resource
@@ -493,7 +569,8 @@ export namespace VolumeListResponse {
     linux_device: string;
 
     /**
-     * Location of the Volume. Volume can only be attached to Servers in the same
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
      * Location.
      */
     location: Volume.Location;
@@ -521,12 +598,13 @@ export namespace VolumeListResponse {
     /**
      * Current status of the Volume
      */
-    status: 'creating' | 'available';
+    status: 'available' | 'creating';
   }
 
   export namespace Volume {
     /**
-     * Location of the Volume. Volume can only be attached to Servers in the same
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
      * Location.
      */
     export interface Location {
@@ -576,7 +654,8 @@ export namespace VolumeListResponse {
      */
     export interface Protection {
       /**
-       * If true, prevents the Resource from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
@@ -607,7 +686,7 @@ export interface VolumeCreateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   /**
    * Location to create the Volume in (can be omitted if Server is specified)
@@ -630,16 +709,7 @@ export interface VolumeUpdateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: VolumeUpdateParams.Labels;
-}
-
-export namespace VolumeUpdateParams {
-  /**
-   * User-defined labels (key-value pairs)
-   */
-  export interface Labels {
-    labelkey?: string;
-  }
+  labels?: Record<string, string>;
 }
 
 export interface VolumeListParams {
@@ -655,8 +725,15 @@ export interface VolumeListParams {
    */
   name?: string;
 
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**
@@ -690,6 +767,12 @@ export namespace Volumes {
   export import VolumeListParams = API.VolumeListParams;
 
   export import Actions = API.Actions;
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionAttachResponse = API.ActionAttachResponse;
+  export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
+  export import ActionDetachResponse = API.ActionDetachResponse;
+  export import ActionResizeResponse = API.ActionResizeResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAttachParams = API.ActionAttachParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;

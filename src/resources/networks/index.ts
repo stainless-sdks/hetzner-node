@@ -1,10 +1,18 @@
 // File generated from our OpenAPI spec by Stainless.
 
 export {
+  ActionRetrieveResponse,
+  ActionListResponse,
+  ActionAddRouteResponse,
+  ActionAddSubnetResponse,
+  ActionChangeIPRangeResponse,
+  ActionChangeProtectionResponse,
+  ActionDeleteRouteResponse,
+  ActionDeleteSubnetResponse,
   ActionListParams,
   ActionAddRouteParams,
   ActionAddSubnetParams,
-  ActionChangeIpRangeParams,
+  ActionChangeIPRangeParams,
   ActionChangeProtectionParams,
   ActionDeleteRouteParams,
   ActionDeleteSubnetParams,

@@ -47,7 +47,7 @@ describe('resource actions', () => {
     await expect(
       hetzner.networks.actions.list(
         0,
-        { page: 0, per_page: 0, sort: 'id', status: 'running' },
+        { page: 1, per_page: 1, sort: 'id', status: 'running' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -97,8 +97,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('changeIpRange: only required params', async () => {
-    const responsePromise = hetzner.networks.actions.changeIpRange(0, { ip_range: '10.0.0.0/12' });
+  test('changeIPRange: only required params', async () => {
+    const responsePromise = hetzner.networks.actions.changeIPRange(0, { ip_range: '10.0.0.0/12' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -108,8 +108,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('changeIpRange: required and optional params', async () => {
-    const response = await hetzner.networks.actions.changeIpRange(0, { ip_range: '10.0.0.0/12' });
+  test('changeIPRange: required and optional params', async () => {
+    const response = await hetzner.networks.actions.changeIPRange(0, { ip_range: '10.0.0.0/12' });
   });
 
   test('changeProtection', async () => {

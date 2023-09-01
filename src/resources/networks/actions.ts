@@ -14,7 +14,7 @@ export class Actions extends APIResource {
     id: number,
     actionId: number,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionRetrieveResponse> {
     return this.get(`/networks/${id}/actions/${actionId}`, options);
   }
 
@@ -26,13 +26,13 @@ export class Actions extends APIResource {
     id: number,
     query?: ActionListParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse>;
-  list(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionsResponse>;
+  ): Core.APIPromise<ActionListResponse>;
+  list(id: number, options?: Core.RequestOptions): Core.APIPromise<ActionListResponse>;
   list(
     id: number,
     query: ActionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionsResponse> {
+  ): Core.APIPromise<ActionListResponse> {
     if (isRequestOptions(query)) {
       return this.list(id, {}, query);
     }
@@ -49,7 +49,7 @@ export class Actions extends APIResource {
     id: number,
     body: ActionAddRouteParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionAddRouteResponse> {
     return this.post(`/networks/${id}/actions/add_route`, { body, ...options });
   }
 
@@ -65,7 +65,7 @@ export class Actions extends APIResource {
     id: number,
     body: ActionAddSubnetParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionAddSubnetResponse> {
     return this.post(`/networks/${id}/actions/add_subnet`, { body, ...options });
   }
 
@@ -87,11 +87,11 @@ export class Actions extends APIResource {
    * Note: if the Network object changes during the request, the response will be a
    * “conflict” error.
    */
-  changeIpRange(
+  changeIPRange(
     id: number,
-    body: ActionChangeIpRangeParams,
+    body: ActionChangeIPRangeParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionChangeIPRangeResponse> {
     return this.post(`/networks/${id}/actions/change_ip_range`, { body, ...options });
   }
 
@@ -105,13 +105,16 @@ export class Actions extends APIResource {
     id: number,
     body?: ActionChangeProtectionParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse>;
-  changeProtection(id: number, options?: Core.RequestOptions): Core.APIPromise<Shared.ActionResponse>;
+  ): Core.APIPromise<ActionChangeProtectionResponse>;
+  changeProtection(
+    id: number,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ActionChangeProtectionResponse>;
   changeProtection(
     id: number,
     body: ActionChangeProtectionParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionChangeProtectionResponse> {
     if (isRequestOptions(body)) {
       return this.changeProtection(id, {}, body);
     }
@@ -128,7 +131,7 @@ export class Actions extends APIResource {
     id: number,
     body: ActionDeleteRouteParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionDeleteRouteResponse> {
     return this.post(`/networks/${id}/actions/delete_route`, { body, ...options });
   }
 
@@ -145,14 +148,106 @@ export class Actions extends APIResource {
     id: number,
     body: ActionDeleteSubnetParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ActionResponse> {
+  ): Core.APIPromise<ActionDeleteSubnetResponse> {
     return this.post(`/networks/${id}/actions/delete_subnet`, { body, ...options });
   }
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/networks/{id}/actions/{action_id}
+ */
+export interface ActionRetrieveResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to GET https://api.hetzner.cloud/v1/networks/{id}/actions
+ */
+export interface ActionListResponse {
+  actions: Array<Shared.Action>;
+
+  /**
+   * Metadata contained in the response
+   */
+  meta?: Shared.ResponseMeta;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_route
+ */
+export interface ActionAddRouteResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/add_subnet
+ */
+export interface ActionAddSubnetResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/networks/{id}/actions/change_ip_range
+ */
+export interface ActionChangeIPRangeResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/networks/{id}/actions/change_protection
+ */
+export interface ActionChangeProtectionResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/networks/{id}/actions/delete_route
+ */
+export interface ActionDeleteRouteResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
+/**
+ * Response to POST
+ * https://api.hetzner.cloud/v1/networks/{id}/actions/delete_subnet
+ */
+export interface ActionDeleteSubnetResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action: Shared.Action;
+}
+
 export interface ActionListParams {
+  /**
+   * Specifies the page to fetch. The number of the first page is 1
+   */
   page?: number;
 
+  /**
+   * Specifies the number of items returned per page. The default value is 25, the
+   * maximum value is 50 except otherwise specified in the documentation.
+   */
   per_page?: number;
 
   /**
@@ -177,9 +272,11 @@ export interface ActionAddRouteParams {
   destination: string;
 
   /**
-   * Gateway for the route. Cannot be the first IP of the networks ip_range, an IP
-   * behind a vSwitch or 172.31.1.1, as this IP is being used as a gateway for the
-   * public network interface of Servers.
+   * Gateway for the route. Cannot be the first IP of the networks ip_range and also
+   * cannot be 172.31.1.1 as this IP is being used as a gateway for the public
+   * network interface of Servers. | Gateway for the route. Cannot be the first IP of
+   * the networks ip_range, an IP behind a vSwitch or 172.31.1.1, as this IP is being
+   * used as a gateway for the public network interface of Servers.
    */
   gateway: string;
 }
@@ -199,9 +296,12 @@ export interface ActionAddSubnetParams {
   /**
    * Range to allocate IPs from. Must be a Subnet of the ip_range of the parent
    * network object and must not overlap with any other subnets or with any
-   * destinations in routes. If the Subnet is of type vSwitch, it also can not
-   * overlap with any gateway in routes. Minimum Network size is /30. We suggest that
-   * you pick a bigger Network with a /24 netmask.
+   * destinations in routes. Minimum Network size is /30. We suggest that you pick a
+   * bigger Network with a /24 netmask. | Range to allocate IPs from. Must be a
+   * Subnet of the ip_range of the parent network object and must not overlap with
+   * any other subnets or with any destinations in routes. If the Subnet is of type
+   * vSwitch, it also can not overlap with any gateway in routes. Minimum Network
+   * size is /30. We suggest that you pick a bigger Network with a /24 netmask.
    */
   ip_range?: string;
 
@@ -211,7 +311,7 @@ export interface ActionAddSubnetParams {
   vswitch_id?: number;
 }
 
-export interface ActionChangeIpRangeParams {
+export interface ActionChangeIPRangeParams {
   /**
    * The new prefix for the whole Network
    */
@@ -235,9 +335,11 @@ export interface ActionDeleteRouteParams {
   destination: string;
 
   /**
-   * Gateway for the route. Cannot be the first IP of the networks ip_range, an IP
-   * behind a vSwitch or 172.31.1.1, as this IP is being used as a gateway for the
-   * public network interface of Servers.
+   * Gateway for the route. Cannot be the first IP of the networks ip_range and also
+   * cannot be 172.31.1.1 as this IP is being used as a gateway for the public
+   * network interface of Servers. | Gateway for the route. Cannot be the first IP of
+   * the networks ip_range, an IP behind a vSwitch or 172.31.1.1, as this IP is being
+   * used as a gateway for the public network interface of Servers.
    */
   gateway: string;
 }
@@ -250,10 +352,18 @@ export interface ActionDeleteSubnetParams {
 }
 
 export namespace Actions {
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionAddRouteResponse = API.ActionAddRouteResponse;
+  export import ActionAddSubnetResponse = API.ActionAddSubnetResponse;
+  export import ActionChangeIPRangeResponse = API.ActionChangeIPRangeResponse;
+  export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
+  export import ActionDeleteRouteResponse = API.ActionDeleteRouteResponse;
+  export import ActionDeleteSubnetResponse = API.ActionDeleteSubnetResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAddRouteParams = API.ActionAddRouteParams;
   export import ActionAddSubnetParams = API.ActionAddSubnetParams;
-  export import ActionChangeIpRangeParams = API.ActionChangeIpRangeParams;
+  export import ActionChangeIPRangeParams = API.ActionChangeIPRangeParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
   export import ActionDeleteRouteParams = API.ActionDeleteRouteParams;
   export import ActionDeleteSubnetParams = API.ActionDeleteSubnetParams;

@@ -3,7 +3,8 @@
 import * as Core from 'hetzner/core';
 import { APIResource } from 'hetzner/resource';
 import { isRequestOptions } from 'hetzner/core';
-import * as PlacementGroups from 'hetzner/resources/placement-groups';
+import * as ServerTypes from 'hetzner/resources/server-types';
+import * as Pricing from 'hetzner/resources/pricing';
 import * as Shared from 'hetzner/resources/shared';
 import { Actions } from './actions';
 import { Metrics } from './metrics';
@@ -83,6 +84,9 @@ export class ServersServersPage extends ServersPage<Server> {}
 // alias so we can export it in the namespace
 type _ServersServersPage = ServersServersPage;
 
+/**
+ * Servers are virtual machines that can be provisioned.
+ */
 export interface Server {
   /**
    * ID of the Resource
@@ -101,7 +105,8 @@ export interface Server {
   created: string;
 
   /**
-   * Datacenter this Resource is located at
+   * Datacenter this Primary IP is located at | Datacenter this Resource is located
+   * at
    */
   datacenter: Server.Datacenter;
 
@@ -120,7 +125,7 @@ export interface Server {
   /**
    * ISO Image that is attached to this Server. Null if no ISO is attached.
    */
-  iso: Server.Iso | null;
+  iso: Server.ISO | null;
 
   /**
    * User-defined labels (key-value pairs)
@@ -162,7 +167,7 @@ export interface Server {
    * Public network information. The Server's IPv4 address can be found in
    * `public_net->ipv4->ip`
    */
-  public_net: Server.PublicNet;
+  public_net: ServerPublicNet;
 
   /**
    * True if rescue mode is enabled. Server will then boot into rescue system on next
@@ -179,19 +184,19 @@ export interface Server {
    * Status of the Server
    */
   status:
-    | 'running'
+    | 'deleting'
     | 'initializing'
+    | 'migrating'
+    | 'off'
+    | 'rebuilding'
+    | 'running'
     | 'starting'
     | 'stopping'
-    | 'off'
-    | 'deleting'
-    | 'migrating'
-    | 'rebuilding'
     | 'unknown';
 
   load_balancers?: Array<number>;
 
-  placement_group?: PlacementGroups.PlacementGroupNullable | null;
+  placement_group?: Server.PlacementGroup | null;
 
   /**
    * IDs of Volumes assigned to this Server
@@ -201,7 +206,8 @@ export interface Server {
 
 export namespace Server {
   /**
-   * Datacenter this Resource is located at
+   * Datacenter this Primary IP is located at | Datacenter this Resource is located
+   * at
    */
   export interface Datacenter {
     /**
@@ -214,6 +220,11 @@ export namespace Server {
      */
     description: string;
 
+    /**
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
+     */
     location: Datacenter.Location;
 
     /**
@@ -228,6 +239,11 @@ export namespace Server {
   }
 
   export namespace Datacenter {
+    /**
+     * Location the Floating IP was created in. Routing is optimized for this Location.
+     * | Location of the Volume. Volume can only be attached to Servers in the same
+     * Location.
+     */
     export interface Location {
       /**
        * ID of the Location
@@ -300,9 +316,10 @@ export namespace Server {
     id: number;
 
     /**
-     * Type of cpu architecture this image is compatible with.
+     * Type of cpu architecture this image is compatible with. | Type of cpu
+     * architecture
      */
-    architecture: 'x86' | 'arm';
+    architecture: 'arm' | 'x86';
 
     /**
      * ID of Server the Image is bound to. Only set for Images of type `backup`.
@@ -358,7 +375,7 @@ export namespace Server {
     /**
      * Flavor of operating system contained in the Image
      */
-    os_flavor: 'ubuntu' | 'centos' | 'debian' | 'fedora' | 'rocky' | 'alma' | 'unknown';
+    os_flavor: 'alma' | 'centos' | 'debian' | 'fedora' | 'rocky' | 'ubuntu' | 'unknown';
 
     /**
      * Operating system version
@@ -378,7 +395,7 @@ export namespace Server {
     /**
      * Type of the Image
      */
-    type: 'system' | 'app' | 'snapshot' | 'backup' | 'temporary';
+    type: 'app' | 'backup' | 'snapshot' | 'system' | 'temporary';
 
     /**
      * Indicates that rapid deploy of the Image is available
@@ -407,7 +424,8 @@ export namespace Server {
      */
     export interface Protection {
       /**
-       * If true, prevents the Resource from being deleted
+       * If true, prevents the Resource from being deleted | If true, prevents the
+       * Network from being deleted
        */
       delete: boolean;
     }
@@ -416,7 +434,7 @@ export namespace Server {
   /**
    * ISO Image that is attached to this Server. Null if no ISO is attached.
    */
-  export interface Iso {
+  export interface ISO {
     /**
      * ID of the Resource
      */
@@ -426,7 +444,7 @@ export namespace Server {
      * Type of cpu architecture this iso is compatible with. Null indicates no
      * restriction on the architecture (wildcard).
      */
-    architecture: 'x86' | 'arm' | null;
+    architecture: 'arm' | 'x86' | null;
 
     /**
      * ISO 8601 timestamp of deprecation, null if ISO is still available. After the
@@ -447,7 +465,7 @@ export namespace Server {
     /**
      * Type of the ISO
      */
-    type: 'public' | 'private';
+    type: 'private' | 'public';
   }
 
   export interface PrivateNet {
@@ -479,99 +497,6 @@ export namespace Server {
   }
 
   /**
-   * Public network information. The Server's IPv4 address can be found in
-   * `public_net->ipv4->ip`
-   */
-  export interface PublicNet {
-    /**
-     * IDs of Floating IPs assigned to this Server
-     */
-    floating_ips: Array<number>;
-
-    /**
-     * IP address (v4) and its reverse DNS entry of this Server
-     */
-    ipv4: PublicNet.Ipv4 | null;
-
-    /**
-     * IPv6 network assigned to this Server and its reverse DNS entry
-     */
-    ipv6: PublicNet.Ipv6 | null;
-
-    /**
-     * Firewalls applied to the public network interface of this Server
-     */
-    firewalls?: Array<ServerPublicNetFirewall>;
-  }
-
-  export namespace PublicNet {
-    /**
-     * IP address (v4) and its reverse DNS entry of this Server
-     */
-    export interface Ipv4 {
-      /**
-       * If the IP is blocked by our anti abuse dept
-       */
-      blocked: boolean;
-
-      /**
-       * Reverse DNS PTR entry for the IPv4 addresses of this Server
-       */
-      dns_ptr: string;
-
-      /**
-       * IP address (v4) of this Server
-       */
-      ip: string;
-
-      /**
-       * ID of the Resource
-       */
-      id?: number;
-    }
-
-    /**
-     * IPv6 network assigned to this Server and its reverse DNS entry
-     */
-    export interface Ipv6 {
-      /**
-       * If the IP is blocked by our anti abuse dept
-       */
-      blocked: boolean;
-
-      /**
-       * Reverse DNS PTR entries for the IPv6 addresses of this Server, `null` by default
-       */
-      dns_ptr: Array<Ipv6.DnsPtr> | null;
-
-      /**
-       * IP address (v6) of this Server
-       */
-      ip: string;
-
-      /**
-       * ID of the Resource
-       */
-      id?: number;
-    }
-
-    export namespace Ipv6 {
-      export interface DnsPtr {
-        /**
-         * DNS pointer for the specific IP address
-         */
-        dns_ptr: string;
-
-        /**
-         * Single IPv6 address of this Server for which the reverse DNS entry has been set
-         * up
-         */
-        ip: string;
-      }
-    }
-  }
-
-  /**
    * Type of Server - determines how much ram, disk and cpu a Server has
    */
   export interface ServerType {
@@ -588,12 +513,12 @@ export namespace Server {
     /**
      * Type of cpu
      */
-    cpu_type: 'shared' | 'dedicated';
+    cpu_type: ServerTypes.CPUType;
 
     /**
      * True if Server type is deprecated
      */
-    deprecated: boolean;
+    deprecated: boolean | null;
 
     /**
      * Description of the Server type
@@ -635,63 +560,174 @@ export namespace Server {
       location: string;
 
       /**
-       * Hourly costs for a Server type in this Location
+       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
+       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
+       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
+       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
+       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
+       * for a Server type in this Location | Monthly costs for a Server type in this
+       * Location
        */
-      price_hourly: Price.PriceHourly;
+      price_hourly: Pricing.Price;
 
       /**
-       * Monthly costs for a Server type in this Location
+       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
+       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
+       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
+       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
+       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
+       * for a Server type in this Location | Monthly costs for a Server type in this
+       * Location
        */
-      price_monthly: Price.PriceMonthly;
+      price_monthly: Pricing.Price;
     }
+  }
 
-    export namespace Price {
-      /**
-       * Hourly costs for a Server type in this Location
-       */
-      export interface PriceHourly {
-        /**
-         * Price with VAT added
-         */
-        gross: string;
+  export interface PlacementGroup {
+    /**
+     * ID of the Resource
+     */
+    id: number;
 
-        /**
-         * Price without VAT
-         */
-        net: string;
-      }
+    /**
+     * Point in time when the Resource was created (in ISO-8601 format)
+     */
+    created: string;
 
-      /**
-       * Monthly costs for a Server type in this Location
-       */
-      export interface PriceMonthly {
-        /**
-         * Price with VAT added
-         */
-        gross: string;
+    /**
+     * User-defined labels (key-value pairs)
+     */
+    labels: Record<string, string>;
 
-        /**
-         * Price without VAT
-         */
-        net: string;
-      }
-    }
+    /**
+     * Name of the Resource. Must be unique per Project.
+     */
+    name: string;
+
+    /**
+     * Array of IDs of Servers that are part of this Placement Group
+     */
+    servers: Array<number>;
+
+    /**
+     * Type of the Placement Group
+     */
+    type: 'spread';
   }
 }
 
-export interface ServerPublicNetFirewall {
+/**
+ * Public network information. The Server's IPv4 address can be found in
+ * `public_net->ipv4->ip`
+ */
+export interface ServerPublicNet {
   /**
-   * ID of the Resource
+   * IDs of Floating IPs assigned to this Server
    */
-  id?: number;
+  floating_ips: Array<number>;
 
   /**
-   * Status of the Firewall on the Server
+   * IP address (v4) and its reverse DNS entry of this Server
    */
-  status?: 'applied' | 'pending';
+  ipv4: ServerPublicNet.Ipv4 | null;
+
+  /**
+   * IPv6 network assigned to this Server and its reverse DNS entry
+   */
+  ipv6: ServerPublicNet.Ipv6 | null;
+
+  /**
+   * Firewalls applied to the public network interface of this Server
+   */
+  firewalls?: Array<ServerPublicNet.Firewall>;
 }
 
+export namespace ServerPublicNet {
+  /**
+   * IP address (v4) and its reverse DNS entry of this Server
+   */
+  export interface Ipv4 {
+    /**
+     * If the IP is blocked by our anti abuse dept
+     */
+    blocked: boolean;
+
+    /**
+     * Reverse DNS PTR entry for the IPv4 addresses of this Server
+     */
+    dns_ptr: string;
+
+    /**
+     * IP address (v4) of this Server
+     */
+    ip: string;
+
+    /**
+     * ID of the Resource
+     */
+    id?: number;
+  }
+
+  /**
+   * IPv6 network assigned to this Server and its reverse DNS entry
+   */
+  export interface Ipv6 {
+    /**
+     * If the IP is blocked by our anti abuse dept
+     */
+    blocked: boolean;
+
+    /**
+     * Reverse DNS PTR entries for the IPv6 addresses of this Server, `null` by default
+     */
+    dns_ptr: Array<Ipv6.DNSPtr> | null;
+
+    /**
+     * IP address (v6) of this Server
+     */
+    ip: string;
+
+    /**
+     * ID of the Resource
+     */
+    id?: number;
+  }
+
+  export namespace Ipv6 {
+    export interface DNSPtr {
+      /**
+       * DNS pointer for the specific IP address
+       */
+      dns_ptr: string;
+
+      /**
+       * Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
+       * reverse DNS entry has been set up
+       */
+      ip: string;
+    }
+  }
+
+  export interface Firewall {
+    /**
+     * ID of the Resource
+     */
+    id?: number;
+
+    /**
+     * Status of the Firewall on the Server
+     */
+    status?: 'applied' | 'pending';
+  }
+}
+
+/**
+ * Response to POST https://api.hetzner.cloud/v1/servers
+ */
 export interface ServerCreateResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
   action: Shared.Action;
 
   next_actions: Array<Shared.Action>;
@@ -701,18 +737,39 @@ export interface ServerCreateResponse {
    */
   root_password: string | null;
 
+  /**
+   * Servers are virtual machines that can be provisioned.
+   */
   server: Server;
 }
 
+/**
+ * Response to GET https://api.hetzner.cloud/v1/servers/{id}
+ */
 export interface ServerRetrieveResponse {
+  /**
+   * Servers are virtual machines that can be provisioned.
+   */
   server?: Server;
 }
 
+/**
+ * Response to PUT https://api.hetzner.cloud/v1/servers/{id}
+ */
 export interface ServerUpdateResponse {
+  /**
+   * Servers are virtual machines that can be provisioned.
+   */
   server?: Server;
 }
 
+/**
+ * Response to DELETE https://api.hetzner.cloud/v1/servers/{id}
+ */
 export interface ServerDeleteResponse {
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
   action?: Shared.Action;
 }
 
@@ -753,7 +810,7 @@ export interface ServerCreateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   /**
    * ID or name of Location to create Server in (must not be used together with
@@ -806,7 +863,7 @@ export namespace ServerCreateParams {
     /**
      * ID of the Firewall
      */
-    firewall?: number;
+    firewall: number;
   }
 
   /**
@@ -843,7 +900,7 @@ export interface ServerUpdateParams {
   /**
    * User-defined labels (key-value pairs)
    */
-  labels?: unknown;
+  labels?: Record<string, string>;
 
   /**
    * New name to set
@@ -896,7 +953,7 @@ export interface ServerListParams extends ServersPageParams {
 
 export namespace Servers {
   export import Server = API.Server;
-  export import ServerPublicNetFirewall = API.ServerPublicNetFirewall;
+  export import ServerPublicNet = API.ServerPublicNet;
   export import ServerCreateResponse = API.ServerCreateResponse;
   export import ServerRetrieveResponse = API.ServerRetrieveResponse;
   export import ServerUpdateResponse = API.ServerUpdateResponse;
@@ -907,17 +964,37 @@ export namespace Servers {
   export import ServerListParams = API.ServerListParams;
 
   export import Actions = API.Actions;
+  export import ActionRetrieveResponse = API.ActionRetrieveResponse;
+  export import ActionListResponse = API.ActionListResponse;
+  export import ActionAddToPlacementGroupResponse = API.ActionAddToPlacementGroupResponse;
+  export import ActionAttachISOResponse = API.ActionAttachISOResponse;
+  export import ActionAttachToNetworkResponse = API.ActionAttachToNetworkResponse;
+  export import ActionChangeAliasIPsResponse = API.ActionChangeAliasIPsResponse;
+  export import ActionChangeDNSPtrResponse = API.ActionChangeDNSPtrResponse;
+  export import ActionChangeProtectionResponse = API.ActionChangeProtectionResponse;
+  export import ActionChangeTypeResponse = API.ActionChangeTypeResponse;
   export import ActionCreateImageResponse = API.ActionCreateImageResponse;
+  export import ActionDetachFromNetworkResponse = API.ActionDetachFromNetworkResponse;
+  export import ActionDetachISOResponse = API.ActionDetachISOResponse;
+  export import ActionDisableBackupResponse = API.ActionDisableBackupResponse;
+  export import ActionDisableRescueResponse = API.ActionDisableRescueResponse;
+  export import ActionEnableBackupResponse = API.ActionEnableBackupResponse;
   export import ActionEnableRescueResponse = API.ActionEnableRescueResponse;
+  export import ActionPoweroffResponse = API.ActionPoweroffResponse;
+  export import ActionPoweronResponse = API.ActionPoweronResponse;
+  export import ActionRebootResponse = API.ActionRebootResponse;
   export import ActionRebuildResponse = API.ActionRebuildResponse;
+  export import ActionRemoveFromPlacementGroupResponse = API.ActionRemoveFromPlacementGroupResponse;
   export import ActionRequestConsoleResponse = API.ActionRequestConsoleResponse;
+  export import ActionResetResponse = API.ActionResetResponse;
   export import ActionResetPasswordResponse = API.ActionResetPasswordResponse;
+  export import ActionShutdownResponse = API.ActionShutdownResponse;
   export import ActionListParams = API.ActionListParams;
   export import ActionAddToPlacementGroupParams = API.ActionAddToPlacementGroupParams;
-  export import ActionAttachIsoParams = API.ActionAttachIsoParams;
+  export import ActionAttachISOParams = API.ActionAttachISOParams;
   export import ActionAttachToNetworkParams = API.ActionAttachToNetworkParams;
-  export import ActionChangeAliasIpsParams = API.ActionChangeAliasIpsParams;
-  export import ActionChangeDnsPtrParams = API.ActionChangeDnsPtrParams;
+  export import ActionChangeAliasIPsParams = API.ActionChangeAliasIPsParams;
+  export import ActionChangeDNSPtrParams = API.ActionChangeDNSPtrParams;
   export import ActionChangeProtectionParams = API.ActionChangeProtectionParams;
   export import ActionChangeTypeParams = API.ActionChangeTypeParams;
   export import ActionCreateImageParams = API.ActionCreateImageParams;

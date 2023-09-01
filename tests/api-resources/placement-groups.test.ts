@@ -21,7 +21,7 @@ describe('resource placementGroups', () => {
     const response = await hetzner.placementGroups.create({
       name: 'my Placement Group',
       type: 'spread',
-      labels: {},
+      labels: { foo: 'string' },
     });
   });
 
@@ -66,7 +66,7 @@ describe('resource placementGroups', () => {
     await expect(
       hetzner.placementGroups.update(
         0,
-        { labels: { labelkey: 'value' }, name: 'my Placement Group' },
+        { labels: { foo: 'string' }, name: 'my Placement Group' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -94,7 +94,7 @@ describe('resource placementGroups', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       hetzner.placementGroups.list(
-        { label_selector: 'string', name: 'string', page: 0, per_page: 0, sort: 'id', type: 'spread' },
+        { label_selector: 'string', name: 'string', page: 1, per_page: 1, sort: 'id', type: 'spread' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

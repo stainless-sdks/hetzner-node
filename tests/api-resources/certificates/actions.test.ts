@@ -47,7 +47,7 @@ describe('resource actions', () => {
     await expect(
       hetzner.certificates.actions.list(
         0,
-        { page: 0, per_page: 0, sort: 'id', status: 'running' },
+        { page: 1, per_page: 1, sort: 'id', status: 'running' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

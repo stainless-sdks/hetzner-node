@@ -22,7 +22,7 @@ describe('resource networks', () => {
       ip_range: '10.0.0.0/16',
       name: 'mynet',
       expose_routes_to_vswitch: false,
-      labels: { labelkey: 'value' },
+      labels: { foo: 'string' },
       routes: [
         { destination: '10.100.1.0/24', gateway: '10.0.1.1' },
         { destination: '10.100.1.0/24', gateway: '10.0.1.1' },
@@ -77,7 +77,7 @@ describe('resource networks', () => {
     await expect(
       hetzner.networks.update(
         0,
-        { expose_routes_to_vswitch: false, labels: { labelkey: 'value' }, name: 'new-name' },
+        { expose_routes_to_vswitch: false, labels: { foo: 'string' }, name: 'new-name' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);
@@ -105,7 +105,7 @@ describe('resource networks', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       hetzner.networks.list(
-        { label_selector: 'string', name: 'string', page: 0, per_page: 0 },
+        { label_selector: 'string', name: 'string', page: 1, per_page: 1 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

@@ -1,21 +1,26 @@
 // File generated from our OpenAPI spec by Stainless.
 
 export {
+  ActionRetrieveResponse,
   ActionListResponse,
+  ActionAssignResponse,
+  ActionChangeDNSPtrResponse,
+  ActionChangeProtectionResponse,
+  ActionUnassignResponse,
   ActionListParams,
   ActionAssignParams,
-  ActionChangeDnsPtrParams,
+  ActionChangeDNSPtrParams,
   ActionChangeProtectionParams,
   Actions,
 } from './actions';
 export {
-  FloatingIpCreateResponse,
-  FloatingIpRetrieveResponse,
-  FloatingIpUpdateResponse,
-  FloatingIpListResponse,
-  FloatingIpCreateParams,
-  FloatingIpUpdateParams,
-  FloatingIpListParams,
-  FloatingIpListResponsesFloatingIpsPage,
-  FloatingIps,
+  FloatingIP,
+  FloatingIPCreateResponse,
+  FloatingIPRetrieveResponse,
+  FloatingIPUpdateResponse,
+  FloatingIPCreateParams,
+  FloatingIPUpdateParams,
+  FloatingIPListParams,
+  FloatingIPsFloatingIPsPage,
+  FloatingIPs,
 } from './floating-ips';

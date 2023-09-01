@@ -1,6 +1,13 @@
 // File generated from our OpenAPI spec by Stainless.
 
-export { ActionListParams, ActionChangeProtectionParams, Actions } from './actions';
+export {
+  ActionRetrieveResponse,
+  ActionListResponse,
+  ActionChangeProtectionResponse,
+  ActionListParams,
+  ActionChangeProtectionParams,
+  Actions,
+} from './actions';
 export {
   ImageRetrieveResponse,
   ImageUpdateResponse,

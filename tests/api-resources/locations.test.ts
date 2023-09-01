@@ -46,7 +46,7 @@ describe('resource locations', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       hetzner.locations.list(
-        { name: 'string', page: 0, per_page: 0, sort: 'id' },
+        { name: 'string', page: 1, per_page: 1, sort: 'id' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Hetzner.NotFoundError);

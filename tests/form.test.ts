@@ -1,5 +1,5 @@
 import { multipartFormRequestOptions, createForm } from 'hetzner/core';
-import { Blob } from 'hetzner/_shims/formdata';
+import { Blob } from 'hetzner/_shims/form-data';
 import { toFile } from 'hetzner';
 
 describe('form data validation', () => {
