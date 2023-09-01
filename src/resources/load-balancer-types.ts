@@ -3,6 +3,7 @@
 import * as Core from 'hetzner/core';
 import { APIResource } from 'hetzner/resource';
 import { isRequestOptions } from 'hetzner/core';
+import * as Pricing from 'hetzner/resources/pricing';
 import * as Shared from 'hetzner/resources/shared';
 import * as API from './index';
 
@@ -104,7 +105,7 @@ export namespace LoadBalancerTypeRetrieveResponse {
        * for a Server type in this Location | Monthly costs for a Server type in this
        * Location
        */
-      price_hourly: Price.PriceHourly;
+      price_hourly: Pricing.Price;
 
       /**
        * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
@@ -115,51 +116,7 @@ export namespace LoadBalancerTypeRetrieveResponse {
        * for a Server type in this Location | Monthly costs for a Server type in this
        * Location
        */
-      price_monthly: Price.PriceMonthly;
-    }
-
-    export namespace Price {
-      /**
-       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
-       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
-       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
-       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-       * for a Server type in this Location | Monthly costs for a Server type in this
-       * Location
-       */
-      export interface PriceHourly {
-        /**
-         * Price with VAT added
-         */
-        gross: string;
-
-        /**
-         * Price without VAT
-         */
-        net: string;
-      }
-
-      /**
-       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
-       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
-       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
-       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-       * for a Server type in this Location | Monthly costs for a Server type in this
-       * Location
-       */
-      export interface PriceMonthly {
-        /**
-         * Price with VAT added
-         */
-        gross: string;
-
-        /**
-         * Price without VAT
-         */
-        net: string;
-      }
+      price_monthly: Pricing.Price;
     }
   }
 }
@@ -240,7 +197,7 @@ export namespace LoadBalancerTypeListResponse {
        * for a Server type in this Location | Monthly costs for a Server type in this
        * Location
        */
-      price_hourly: Price.PriceHourly;
+      price_hourly: Pricing.Price;
 
       /**
        * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
@@ -251,51 +208,7 @@ export namespace LoadBalancerTypeListResponse {
        * for a Server type in this Location | Monthly costs for a Server type in this
        * Location
        */
-      price_monthly: Price.PriceMonthly;
-    }
-
-    export namespace Price {
-      /**
-       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
-       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
-       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
-       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-       * for a Server type in this Location | Monthly costs for a Server type in this
-       * Location
-       */
-      export interface PriceHourly {
-        /**
-         * Price with VAT added
-         */
-        gross: string;
-
-        /**
-         * Price without VAT
-         */
-        net: string;
-      }
-
-      /**
-       * Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-       * this Location | Monthly costs for a Floating IP type in this Location | Hourly
-       * costs for a Load Balancer type in this network zone | Monthly costs for a Load
-       * Balancer type in this network zone | Hourly costs for a Primary IP type in this
-       * Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-       * for a Server type in this Location | Monthly costs for a Server type in this
-       * Location
-       */
-      export interface PriceMonthly {
-        /**
-         * Price with VAT added
-         */
-        gross: string;
-
-        /**
-         * Price without VAT
-         */
-        net: string;
-      }
+      price_monthly: Pricing.Price;
     }
   }
 }

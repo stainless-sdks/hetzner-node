@@ -43,6 +43,13 @@ export {
   FloatingIps,
 } from './floating-ips/floating-ips';
 export {
+  FloatingIpPriceDetails,
+  Price,
+  PricePerTimeMonthly,
+  PricingRetrieveResponse,
+  Pricing,
+} from './pricing';
+export {
   ImageRetrieveResponse,
   ImageUpdateResponse,
   ImageListResponse,
@@ -92,7 +99,6 @@ export {
   PlacementGroupListParams,
   PlacementGroups,
 } from './placement-groups';
-export { PricingRetrieveResponse, Pricing } from './pricing';
 export {
   PrimaryIp,
   PrimaryIpCreateResponse,

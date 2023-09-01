@@ -324,6 +324,9 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/pricing.ts">FloatingIpPriceDetails</a></code>
+- <code><a href="./src/resources/pricing.ts">Price</a></code>
+- <code><a href="./src/resources/pricing.ts">PricePerTimeMonthly</a></code>
 - <code><a href="./src/resources/pricing.ts">PricingRetrieveResponse</a></code>
 
 Methods:

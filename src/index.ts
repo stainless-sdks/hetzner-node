@@ -289,6 +289,9 @@ export namespace Hetzner {
   export import PlacementGroupListParams = API.PlacementGroupListParams;
 
   export import Pricing = API.Pricing;
+  export import FloatingIpPriceDetails = API.FloatingIpPriceDetails;
+  export import Price = API.Price;
+  export import PricePerTimeMonthly = API.PricePerTimeMonthly;
   export import PricingRetrieveResponse = API.PricingRetrieveResponse;
 
   export import PrimaryIps = API.PrimaryIps;
