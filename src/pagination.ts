@@ -12,7 +12,7 @@ export interface FloatingIpsPageResponse<Item> {
   /**
    * Metadata contained in the response
    */
-  meta?: Shared.ResponseMeta;
+  meta: Shared.ResponseMeta;
 }
 
 export interface FloatingIpsPageParams {
@@ -45,7 +45,7 @@ export class FloatingIpsPage<Item> extends AbstractPage<Item> implements Floatin
     super(client, response, body, options);
 
     this.floating_ips = body.floating_ips;
-    this.meta = body.meta || {};
+    this.meta = body.meta;
   }
 
   getPaginatedItems(): Item[] {
@@ -72,12 +72,12 @@ export class FloatingIpsPage<Item> extends AbstractPage<Item> implements Floatin
  * Response to GET https://api.hetzner.cloud/v1/servers
  */
 export interface ServersPageResponse<Item> {
-  servers: Array<Item>;
-
   /**
    * Metadata contained in the response
    */
-  meta?: Shared.ResponseMeta;
+  meta: Shared.ResponseMeta;
+
+  servers: Array<Item>;
 }
 
 export interface ServersPageParams {
@@ -109,7 +109,7 @@ export class ServersPage<Item> extends AbstractPage<Item> implements ServersPage
   ) {
     super(client, response, body, options);
 
-    this.meta = body.meta || {};
+    this.meta = body.meta;
     this.servers = body.servers;
   }
 
