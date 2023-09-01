@@ -63,6 +63,10 @@ export class FloatingIpsPage<Item> extends AbstractPage<Item> implements Floatin
   }
 
   nextPageInfo(): PageInfo | null {
+    const currentPage = this.meta.pagination.page;
+    if (currentPage === this.meta.pagination.last_page) {
+      return null;
+    }
     const nextPage = this.meta.pagination.next_page;
     return { params: { page: nextPage } };
   }
@@ -128,6 +132,10 @@ export class ServersPage<Item> extends AbstractPage<Item> implements ServersPage
   }
 
   nextPageInfo(): PageInfo | null {
+    const currentPage = this.meta.pagination.page;
+    if (currentPage === this.meta.pagination.last_page) {
+      return null;
+    }
     const nextPage = this.meta.pagination.next_page;
     return { params: { page: nextPage } };
   }
