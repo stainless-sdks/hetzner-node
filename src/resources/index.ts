@@ -32,14 +32,14 @@ export {
   Firewalls,
 } from './firewalls/firewalls';
 export {
+  FloatingIp,
   FloatingIpCreateResponse,
   FloatingIpRetrieveResponse,
   FloatingIpUpdateResponse,
-  FloatingIpListResponse,
   FloatingIpCreateParams,
   FloatingIpUpdateParams,
   FloatingIpListParams,
-  FloatingIpListResponsesFloatingIpsPage,
+  FloatingIpsFloatingIpsPage,
   FloatingIps,
 } from './floating-ips/floating-ips';
 export {
@@ -53,6 +53,7 @@ export {
 export { IsoRetrieveResponse, IsoListResponse, IsoListParams, Isos } from './isos';
 export {
   LoadBalancer,
+  LoadBalancerServiceModel,
   LoadBalancerTargetIp,
   LoadBalancerCreateResponse,
   LoadBalancerRetrieveResponse,

@@ -32,6 +32,7 @@ export {
 } from './actions';
 export {
   LoadBalancer,
+  LoadBalancerServiceModel,
   LoadBalancerTargetIp,
   LoadBalancerCreateResponse,
   LoadBalancerRetrieveResponse,

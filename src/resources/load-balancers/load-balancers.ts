@@ -165,7 +165,7 @@ export interface LoadBalancer {
   /**
    * List of services that belong to this Load Balancer
    */
-  services: Array<LoadBalancer.Service>;
+  services: Array<LoadBalancerServiceModel>;
 
   /**
    * List of targets that belong to this Load Balancer
@@ -430,148 +430,6 @@ export namespace LoadBalancer {
   }
 
   /**
-   * A service for a Load Balancer.
-   */
-  export interface Service {
-    /**
-     * Port the Load Balancer will balance to
-     */
-    destination_port: number;
-
-    /**
-     * Service health check
-     */
-    health_check: Service.HealthCheck;
-
-    /**
-     * Port the Load Balancer listens on
-     */
-    listen_port: number;
-
-    /**
-     * Protocol of the Load Balancer
-     */
-    protocol: 'http' | 'https' | 'tcp';
-
-    /**
-     * Is Proxyprotocol enabled or not
-     */
-    proxyprotocol: boolean;
-
-    /**
-     * Configuration option for protocols http and https
-     */
-    http?: Service.HTTP;
-  }
-
-  export namespace Service {
-    /**
-     * Service health check
-     */
-    export interface HealthCheck {
-      /**
-       * Time interval in seconds health checks are performed
-       */
-      interval: number;
-
-      /**
-       * Port the health check will be performed on
-       */
-      port: number;
-
-      /**
-       * Type of the health check
-       */
-      protocol: 'http' | 'tcp';
-
-      /**
-       * Unsuccessful retries needed until a target is considered unhealthy; an unhealthy
-       * target needs the same number of successful retries to become healthy again
-       */
-      retries: number;
-
-      /**
-       * Time in seconds after an attempt is considered a timeout
-       */
-      timeout: number;
-
-      /**
-       * Additional configuration for protocol http
-       */
-      http?: HealthCheck.HTTP;
-    }
-
-    export namespace HealthCheck {
-      /**
-       * Additional configuration for protocol http
-       */
-      export interface HTTP {
-        /**
-         * Host header to send in the HTTP request. May not contain spaces, percent or
-         * backslash symbols. Can be null, in that case no host header is sent.
-         */
-        domain: string | null;
-
-        /**
-         * HTTP path to use for health checks. May not contain literal spaces, use
-         * percent-encoding instead.
-         */
-        path: string;
-
-        /**
-         * String that must be contained in HTTP response in order to pass the health check
-         */
-        response?: string;
-
-        /**
-         * List of returned HTTP status codes in order to pass the health check. Supports
-         * the wildcards `?` for exactly one character and `*` for multiple ones. The
-         * default is to pass the health check for any status code between 2?? and 3??.
-         */
-        status_codes?: Array<string>;
-
-        /**
-         * Use HTTPS for health check
-         */
-        tls?: boolean;
-      }
-    }
-
-    /**
-     * Configuration option for protocols http and https
-     */
-    export interface HTTP {
-      /**
-       * IDs of the Certificates to use for TLS/SSL termination by the Load Balancer;
-       * empty for TLS/SSL passthrough or if `protocol` is "http"
-       */
-      certificates?: Array<number>;
-
-      /**
-       * Lifetime of the cookie used for sticky sessions
-       */
-      cookie_lifetime?: number;
-
-      /**
-       * Name of the cookie used for sticky sessions
-       */
-      cookie_name?: string;
-
-      /**
-       * Redirect HTTP requests to HTTPS. Only available if protocol is "https". Default
-       * `false`
-       */
-      redirect_http?: boolean;
-
-      /**
-       * Use sticky sessions. Only available if protocol is "http" or "https". Default
-       * `false`
-       */
-      sticky_sessions?: boolean;
-    }
-  }
-
-  /**
    * A target for a load balancer
    */
   export interface Target {
@@ -678,6 +536,148 @@ export namespace LoadBalancer {
 }
 
 /**
+ * A service for a Load Balancer.
+ */
+export interface LoadBalancerServiceModel {
+  /**
+   * Port the Load Balancer will balance to
+   */
+  destination_port: number;
+
+  /**
+   * Service health check
+   */
+  health_check: LoadBalancerServiceModel.HealthCheck;
+
+  /**
+   * Port the Load Balancer listens on
+   */
+  listen_port: number;
+
+  /**
+   * Protocol of the Load Balancer
+   */
+  protocol: 'http' | 'https' | 'tcp';
+
+  /**
+   * Is Proxyprotocol enabled or not
+   */
+  proxyprotocol: boolean;
+
+  /**
+   * Configuration option for protocols http and https
+   */
+  http?: LoadBalancerServiceModel.HTTP;
+}
+
+export namespace LoadBalancerServiceModel {
+  /**
+   * Service health check
+   */
+  export interface HealthCheck {
+    /**
+     * Time interval in seconds health checks are performed
+     */
+    interval: number;
+
+    /**
+     * Port the health check will be performed on
+     */
+    port: number;
+
+    /**
+     * Type of the health check
+     */
+    protocol: 'http' | 'tcp';
+
+    /**
+     * Unsuccessful retries needed until a target is considered unhealthy; an unhealthy
+     * target needs the same number of successful retries to become healthy again
+     */
+    retries: number;
+
+    /**
+     * Time in seconds after an attempt is considered a timeout
+     */
+    timeout: number;
+
+    /**
+     * Additional configuration for protocol http
+     */
+    http?: HealthCheck.HTTP;
+  }
+
+  export namespace HealthCheck {
+    /**
+     * Additional configuration for protocol http
+     */
+    export interface HTTP {
+      /**
+       * Host header to send in the HTTP request. May not contain spaces, percent or
+       * backslash symbols. Can be null, in that case no host header is sent.
+       */
+      domain: string | null;
+
+      /**
+       * HTTP path to use for health checks. May not contain literal spaces, use
+       * percent-encoding instead.
+       */
+      path: string;
+
+      /**
+       * String that must be contained in HTTP response in order to pass the health check
+       */
+      response?: string;
+
+      /**
+       * List of returned HTTP status codes in order to pass the health check. Supports
+       * the wildcards `?` for exactly one character and `*` for multiple ones. The
+       * default is to pass the health check for any status code between 2?? and 3??.
+       */
+      status_codes?: Array<string>;
+
+      /**
+       * Use HTTPS for health check
+       */
+      tls?: boolean;
+    }
+  }
+
+  /**
+   * Configuration option for protocols http and https
+   */
+  export interface HTTP {
+    /**
+     * IDs of the Certificates to use for TLS/SSL termination by the Load Balancer;
+     * empty for TLS/SSL passthrough or if `protocol` is "http"
+     */
+    certificates?: Array<number>;
+
+    /**
+     * Lifetime of the cookie used for sticky sessions
+     */
+    cookie_lifetime?: number;
+
+    /**
+     * Name of the cookie used for sticky sessions
+     */
+    cookie_name?: string;
+
+    /**
+     * Redirect HTTP requests to HTTPS. Only available if protocol is "https". Default
+     * `false`
+     */
+    redirect_http?: boolean;
+
+    /**
+     * Use sticky sessions. Only available if protocol is "http" or "https". Default
+     * `false`
+     */
+    sticky_sessions?: boolean;
+  }
+}
+
+/**
  * IP targets where the traffic should be routed to. It is only possible to use the
  * (Public or vSwitch) IPs of Hetzner Online Root Servers belonging to the project
  * owner. IPs belonging to other users are blocked. Additionally IPs belonging to
@@ -775,7 +775,7 @@ export interface LoadBalancerCreateParams {
   /**
    * Array of services
    */
-  services?: Array<LoadBalancerCreateParams.Service>;
+  services?: Array<LoadBalancerServiceModel>;
 
   /**
    * Array of targets
@@ -793,148 +793,6 @@ export namespace LoadBalancerCreateParams {
      * Type of the algorithm | Algorithm of the Load Balancer
      */
     type: 'least_connections' | 'round_robin';
-  }
-
-  /**
-   * A service for a Load Balancer.
-   */
-  export interface Service {
-    /**
-     * Port the Load Balancer will balance to
-     */
-    destination_port: number;
-
-    /**
-     * Service health check
-     */
-    health_check: Service.HealthCheck;
-
-    /**
-     * Port the Load Balancer listens on
-     */
-    listen_port: number;
-
-    /**
-     * Protocol of the Load Balancer
-     */
-    protocol: 'http' | 'https' | 'tcp';
-
-    /**
-     * Is Proxyprotocol enabled or not
-     */
-    proxyprotocol: boolean;
-
-    /**
-     * Configuration option for protocols http and https
-     */
-    http?: Service.HTTP;
-  }
-
-  export namespace Service {
-    /**
-     * Service health check
-     */
-    export interface HealthCheck {
-      /**
-       * Time interval in seconds health checks are performed
-       */
-      interval: number;
-
-      /**
-       * Port the health check will be performed on
-       */
-      port: number;
-
-      /**
-       * Type of the health check
-       */
-      protocol: 'http' | 'tcp';
-
-      /**
-       * Unsuccessful retries needed until a target is considered unhealthy; an unhealthy
-       * target needs the same number of successful retries to become healthy again
-       */
-      retries: number;
-
-      /**
-       * Time in seconds after an attempt is considered a timeout
-       */
-      timeout: number;
-
-      /**
-       * Additional configuration for protocol http
-       */
-      http?: HealthCheck.HTTP;
-    }
-
-    export namespace HealthCheck {
-      /**
-       * Additional configuration for protocol http
-       */
-      export interface HTTP {
-        /**
-         * Host header to send in the HTTP request. May not contain spaces, percent or
-         * backslash symbols. Can be null, in that case no host header is sent.
-         */
-        domain: string | null;
-
-        /**
-         * HTTP path to use for health checks. May not contain literal spaces, use
-         * percent-encoding instead.
-         */
-        path: string;
-
-        /**
-         * String that must be contained in HTTP response in order to pass the health check
-         */
-        response?: string;
-
-        /**
-         * List of returned HTTP status codes in order to pass the health check. Supports
-         * the wildcards `?` for exactly one character and `*` for multiple ones. The
-         * default is to pass the health check for any status code between 2?? and 3??.
-         */
-        status_codes?: Array<string>;
-
-        /**
-         * Use HTTPS for health check
-         */
-        tls?: boolean;
-      }
-    }
-
-    /**
-     * Configuration option for protocols http and https
-     */
-    export interface HTTP {
-      /**
-       * IDs of the Certificates to use for TLS/SSL termination by the Load Balancer;
-       * empty for TLS/SSL passthrough or if `protocol` is "http"
-       */
-      certificates?: Array<number>;
-
-      /**
-       * Lifetime of the cookie used for sticky sessions
-       */
-      cookie_lifetime?: number;
-
-      /**
-       * Name of the cookie used for sticky sessions
-       */
-      cookie_name?: string;
-
-      /**
-       * Redirect HTTP requests to HTTPS. Only available if protocol is "https". Default
-       * `false`
-       */
-      redirect_http?: boolean;
-
-      /**
-       * Use sticky sessions. Only available if protocol is "http" or "https". Default
-       * `false`
-       */
-      sticky_sessions?: boolean;
-    }
   }
 
   /**
@@ -1096,6 +954,7 @@ export interface LoadBalancerListParams {
 
 export namespace LoadBalancers {
   export import LoadBalancer = API.LoadBalancer;
+  export import LoadBalancerServiceModel = API.LoadBalancerServiceModel;
   export import LoadBalancerTargetIp = API.LoadBalancerTargetIp;
   export import LoadBalancerCreateResponse = API.LoadBalancerCreateResponse;
   export import LoadBalancerRetrieveResponse = API.LoadBalancerRetrieveResponse;

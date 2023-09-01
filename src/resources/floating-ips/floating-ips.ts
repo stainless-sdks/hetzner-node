@@ -62,18 +62,16 @@ export class FloatingIps extends APIResource {
   list(
     query?: FloatingIpListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FloatingIpListResponsesFloatingIpsPage, FloatingIpListResponse>;
-  list(
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<FloatingIpListResponsesFloatingIpsPage, FloatingIpListResponse>;
+  ): Core.PagePromise<FloatingIpsFloatingIpsPage, FloatingIp>;
+  list(options?: Core.RequestOptions): Core.PagePromise<FloatingIpsFloatingIpsPage, FloatingIp>;
   list(
     query: FloatingIpListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FloatingIpListResponsesFloatingIpsPage, FloatingIpListResponse> {
+  ): Core.PagePromise<FloatingIpsFloatingIpsPage, FloatingIp> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/floating_ips', FloatingIpListResponsesFloatingIpsPage, { query, ...options });
+    return this.getAPIList('/floating_ips', FloatingIpsFloatingIpsPage, { query, ...options });
   }
 
   /**
@@ -85,457 +83,11 @@ export class FloatingIps extends APIResource {
   }
 }
 
-export class FloatingIpListResponsesFloatingIpsPage extends FloatingIpsPage<FloatingIpListResponse> {}
+export class FloatingIpsFloatingIpsPage extends FloatingIpsPage<FloatingIp> {}
 // alias so we can export it in the namespace
-type _FloatingIpListResponsesFloatingIpsPage = FloatingIpListResponsesFloatingIpsPage;
+type _FloatingIpsFloatingIpsPage = FloatingIpsFloatingIpsPage;
 
-/**
- * Response to POST https://api.hetzner.cloud/v1/floating_ips
- */
-export interface FloatingIpCreateResponse {
-  floating_ip: FloatingIpCreateResponse.FloatingIp;
-
-  /**
-   * Actions show the results and progress of asynchronous requests to the API.
-   */
-  action?: Shared.Action;
-}
-
-export namespace FloatingIpCreateResponse {
-  export interface FloatingIp {
-    /**
-     * ID of the Resource
-     */
-    id: number;
-
-    /**
-     * Whether the IP is blocked
-     */
-    blocked: boolean;
-
-    /**
-     * Point in time when the Resource was created (in ISO-8601 format)
-     */
-    created: string;
-
-    /**
-     * Description of the Resource
-     */
-    description: string | null;
-
-    /**
-     * Array of reverse DNS entries
-     */
-    dns_ptr: Array<FloatingIp.DnsPtr>;
-
-    /**
-     * Location the Floating IP was created in. Routing is optimized for this Location.
-     * | Location of the Volume. Volume can only be attached to Servers in the same
-     * Location.
-     */
-    home_location: FloatingIp.HomeLocation;
-
-    /**
-     * IP address
-     */
-    ip: string;
-
-    /**
-     * User-defined labels (key-value pairs)
-     */
-    labels: Record<string, string>;
-
-    /**
-     * Name of the Resource. Must be unique per Project.
-     */
-    name: string;
-
-    /**
-     * Protection configuration for the Resource
-     */
-    protection: FloatingIp.Protection;
-
-    /**
-     * ID of the Server the Floating IP is assigned to, null if it is not assigned at
-     * all
-     */
-    server: number | null;
-
-    /**
-     * The type of the IP
-     */
-    type: 'ipv4' | 'ipv6';
-  }
-
-  export namespace FloatingIp {
-    export interface DnsPtr {
-      /**
-       * DNS pointer for the specific IP address
-       */
-      dns_ptr: string;
-
-      /**
-       * Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
-       * reverse DNS entry has been set up
-       */
-      ip: string;
-    }
-
-    /**
-     * Location the Floating IP was created in. Routing is optimized for this Location.
-     * | Location of the Volume. Volume can only be attached to Servers in the same
-     * Location.
-     */
-    export interface HomeLocation {
-      /**
-       * ID of the Location
-       */
-      id: number;
-
-      /**
-       * City the Location is closest to
-       */
-      city: string;
-
-      /**
-       * ISO 3166-1 alpha-2 code of the country the Location resides in
-       */
-      country: string;
-
-      /**
-       * Description of the Location
-       */
-      description: string;
-
-      /**
-       * Latitude of the city closest to the Location
-       */
-      latitude: number;
-
-      /**
-       * Longitude of the city closest to the Location
-       */
-      longitude: number;
-
-      /**
-       * Unique identifier of the Location
-       */
-      name: string;
-
-      /**
-       * Name of network zone this Location resides in
-       */
-      network_zone: string;
-    }
-
-    /**
-     * Protection configuration for the Resource
-     */
-    export interface Protection {
-      /**
-       * If true, prevents the Resource from being deleted | If true, prevents the
-       * Network from being deleted
-       */
-      delete: boolean;
-    }
-  }
-}
-
-/**
- * Response to GET https://api.hetzner.cloud/v1/floating_ips/{id}
- */
-export interface FloatingIpRetrieveResponse {
-  floating_ip: FloatingIpRetrieveResponse.FloatingIp;
-}
-
-export namespace FloatingIpRetrieveResponse {
-  export interface FloatingIp {
-    /**
-     * ID of the Resource
-     */
-    id: number;
-
-    /**
-     * Whether the IP is blocked
-     */
-    blocked: boolean;
-
-    /**
-     * Point in time when the Resource was created (in ISO-8601 format)
-     */
-    created: string;
-
-    /**
-     * Description of the Resource
-     */
-    description: string | null;
-
-    /**
-     * Array of reverse DNS entries
-     */
-    dns_ptr: Array<FloatingIp.DnsPtr>;
-
-    /**
-     * Location the Floating IP was created in. Routing is optimized for this Location.
-     * | Location of the Volume. Volume can only be attached to Servers in the same
-     * Location.
-     */
-    home_location: FloatingIp.HomeLocation;
-
-    /**
-     * IP address
-     */
-    ip: string;
-
-    /**
-     * User-defined labels (key-value pairs)
-     */
-    labels: Record<string, string>;
-
-    /**
-     * Name of the Resource. Must be unique per Project.
-     */
-    name: string;
-
-    /**
-     * Protection configuration for the Resource
-     */
-    protection: FloatingIp.Protection;
-
-    /**
-     * ID of the Server the Floating IP is assigned to, null if it is not assigned at
-     * all
-     */
-    server: number | null;
-
-    /**
-     * The type of the IP
-     */
-    type: 'ipv4' | 'ipv6';
-  }
-
-  export namespace FloatingIp {
-    export interface DnsPtr {
-      /**
-       * DNS pointer for the specific IP address
-       */
-      dns_ptr: string;
-
-      /**
-       * Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
-       * reverse DNS entry has been set up
-       */
-      ip: string;
-    }
-
-    /**
-     * Location the Floating IP was created in. Routing is optimized for this Location.
-     * | Location of the Volume. Volume can only be attached to Servers in the same
-     * Location.
-     */
-    export interface HomeLocation {
-      /**
-       * ID of the Location
-       */
-      id: number;
-
-      /**
-       * City the Location is closest to
-       */
-      city: string;
-
-      /**
-       * ISO 3166-1 alpha-2 code of the country the Location resides in
-       */
-      country: string;
-
-      /**
-       * Description of the Location
-       */
-      description: string;
-
-      /**
-       * Latitude of the city closest to the Location
-       */
-      latitude: number;
-
-      /**
-       * Longitude of the city closest to the Location
-       */
-      longitude: number;
-
-      /**
-       * Unique identifier of the Location
-       */
-      name: string;
-
-      /**
-       * Name of network zone this Location resides in
-       */
-      network_zone: string;
-    }
-
-    /**
-     * Protection configuration for the Resource
-     */
-    export interface Protection {
-      /**
-       * If true, prevents the Resource from being deleted | If true, prevents the
-       * Network from being deleted
-       */
-      delete: boolean;
-    }
-  }
-}
-
-/**
- * Response to PUT https://api.hetzner.cloud/v1/floating_ips/{id}
- */
-export interface FloatingIpUpdateResponse {
-  floating_ip: FloatingIpUpdateResponse.FloatingIp;
-}
-
-export namespace FloatingIpUpdateResponse {
-  export interface FloatingIp {
-    /**
-     * ID of the Resource
-     */
-    id: number;
-
-    /**
-     * Whether the IP is blocked
-     */
-    blocked: boolean;
-
-    /**
-     * Point in time when the Resource was created (in ISO-8601 format)
-     */
-    created: string;
-
-    /**
-     * Description of the Resource
-     */
-    description: string | null;
-
-    /**
-     * Array of reverse DNS entries
-     */
-    dns_ptr: Array<FloatingIp.DnsPtr>;
-
-    /**
-     * Location the Floating IP was created in. Routing is optimized for this Location.
-     * | Location of the Volume. Volume can only be attached to Servers in the same
-     * Location.
-     */
-    home_location: FloatingIp.HomeLocation;
-
-    /**
-     * IP address
-     */
-    ip: string;
-
-    /**
-     * User-defined labels (key-value pairs)
-     */
-    labels: Record<string, string>;
-
-    /**
-     * Name of the Resource. Must be unique per Project.
-     */
-    name: string;
-
-    /**
-     * Protection configuration for the Resource
-     */
-    protection: FloatingIp.Protection;
-
-    /**
-     * ID of the Server the Floating IP is assigned to, null if it is not assigned at
-     * all
-     */
-    server: number | null;
-
-    /**
-     * The type of the IP
-     */
-    type: 'ipv4' | 'ipv6';
-  }
-
-  export namespace FloatingIp {
-    export interface DnsPtr {
-      /**
-       * DNS pointer for the specific IP address
-       */
-      dns_ptr: string;
-
-      /**
-       * Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
-       * reverse DNS entry has been set up
-       */
-      ip: string;
-    }
-
-    /**
-     * Location the Floating IP was created in. Routing is optimized for this Location.
-     * | Location of the Volume. Volume can only be attached to Servers in the same
-     * Location.
-     */
-    export interface HomeLocation {
-      /**
-       * ID of the Location
-       */
-      id: number;
-
-      /**
-       * City the Location is closest to
-       */
-      city: string;
-
-      /**
-       * ISO 3166-1 alpha-2 code of the country the Location resides in
-       */
-      country: string;
-
-      /**
-       * Description of the Location
-       */
-      description: string;
-
-      /**
-       * Latitude of the city closest to the Location
-       */
-      latitude: number;
-
-      /**
-       * Longitude of the city closest to the Location
-       */
-      longitude: number;
-
-      /**
-       * Unique identifier of the Location
-       */
-      name: string;
-
-      /**
-       * Name of network zone this Location resides in
-       */
-      network_zone: string;
-    }
-
-    /**
-     * Protection configuration for the Resource
-     */
-    export interface Protection {
-      /**
-       * If true, prevents the Resource from being deleted | If true, prevents the
-       * Network from being deleted
-       */
-      delete: boolean;
-    }
-  }
-}
-
-export interface FloatingIpListResponse {
+export interface FloatingIp {
   /**
    * ID of the Resource
    */
@@ -559,14 +111,14 @@ export interface FloatingIpListResponse {
   /**
    * Array of reverse DNS entries
    */
-  dns_ptr: Array<FloatingIpListResponse.DnsPtr>;
+  dns_ptr: Array<FloatingIp.DnsPtr>;
 
   /**
    * Location the Floating IP was created in. Routing is optimized for this Location.
    * | Location of the Volume. Volume can only be attached to Servers in the same
    * Location.
    */
-  home_location: FloatingIpListResponse.HomeLocation;
+  home_location: FloatingIp.HomeLocation;
 
   /**
    * IP address
@@ -586,7 +138,7 @@ export interface FloatingIpListResponse {
   /**
    * Protection configuration for the Resource
    */
-  protection: FloatingIpListResponse.Protection;
+  protection: FloatingIp.Protection;
 
   /**
    * ID of the Server the Floating IP is assigned to, null if it is not assigned at
@@ -600,7 +152,7 @@ export interface FloatingIpListResponse {
   type: 'ipv4' | 'ipv6';
 }
 
-export namespace FloatingIpListResponse {
+export namespace FloatingIp {
   export interface DnsPtr {
     /**
      * DNS pointer for the specific IP address
@@ -673,6 +225,32 @@ export namespace FloatingIpListResponse {
   }
 }
 
+/**
+ * Response to POST https://api.hetzner.cloud/v1/floating_ips
+ */
+export interface FloatingIpCreateResponse {
+  floating_ip: FloatingIp;
+
+  /**
+   * Actions show the results and progress of asynchronous requests to the API.
+   */
+  action?: Shared.Action;
+}
+
+/**
+ * Response to GET https://api.hetzner.cloud/v1/floating_ips/{id}
+ */
+export interface FloatingIpRetrieveResponse {
+  floating_ip: FloatingIp;
+}
+
+/**
+ * Response to PUT https://api.hetzner.cloud/v1/floating_ips/{id}
+ */
+export interface FloatingIpUpdateResponse {
+  floating_ip: FloatingIp;
+}
+
 export interface FloatingIpCreateParams {
   /**
    * The type of the IP
@@ -738,11 +316,11 @@ export interface FloatingIpListParams extends FloatingIpsPageParams {
 }
 
 export namespace FloatingIps {
+  export import FloatingIp = API.FloatingIp;
   export import FloatingIpCreateResponse = API.FloatingIpCreateResponse;
   export import FloatingIpRetrieveResponse = API.FloatingIpRetrieveResponse;
   export import FloatingIpUpdateResponse = API.FloatingIpUpdateResponse;
-  export import FloatingIpListResponse = API.FloatingIpListResponse;
-  export type FloatingIpListResponsesFloatingIpsPage = _FloatingIpListResponsesFloatingIpsPage;
+  export type FloatingIpsFloatingIpsPage = _FloatingIpsFloatingIpsPage;
   export import FloatingIpCreateParams = API.FloatingIpCreateParams;
   export import FloatingIpUpdateParams = API.FloatingIpUpdateParams;
   export import FloatingIpListParams = API.FloatingIpListParams;

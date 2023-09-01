@@ -95,17 +95,17 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIp</a></code>
 - <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIpCreateResponse</a></code>
 - <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIpRetrieveResponse</a></code>
 - <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIpUpdateResponse</a></code>
-- <code><a href="./src/resources/floating-ips/floating-ips.ts">FloatingIpListResponse</a></code>
 
 Methods:
 
 - <code title="post /floating_ips">client.floatingIps.<a href="./src/resources/floating-ips/floating-ips.ts">create</a>({ ...params }) -> FloatingIpCreateResponse</code>
 - <code title="get /floating_ips/{id}">client.floatingIps.<a href="./src/resources/floating-ips/floating-ips.ts">retrieve</a>(id) -> FloatingIpRetrieveResponse</code>
 - <code title="put /floating_ips/{id}">client.floatingIps.<a href="./src/resources/floating-ips/floating-ips.ts">update</a>(id, { ...params }) -> FloatingIpUpdateResponse</code>
-- <code title="get /floating_ips">client.floatingIps.<a href="./src/resources/floating-ips/floating-ips.ts">list</a>({ ...params }) -> FloatingIpListResponsesFloatingIpsPage</code>
+- <code title="get /floating_ips">client.floatingIps.<a href="./src/resources/floating-ips/floating-ips.ts">list</a>({ ...params }) -> FloatingIpsFloatingIpsPage</code>
 - <code title="delete /floating_ips/{id}">client.floatingIps.<a href="./src/resources/floating-ips/floating-ips.ts">del</a>(id) -> void</code>
 
 ## Actions
@@ -186,6 +186,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/load-balancers/load-balancers.ts">LoadBalancer</a></code>
+- <code><a href="./src/resources/load-balancers/load-balancers.ts">LoadBalancerServiceModel</a></code>
 - <code><a href="./src/resources/load-balancers/load-balancers.ts">LoadBalancerTargetIp</a></code>
 - <code><a href="./src/resources/load-balancers/load-balancers.ts">LoadBalancerCreateResponse</a></code>
 - <code><a href="./src/resources/load-balancers/load-balancers.ts">LoadBalancerRetrieveResponse</a></code>

@@ -14,13 +14,13 @@ export {
   Actions,
 } from './actions';
 export {
+  FloatingIp,
   FloatingIpCreateResponse,
   FloatingIpRetrieveResponse,
   FloatingIpUpdateResponse,
-  FloatingIpListResponse,
   FloatingIpCreateParams,
   FloatingIpUpdateParams,
   FloatingIpListParams,
-  FloatingIpListResponsesFloatingIpsPage,
+  FloatingIpsFloatingIpsPage,
   FloatingIps,
 } from './floating-ips';

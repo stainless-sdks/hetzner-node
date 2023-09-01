@@ -226,11 +226,11 @@ export namespace Hetzner {
   export import FirewallListParams = API.FirewallListParams;
 
   export import FloatingIps = API.FloatingIps;
+  export import FloatingIp = API.FloatingIp;
   export import FloatingIpCreateResponse = API.FloatingIpCreateResponse;
   export import FloatingIpRetrieveResponse = API.FloatingIpRetrieveResponse;
   export import FloatingIpUpdateResponse = API.FloatingIpUpdateResponse;
-  export import FloatingIpListResponse = API.FloatingIpListResponse;
-  export import FloatingIpListResponsesFloatingIpsPage = API.FloatingIpListResponsesFloatingIpsPage;
+  export import FloatingIpsFloatingIpsPage = API.FloatingIpsFloatingIpsPage;
   export import FloatingIpCreateParams = API.FloatingIpCreateParams;
   export import FloatingIpUpdateParams = API.FloatingIpUpdateParams;
   export import FloatingIpListParams = API.FloatingIpListParams;
@@ -254,6 +254,7 @@ export namespace Hetzner {
 
   export import LoadBalancers = API.LoadBalancers;
   export import LoadBalancer = API.LoadBalancer;
+  export import LoadBalancerServiceModel = API.LoadBalancerServiceModel;
   export import LoadBalancerTargetIp = API.LoadBalancerTargetIp;
   export import LoadBalancerCreateResponse = API.LoadBalancerCreateResponse;
   export import LoadBalancerRetrieveResponse = API.LoadBalancerRetrieveResponse;
